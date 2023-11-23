@@ -98,7 +98,7 @@ path
     justify-content: space-between;
     align-items: center;
 
-    margin-top: 20px;
+    margin-top: 18px;
 
     font-size: 16px;
     font-style: normal;
@@ -241,8 +241,8 @@ input:checked ~ .button-block__label
 {
     display: flex;
     flex-wrap: wrap;
-    column-gap: 35px;
-    row-gap: 40px;
+    column-gap: 39px;
+    row-gap: 36px;
 
     grid-column: 1 / 2;
     grid-row: 1 / 2;
@@ -427,15 +427,20 @@ input:checked ~ .button-block__label
 .footer-block__contacts
 {
     align-items: start;
-    gap: 16px;
 }
 
 .footer-contacts__header
 {
+    margin-top: 5px;
     margin-bottom: 40px;
 
     font-size: 24px;
     line-height: 125%; /* 30px */
+}
+
+.footer-contacts__item
+{
+    margin-bottom: 20px;
 }
 
 .contacts-item

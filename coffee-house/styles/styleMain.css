@@ -98,7 +98,7 @@ path
     justify-content: space-between;
     align-items: center;
 
-    margin-top: 20px;
+    margin-top: 18px;
 
     font-size: 16px;
     font-style: normal;
@@ -215,7 +215,7 @@ path
 
 .favorite-heading
 {
-    margin-bottom: 40px;
+    margin-bottom: 35px;
 
     text-align: center;
     font-size: 60px;
@@ -268,7 +268,7 @@ path
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 35px;
+    gap: 40px;
 }
 
 .carousel-blocks__item
@@ -341,7 +341,7 @@ path
 
 .about-header
 {
-    font-size: 59px;
+    font-size: 60px;
     line-height: 125%; /* 75px */
 }
 
@@ -517,7 +517,7 @@ path
 /* ===================== +Footer section+ ===================== */
 .footer
 {
-    margin-top: 100px;
+    margin-top: 95px;
     margin-bottom: 40px;
     
 }
@@ -593,15 +593,20 @@ path
 .footer-block__contacts
 {
     align-items: start;
-    gap: 16px;
 }
 
 .footer-contacts__header
 {
+    margin-top: 5px;
     margin-bottom: 40px;
 
     font-size: 24px;
     line-height: 125%; /* 30px */
+}
+
+.footer-contacts__item
+{
+    margin-bottom: 20px;
 }
 
 .contacts-item
