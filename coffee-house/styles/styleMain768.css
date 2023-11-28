@@ -1,5 +1,10 @@
 @media (max-width: 1439px)
 {
+    .heading__menu-container
+    {
+        margin-left: 150px;
+    }
+
     .offer
     {
         background-position: center;
@@ -17,6 +22,12 @@
     {
         width: 688px;
         height: 590px;
+    }
+
+    .mobile-container
+    {
+        flex-direction: column;
+        align-items: center;
     }
 }
 
@@ -101,4 +112,5 @@
 
         padding: 100px 60px;
     }
+
 }
