@@ -121,10 +121,62 @@ path
 
 }
 
+.heading__menu-container
+{
+    margin-left: 326px;
+}
+
 .menu-block__link
 {
     display: flex;
     gap: 8px;
+}
+
+.heading__burger-button-conteiner
+{
+    display: none;
+}
+
+.heading__burger-button
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 44px;
+    height: 44px;
+
+    border: 1px solid var(--border-dark);
+    border-radius: 100px;
+}
+
+.burger-button__line
+{
+    position: relative;
+    width: 16px;
+}
+
+.burger-button__line::after,
+.burger-button__line::before
+{
+    position: absolute;
+    content: '';
+
+    width: 16px;
+    height: 1.5px;
+
+    border-radius: 2px;
+    background-color: var(--text-dark);
+}
+
+.burger-button__line::after
+{
+    top: -4px;
+}
+
+.burger-button__line::before
+{
+    bottom: -5.5px;
 }
 /* ===================== -Heading section- ===================== */
 
@@ -356,6 +408,7 @@ path
 
 .image-block
 {
+    background-repeat: no-repeat;
     overflow: hidden;
 }
 
