@@ -305,6 +305,7 @@ input:checked ~ .button-block__label
     display: flex;
     flex-direction: column;
     width: 310px;
+    height: 506px;
 
     border-radius: 40px;
     border: 1px solid var(--border-light);
@@ -396,6 +397,37 @@ input:checked ~ .button-block__label
     margin-top: auto;
     font-size: 24px;
     line-height: 125%; /* 30px */
+}
+
+.menu__refresh-button-container
+{
+    display: none;
+}
+
+.refresh-button__block
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 60px;
+    height: 60px;
+
+    border-radius: 100px;
+    border: 1px solid var(--border-dark);
+
+    transition: 0.6s;
+    cursor: pointer;
+}
+
+.refresh-button-image
+{
+    padding-top: 4px;
+}
+
+.refresh-button__block:hover
+{
+    background-color: var(--background-container);
 }
 
 /* ===================== -Menu section- ===================== */
@@ -510,3 +542,35 @@ input:checked ~ .button-block__label
     background-color: var(--text-light);
 }
 /* ===================== -Footer section- ===================== */
+                                /*  */
+                                /*  */
+                                /*  */
+                                /*  */
+/* ===================== @media hover:none ===================== */
+@media (hover: none)
+{
+    a:hover::after
+    {
+        transform: scaleX(0);
+    }
+
+    .coffee-block:hover .block-img
+    {
+        background-size: 110%;
+    }
+        
+    .refresh-button__block:hover
+    {
+        background-color: var(--background-body);
+    }
+    
+    .offer-link:hover path
+    {
+        stroke: var(--background-body);
+    }
+
+    .offer-link:hover
+    {
+        background-color: var(--background-container);
+    }
+}

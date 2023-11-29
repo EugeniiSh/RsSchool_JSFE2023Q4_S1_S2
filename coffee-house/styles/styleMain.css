@@ -281,6 +281,12 @@ path
     align-items: center;
 }
 
+.carousel-arrow-left,
+.carousel-arrow-right
+{
+    padding-bottom: 40px;
+}
+
 .arrow-left-block,
 .arrow-right-block
 {
