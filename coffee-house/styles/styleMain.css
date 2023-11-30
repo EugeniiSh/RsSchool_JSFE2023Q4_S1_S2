@@ -409,6 +409,32 @@ path
     gap: 40px;
 }
 
+.carousel-wrapper
+{
+    width: 480px;
+    overflow: hidden;
+}
+
+.carousel-blocks
+{
+    position: relative;
+    left: 0;
+
+    display: flex;
+    gap: 100px;
+
+    /* Чтобы во время перетаскивания 
+    слайда ничего не выделить 
+    внутри него */
+    user-select: none;
+    /* Чтобы запретить скролл 
+    страницы, если мы начали 
+    двигать слайдер по оси X */
+    touch-action: pan-y;
+    
+    transition: 0.6s;
+}
+
 .carousel-blocks__item
 {
     width: 480px;
@@ -416,7 +442,10 @@ path
 
 .item-picture
 {
-    width: 100%;
+    width: 480px;
+    /* чтобы изображения 
+    не перетаскивались мышью */
+    pointer-events: none; 
 }
 
 .block-item__description

@@ -40,3 +40,56 @@ window.addEventListener('resize',() =>
 });
 /* ============================== -Burger menu- ============================== */
 
+/* ============================ +Favorite Carusel+ ============================= */
+const carouselBlocks = document.querySelector('.carousel-blocks');
+const carouselArrowLeft = document.querySelector('.carousel-arrow-left');
+const carouselArrowRight = document.querySelector('.carousel-arrow-right');
+const paginationBlockItem = document.querySelectorAll('.pagination-block__item');
+
+let position = 0;
+let pagIndex = 0;
+
+function nextSlide()
+{
+    if(position < ((paginationBlockItem.length - 1) * 580))
+    {
+        position += 580;
+        pagIndex++;
+    }
+    else
+    {
+        position = 0;
+        pagIndex = 0;
+    }
+
+    carouselBlocks.style.left = -position + 'px';
+    // thisSlide(pagIndex);
+}
+
+function prevSlide()
+{
+    if(position > 0)
+    {
+        position -= 580;
+        pagIndex--;
+    }
+    else
+    {
+        position = (paginationBlockItem.length - 1) * 580;
+        pagIndex = paginationBlockItem.length;
+    }
+
+    carouselBlocks.style.left = -position + 'px';
+    // thisSlide(pagIndex);
+}
+
+carouselArrowRight.addEventListener('click', nextSlide);
+carouselArrowLeft.addEventListener('click', prevSlide);
+
+setInterval(() =>
+{
+    nextSlide()
+}, 
+3000);
+/* ============================ -Favorite Carusel- ============================= */
+
