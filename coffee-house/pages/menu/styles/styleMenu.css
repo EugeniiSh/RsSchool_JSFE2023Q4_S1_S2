@@ -121,6 +121,11 @@ path
 
 }
 
+.heading__menu-container
+{
+    margin-left: 326px;
+}
+
 .menu-block__link
 {
     display: flex;
@@ -131,6 +136,53 @@ path
 .menu-block__link::after
 {
     transform: scaleX(1);
+}
+
+.heading__burger-button-conteiner
+{
+    display: none;
+}
+
+.heading__burger-button
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 44px;
+    height: 44px;
+
+    border: 1px solid var(--border-dark);
+    border-radius: 100px;
+}
+
+.burger-button__line
+{
+    position: relative;
+    width: 16px;
+}
+
+.burger-button__line::after,
+.burger-button__line::before
+{
+    position: absolute;
+    content: '';
+
+    width: 16px;
+    height: 1.5px;
+
+    border-radius: 2px;
+    background-color: var(--text-dark);
+}
+
+.burger-button__line::after
+{
+    top: -4px;
+}
+
+.burger-button__line::before
+{
+    bottom: -5.5px;
 }
 /* ===================== -Heading section- ===================== */
 
@@ -253,6 +305,7 @@ input:checked ~ .button-block__label
     display: flex;
     flex-direction: column;
     width: 310px;
+    height: 506px;
 
     border-radius: 40px;
     border: 1px solid var(--border-light);
@@ -344,6 +397,37 @@ input:checked ~ .button-block__label
     margin-top: auto;
     font-size: 24px;
     line-height: 125%; /* 30px */
+}
+
+.menu__refresh-button-container
+{
+    display: none;
+}
+
+.refresh-button__block
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 60px;
+    height: 60px;
+
+    border-radius: 100px;
+    border: 1px solid var(--border-dark);
+
+    transition: 0.6s;
+    cursor: pointer;
+}
+
+.refresh-button-image
+{
+    padding-top: 4px;
+}
+
+.refresh-button__block:hover
+{
+    background-color: var(--background-container);
 }
 
 /* ===================== -Menu section- ===================== */
@@ -458,3 +542,35 @@ input:checked ~ .button-block__label
     background-color: var(--text-light);
 }
 /* ===================== -Footer section- ===================== */
+                                /*  */
+                                /*  */
+                                /*  */
+                                /*  */
+/* ===================== @media hover:none ===================== */
+@media (hover: none)
+{
+    a:hover::after
+    {
+        transform: scaleX(0);
+    }
+
+    .coffee-block:hover .block-img
+    {
+        background-size: 110%;
+    }
+        
+    .refresh-button__block:hover
+    {
+        background-color: var(--background-body);
+    }
+    
+    .offer-link:hover path
+    {
+        stroke: var(--background-body);
+    }
+
+    .offer-link:hover
+    {
+        background-color: var(--background-container);
+    }
+}
