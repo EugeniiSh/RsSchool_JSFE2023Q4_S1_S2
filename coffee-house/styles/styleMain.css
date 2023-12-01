@@ -126,6 +126,16 @@ path
 {
     margin-top: 101.2px !important;
 }
+
+.activ-pagination
+{
+    animation: timerLine 5s linear;
+}
+
+.pause-pagination
+{
+    animation-play-state: paused;
+}
 /* ===================== -Activators- ===================== */
 
 /* ===================== +Heading section+ ===================== */
@@ -409,11 +419,22 @@ path
     gap: 40px;
 }
 
+.carousel-container:hover .activ-pagination
+{
+    animation-play-state: paused;
+}
+
 .carousel-wrapper
 {
     width: 480px;
     overflow: hidden;
 }
+
+/* .carousel-wrapper:hover
+{
+    background-color: red;
+    animation-play-state: paused;
+} */
 
 .carousel-blocks
 {
@@ -492,11 +513,6 @@ path
 
     border-radius: 100px;
     background-color: var(--border-dark);
-}
-
-.pagination-block__item:first-child .pagination-block__inner-item
-{
-    width: 100%;
 }
 /* ===================== -Favorite section- ===================== */
 
@@ -796,7 +812,7 @@ path
                                 /*  */
                                 /*  */
                                 /*  */
-/* ===================== @media hover:none ===================== */
+/* ===================== +@media hover:none+ ===================== */
 @media (hover: none)
 {
     a:hover::after
@@ -824,6 +840,11 @@ path
     .arrow-right-block:hover svg path
     {
         stroke: #403F3D;
+    }
+
+    .carousel-container:hover .activ-pagination
+    {
+        animation-play-state: running;
     }
 
     .image-block:nth-of-type(1):hover,
@@ -857,3 +878,21 @@ path
         background-color: var(--background-container);
     }
 }
+/* ===================== -@media hover:none- ===================== */
+                                /*  */
+                                /*  */
+                                /*  */
+                                /*  */
+/* ========================= +@Animation+ ========================= */
+@keyframes timerLine
+{
+    from
+    {
+        width: 0%;
+    }
+    to
+    {
+        width: 100%;
+    }
+}
+/* ========================= -@Animation- ========================= */

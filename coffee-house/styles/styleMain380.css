@@ -41,6 +41,11 @@
         font-size: 32px;
     }
 
+    .favorite__carousel-container
+    {
+        justify-content: center;
+    }
+
     .carousel-arrow-left,
     .carousel-arrow-right
     {
@@ -101,6 +106,19 @@
     .footer-offer__header
     {
         font-size: 32px;
+    }
+}
+
+@media (max-width: 510px)
+{
+    .carousel-wrapper
+    {
+        width: 348px;
+    }
+
+    .block-item__picture img
+    {
+        width: 348px;
     }
 }
 
