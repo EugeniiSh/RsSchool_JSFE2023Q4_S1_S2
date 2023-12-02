@@ -91,6 +91,43 @@ path
 }
 /* ===================== -General- ===================== */
 
+/* ===================== +Activators+ ===================== */
+.active-heading
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    padding-left: 5.21%;
+    padding-right: 5.21%;
+
+    z-index: 999;
+}
+
+.activ-burger
+{
+    right: 0 !important;
+}
+
+.activ-burger__line::after
+{
+    top: -1px !important;
+    transform: rotate(-45deg);
+}
+
+.activ-burger__line::before
+{
+    bottom: -1px !important;
+    transform: rotate(45deg);
+}
+
+.active-offer
+{
+    margin-top: 101.2px !important;
+}
+/* ===================== -Activators- ===================== */
+
 /* ===================== +Heading section+ ===================== */
 .heading
 {
@@ -98,11 +135,14 @@ path
     justify-content: space-between;
     align-items: center;
 
-    margin-top: 18px;
+    /* margin-top: 18px; */
+    padding-top: 18px;
 
     font-size: 16px;
     font-style: normal;
     line-height: 150%; /* 24px */
+
+    background-color: var(--background-body);
 }
 
 .heading-logo__link::after
@@ -141,6 +181,7 @@ path
 .heading__burger-button-conteiner
 {
     display: none;
+    cursor: pointer;
 }
 
 .heading__burger-button
@@ -173,6 +214,7 @@ path
 
     border-radius: 2px;
     background-color: var(--text-dark);
+    transition: 0.6s;
 }
 
 .burger-button__line::after

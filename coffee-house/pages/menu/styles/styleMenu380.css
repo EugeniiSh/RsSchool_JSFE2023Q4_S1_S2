@@ -1,5 +1,12 @@
 @media (max-width: 700px)
 {
+    /* ===================== +Activators+ ===================== */
+    .active-heading
+    {
+        padding-left: 4.21%;
+        padding-right: 4.21%;
+    }
+    /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
     .wrapper
     {
         width: 91.57%;
