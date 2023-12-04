@@ -12,6 +12,23 @@
         height: auto;
     }
     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+    /* ===================== +Modal Window+ ======================== */
+    .modal-window__wrapper
+    {
+        width: 90%;
+    }
+
+    .modal-window__preview
+    {
+        display: none;
+    }
+
+    .modal-window__description
+    {
+        padding-left: 0;
+    }
+    /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
     .wrapper
     {
         width: 91.57%;

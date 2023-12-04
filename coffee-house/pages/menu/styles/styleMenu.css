@@ -140,6 +140,166 @@ path
 
 /* ===================== -Activators- ===================== */
 
+/* ===================== +Modal Window+ ======================== */
+.modal-window__background
+{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    
+    background-color: var(--background-backdrop);
+    z-index: 1000;
+}
+
+.modal-window__wrapper
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 55.55%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.modal-window__container
+{
+    display: flex;
+
+    width: 100%;
+    padding: 16px;
+
+    border-radius: 40px;
+    background-color: var(--background-body);
+}
+
+/* ----------------- +Preview-box+ ------------------ */
+.preview-box
+{
+    width: 310px;
+    height: 310px;
+    border-radius: 40px;
+    overflow: hidden;
+}
+
+.preview-box img
+{
+    width: 100%;
+}
+
+.modal-window__description
+{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    padding-left: 20px;
+}
+
+.title-name
+{
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 125%; /* 30px */
+}
+
+.title-description
+{
+    padding-top: 12px;
+
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 150%; /* 24px */
+}
+
+.description__size,
+.description__additives
+{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.size-text,
+.additives-text
+{
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 150%; /* 24px */
+}
+
+/* - - - - - - - - - - +Buttons Preview-box+ - - - - - - - - - - */
+.size-buttons,
+.additives-buttons
+{
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.block-label__letter
+{
+    width: 29px;
+    height: 29px;
+    padding: 6px 9px 7px!important;
+}
+
+.size-letter
+{
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+/* - - - - - - - - - - -Buttons Preview-box- - - - - - - - - - - */
+
+.description__total
+{
+    display: flex;
+    justify-content: space-between;
+
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 125%; /* 30px */
+}
+
+.description__alert
+{
+    display: flex;
+    gap: 8px;
+
+    padding: 12px 0;
+
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 140%; /* 14px */
+}
+
+.description__button-close
+{
+    display: flex;
+    justify-content: center;
+
+    padding: 10px 78px;
+
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 150%; /* 24px */
+
+    border-radius: 100px;
+    border: 1px solid var(--border-dark);
+    transition: 0.6s;
+    cursor: pointer;
+}
+
+.description__button-close:hover
+{
+    color: var(--text-light);
+    background-color: var(--background-container);
+}
+/* ===================== -Modal Window- ======================== */
+
 /* ===================== +Heading section+ ===================== */
 .heading
 {
@@ -260,13 +420,13 @@ path
     line-height: 125%; /* 75px */
 }
 
+/* ----------------- +Buttons block+ ------------------ */
 .menu-buttons
 {
     display: flex;
     gap: 16px;
 }
 
-/* ----------------- +Buttons block+ ------------------ */
 .button-block__label
 {
     display: flex;
@@ -614,6 +774,27 @@ input:checked ~ .button-block__label
     a:hover::after
     {
         transform: scaleX(0);
+    }
+
+    .description__button-close:hover
+    {
+        color: var(--text-dark);
+        background-color: var(--background-body);
+    }
+
+    .button-block__label:hover
+    {
+        background-color: var(--background-body);
+    }
+
+    .button-block__label:hover .block-label__img
+    {
+        background-color: var(--border-light);
+    }
+
+    .button-block__label:hover
+    {
+        color: var(--text-dark);
     }
 
     .card-block:hover .block-img
