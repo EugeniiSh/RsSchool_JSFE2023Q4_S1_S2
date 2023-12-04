@@ -51,7 +51,6 @@ let position = 0;
 let pagIndex = 0;
 
 activatePagination();
-console.log(carouselWrapper.offsetWidth);
 
 function nextSlide()
 {

@@ -126,6 +126,18 @@ path
 {
     margin-top: 101.2px !important;
 }
+
+.active-menu-container
+{
+    opacity: 1 !important;
+    z-index: 998;
+}
+
+.active__menu-tea
+{
+    height: 506px;
+}
+
 /* ===================== -Activators- ===================== */
 
 /* ===================== +Heading section+ ===================== */
@@ -331,7 +343,9 @@ input:checked ~ .button-block__label
     width: 100%;
 }
 
-.menu-container__coffee
+.menu-container__coffee,
+.menu-container__tea,
+.menu-container__dessert
 {
     display: flex;
     flex-wrap: wrap;
@@ -340,9 +354,12 @@ input:checked ~ .button-block__label
 
     grid-column: 1 / 2;
     grid-row: 1 / 2;
+
+    opacity: 0;
+    transition: 0.6s;
 }
 
-.coffee-block
+.card-block
 {
     display: flex;
     flex-direction: column;
@@ -364,50 +381,53 @@ input:checked ~ .button-block__label
     transition: 0.6s;
 }
 
-.coffee-block:hover .block-img
+.card-block:hover .block-img
 {
     background-size: 101%;
 }
 
-.coffee-block:nth-of-type(1)  .block-img
-{
-    background-image: url(../../../assets/smallImg/coffee-1.png);
-}
+.menu-container__coffee .card-block:nth-of-type(1) .block-img
+{background-image: url(../../../assets/smallImg/0.png);}
+.menu-container__coffee .card-block:nth-of-type(2) .block-img
+{background-image: url(../../../assets/smallImg/1.png);}
+.menu-container__coffee .card-block:nth-of-type(3) .block-img
+{background-image: url(../../../assets/smallImg/2.png);}
+.menu-container__coffee .card-block:nth-of-type(4) .block-img
+{background-image: url(../../../assets/smallImg/3.png);}
+.menu-container__coffee .card-block:nth-of-type(5) .block-img
+{background-image: url(../../../assets/smallImg/4.png);}
+.menu-container__coffee .card-block:nth-of-type(6) .block-img
+{background-image: url(../../../assets/smallImg/5.png);}
+.menu-container__coffee .card-block:nth-of-type(7) .block-img
+{background-image: url(../../../assets/smallImg/6.png);}
+.menu-container__coffee .card-block:nth-of-type(8) .block-img
+{background-image: url(../../../assets/smallImg/7.png);}
 
-.coffee-block:nth-of-type(2) .block-img
-{
-    background-image: url(../../../assets/smallImg/coffee-2.png);
-}
+.menu-container__tea .card-block:nth-of-type(1) .block-img
+{background-image: url(../../../assets/smallImg/8.png);}
+.menu-container__tea .card-block:nth-of-type(2) .block-img
+{background-image: url(../../../assets/smallImg/9.png);}
+.menu-container__tea .card-block:nth-of-type(3) .block-img
+{background-image: url(../../../assets/smallImg/10.png);}
+.menu-container__tea .card-block:nth-of-type(4) .block-img
+{background-image: url(../../../assets/smallImg/11.png);}
 
-.coffee-block:nth-of-type(3) .block-img
-{
-    background-image: url(../../../assets/smallImg/coffee-3.png);
-}
-
-.coffee-block:nth-of-type(4) .block-img
-{
-    background-image: url(../../../assets/smallImg/coffee-4.png);
-}
-
-.coffee-block:nth-of-type(5) .block-img
-{
-    background-image: url(../../../assets/smallImg/coffee-5.png);
-}
-
-.coffee-block:nth-of-type(6) .block-img
-{
-    background-image: url(../../../assets/smallImg/coffee-6.png);
-}
-
-.coffee-block:nth-of-type(7) .block-img
-{
-    background-image: url(../../../assets/smallImg/coffee-7.png);
-}
-
-.coffee-block:nth-of-type(8) .block-img
-{
-    background-image: url(../../../assets/smallImg/coffee-8.png);
-}
+.menu-container__dessert .card-block:nth-of-type(1) .block-img
+{background-image: url(../../../assets/smallImg/12.png);}
+.menu-container__dessert .card-block:nth-of-type(2) .block-img
+{background-image: url(../../../assets/smallImg/13.png);}
+.menu-container__dessert .card-block:nth-of-type(3) .block-img
+{background-image: url(../../../assets/smallImg/14.png);}
+.menu-container__dessert .card-block:nth-of-type(4) .block-img
+{background-image: url(../../../assets/smallImg/15.png);}
+.menu-container__dessert .card-block:nth-of-type(5) .block-img
+{background-image: url(../../../assets/smallImg/16.png);}
+.menu-container__dessert .card-block:nth-of-type(6) .block-img
+{background-image: url(../../../assets/smallImg/17.png);}
+.menu-container__dessert .card-block:nth-of-type(7) .block-img
+{background-image: url(../../../assets/smallImg/18.png);}
+.menu-container__dessert .card-block:nth-of-type(8) .block-img
+{background-image: url(../../../assets/smallImg/19.png);}
 
 .block-info
 {
@@ -596,7 +616,7 @@ input:checked ~ .button-block__label
         transform: scaleX(0);
     }
 
-    .coffee-block:hover .block-img
+    .card-block:hover .block-img
     {
         background-size: 110%;
     }

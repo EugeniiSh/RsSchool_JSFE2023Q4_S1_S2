@@ -6,6 +6,11 @@
         padding-left: 4.21%;
         padding-right: 4.21%;
     }
+
+    .active__menu-tea
+    {
+        height: auto;
+    }
     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
     .wrapper
     {
@@ -23,7 +28,7 @@
         gap: 8px;
     }
 
-    .menu-container__coffee
+    .menu-block
     {
         height: 2144px;
         row-gap: 40px;
