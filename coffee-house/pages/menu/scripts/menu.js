@@ -96,9 +96,6 @@ menuRefreshButtonContainer.addEventListener('click', () =>
 //- - - - - -  -Switch menu- - - - - - -
 
 //- - - - - - -  +Load menu+ - - - - - - -
-// const response = await fetch('../../../json/products.json');
-// const products = await response.json();
-
 import products from '../../../json/products.json' assert {type: 'json'};
 console.log(products);
 
@@ -119,4 +116,98 @@ cardBlocks.forEach((item, index) =>
 
 /* ============================== -Menu Section- ============================== */
 
+/* ============================== +Modal Window+ ============================== */
+const body = document.querySelector('.body');
+const modalWindowBackground = document.querySelector('.modal-window__background');
+const modalWindowContainer = document.querySelector('.modal-window__container');
+const descriptionButtonClose = document.querySelector('.description__button-close');
+// console.log(document.getElementsByName("additivesButton"));
+// console.log(document.getElementById("sizeS").checked);
+// console.log(body);
 
+
+function setDefaultChecked()
+{
+    if(!(document.getElementById("sizeS").checked))
+    {
+        document.getElementById("sizeS").checked = true;
+    }
+
+    const additivesButton = document.getElementsByName("additivesButton");
+    additivesButton.forEach((item) => {item.checked = false})
+}
+
+function setProductDescription(element)
+{
+    const elemImgUrl = getComputedStyle(element.children[0]).backgroundImage;
+    const elemName = element.children[1].children[0].textContent;
+    const descriptionObj = products.find(item => item.name == elemName);
+
+    // console.log(products[0].name)
+    // console.log(elemName)
+    // console.log(descriptionObj)
+
+
+    // Image
+    const modalWindowImg = modalWindowContainer.querySelector('.preview-box img');
+    modalWindowImg.src = `../../${elemImgUrl.slice(elemImgUrl.indexOf('assets'), -2)}`;
+    // Title name and description
+    const title = modalWindowContainer.querySelector('.description__title-box');
+    title.children[0].textContent = descriptionObj.name;
+    title.children[1].textContent = descriptionObj.description;
+    // Size
+    const sizeLetter = modalWindowContainer.querySelector('.size-buttons').querySelectorAll('.size-letter');
+    // console.log(sizeLetter[0].parentNode.parentNode.parentNode.children[1].children[0].textContent);
+    // console.log(descriptionObj.sizes)
+    sizeLetter.forEach((item) =>
+    {
+        for(let key in descriptionObj.sizes)
+        {
+            if(key === item.textContent.toLocaleLowerCase())
+            {
+                const sizeText = item.parentNode.parentNode.parentNode.children[1].children[0];
+                sizeText.textContent = descriptionObj.sizes[key].size;
+            }
+        }
+    });
+
+}
+
+cardBlocks.forEach((item) => 
+{
+    item.addEventListener('click', (event) =>
+    {
+        // console.log(event.target);
+        // let elem = getComputedStyle(event.target.children[0]);
+        // console.log(elem.backgroundImage);
+        // console.log(getComputedStyle(event.target.children[0]).backgroundImage.slice(getComputedStyle(event.target.children[0]).backgroundImage.indexOf('assets'), -2));
+        // console.log(getComputedStyle(event.target.children[0]));
+        // console.log(event.target.children[1].children[0].textContent);
+        // console.log(modalWindowContainer.querySelector('.preview-box img').src);
+
+        modalWindowBackground.classList.add('active__modal-window');
+        body.classList.add('disabling-scrolling');
+        setDefaultChecked();
+        setProductDescription(event.target);
+    })
+})
+
+descriptionButtonClose.addEventListener('click', () =>
+{
+    modalWindowBackground.classList.remove('active__modal-window');
+    body.classList.remove('disabling-scrolling');
+});
+
+modalWindowBackground.addEventListener('click', (event) =>
+{
+    if(event.target.classList.contains('modal-window__background'))
+    {
+        modalWindowBackground.classList.remove('active__modal-window');
+        body.classList.remove('disabling-scrolling');
+    }
+})
+/* ============================== -Modal Window- ============================== */
+
+// window.scrollTo(0, 0);
+// const response = await fetch('../../../json/products.json');
+// const products = await response.json();

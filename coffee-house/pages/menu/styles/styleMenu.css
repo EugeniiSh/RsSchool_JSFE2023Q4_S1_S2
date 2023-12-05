@@ -36,6 +36,7 @@ body
 {
     font-family: var(--font-family);
     font-weight: var(--font-weight-semiBold);
+
     color: var(--text-dark);
     background-color: var(--background-body);
 }
@@ -138,6 +139,16 @@ path
     height: 506px;
 }
 
+.active__modal-window
+{
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.disabling-scrolling
+{
+    overflow-y: hidden;
+}
 /* ===================== -Activators- ===================== */
 
 /* ===================== +Modal Window+ ======================== */
@@ -150,6 +161,10 @@ path
     right: 0;
     
     background-color: var(--background-backdrop);
+
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.6s;
     z-index: 1000;
 }
 
@@ -173,6 +188,8 @@ path
 
     border-radius: 40px;
     background-color: var(--background-body);
+
+    /* visibility: hidden; */
 }
 
 /* ----------------- +Preview-box+ ------------------ */
@@ -534,10 +551,13 @@ input:checked ~ .button-block__label
 .block-img
 {
     height: 310px;
-    overflow: hidden;
+    
     border-radius: 40px;
     background-position: center;
     background-size: 110%;
+
+    pointer-events: none;
+    overflow: hidden;
     transition: 0.6s;
 }
 
@@ -593,8 +613,11 @@ input:checked ~ .button-block__label
 {
     display: flex;
     flex-direction: column;
-    padding: 20px;
     flex-grow: 1;
+
+    padding: 20px;
+    
+    pointer-events: none;
 }
 
 .info-name
