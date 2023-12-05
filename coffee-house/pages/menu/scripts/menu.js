@@ -97,7 +97,6 @@ menuRefreshButtonContainer.addEventListener('click', () =>
 
 //- - - - - - -  +Load menu+ - - - - - - -
 import products from '../../../json/products.json' assert {type: 'json'};
-console.log(products);
 
 const cardBlocks = document.querySelectorAll('.card-block');
 
@@ -121,10 +120,6 @@ const body = document.querySelector('.body');
 const modalWindowBackground = document.querySelector('.modal-window__background');
 const modalWindowContainer = document.querySelector('.modal-window__container');
 const descriptionButtonClose = document.querySelector('.description__button-close');
-// console.log(document.getElementsByName("additivesButton"));
-// console.log(document.getElementById("sizeS").checked);
-// console.log(body);
-
 
 function setDefaultChecked()
 {
@@ -143,11 +138,6 @@ function setProductDescription(element)
     const elemName = element.children[1].children[0].textContent;
     const descriptionObj = products.find(item => item.name == elemName);
 
-    // console.log(products[0].name)
-    // console.log(elemName)
-    // console.log(descriptionObj)
-
-
     // Image
     const modalWindowImg = modalWindowContainer.querySelector('.preview-box img');
     modalWindowImg.src = `../../${elemImgUrl.slice(elemImgUrl.indexOf('assets'), -2)}`;
@@ -157,8 +147,6 @@ function setProductDescription(element)
     title.children[1].textContent = descriptionObj.description;
     // Size
     const sizeLetter = modalWindowContainer.querySelector('.size-buttons').querySelectorAll('.size-letter');
-    // console.log(sizeLetter[0].parentNode.parentNode.parentNode.children[1].children[0].textContent);
-    // console.log(descriptionObj.sizes)
     sizeLetter.forEach((item) =>
     {
         for(let key in descriptionObj.sizes)
@@ -170,21 +158,28 @@ function setProductDescription(element)
             }
         }
     });
-
+    // Additives
+    const additivesLetter = modalWindowContainer.querySelector('.additives-buttons').querySelectorAll('.size-letter');
+    additivesLetter.forEach((item) =>
+    {
+        for(let key in descriptionObj.additives)
+        {
+            if(key == item.textContent - 1)
+            {
+                const additivesText = item.parentNode.parentNode.parentNode.children[1].children[0];
+                additivesText.textContent = descriptionObj.additives[key].name;
+            }
+        }
+    });
+    // Price
+    const priceNumber = modalWindowContainer.querySelector('.price-number');
+    priceNumber.textContent = descriptionObj.price;
 }
 
 cardBlocks.forEach((item) => 
 {
     item.addEventListener('click', (event) =>
     {
-        // console.log(event.target);
-        // let elem = getComputedStyle(event.target.children[0]);
-        // console.log(elem.backgroundImage);
-        // console.log(getComputedStyle(event.target.children[0]).backgroundImage.slice(getComputedStyle(event.target.children[0]).backgroundImage.indexOf('assets'), -2));
-        // console.log(getComputedStyle(event.target.children[0]));
-        // console.log(event.target.children[1].children[0].textContent);
-        // console.log(modalWindowContainer.querySelector('.preview-box img').src);
-
         modalWindowBackground.classList.add('active__modal-window');
         body.classList.add('disabling-scrolling');
         setDefaultChecked();
@@ -206,6 +201,60 @@ modalWindowBackground.addEventListener('click', (event) =>
         body.classList.remove('disabling-scrolling');
     }
 })
+
+// - - - - - - - - -  +Change price+  - - - - - - - - -
+const inputSizeButtons = modalWindowContainer.querySelectorAll('.size-button__input');
+const inputAdditivesButton = modalWindowContainer.querySelectorAll('.additives-button__input');
+const priceNumber = modalWindowContainer.querySelector('.price-number');
+
+function getTotalPrice()
+{
+    const titleName = modalWindowContainer.querySelector('.title-name').textContent;
+    const descriptionObj = products.find(item => item.name == titleName);
+
+    let totalAddPrice = 0;
+
+    inputSizeButtons.forEach((item) =>
+    {
+        if(item.checked)
+        {
+            const sizeLetter = item.id.slice(-1).toLocaleLowerCase();
+            const addPrice = parseFloat(descriptionObj.sizes[sizeLetter]["add-price"]);
+            totalAddPrice += addPrice;
+        }
+    });
+
+    inputAdditivesButton.forEach((item) =>
+    {
+        if(item.checked)
+        {
+            const additivesLetter = (item.id - 1).toString();
+            const addPrice = parseFloat(descriptionObj.additives[additivesLetter]["add-price"]);
+            totalAddPrice += addPrice;
+        }
+    });
+
+    return (parseFloat(descriptionObj.price) + totalAddPrice).toFixed(2);
+}
+
+
+inputSizeButtons.forEach((item) =>
+{
+    item.addEventListener('change', () =>
+    {
+        priceNumber.textContent = getTotalPrice();
+    })
+});
+
+inputAdditivesButton.forEach((item) =>
+{
+    item.addEventListener('change', () =>
+    {
+        priceNumber.textContent = getTotalPrice();
+    })
+});
+
+// - - - - - - - - - - - - - - - - -  
 /* ============================== -Modal Window- ============================== */
 
 // window.scrollTo(0, 0);
