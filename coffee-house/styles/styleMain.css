@@ -91,6 +91,53 @@ path
 }
 /* ===================== -General- ===================== */
 
+/* ===================== +Activators+ ===================== */
+.active-heading
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    padding-left: 5.21%;
+    padding-right: 5.21%;
+
+    z-index: 999;
+}
+
+.activ-burger
+{
+    right: 0 !important;
+}
+
+.activ-burger__line::after
+{
+    top: -1px !important;
+    transform: rotate(-45deg);
+}
+
+.activ-burger__line::before
+{
+    bottom: -1px !important;
+    transform: rotate(45deg);
+}
+
+.active-offer
+{
+    margin-top: 101.2px !important;
+}
+
+.activ-pagination
+{
+    animation: timerLine 5s linear;
+}
+
+.pause-pagination
+{
+    animation-play-state: paused;
+}
+/* ===================== -Activators- ===================== */
+
 /* ===================== +Heading section+ ===================== */
 .heading
 {
@@ -98,11 +145,14 @@ path
     justify-content: space-between;
     align-items: center;
 
-    margin-top: 18px;
+    /* margin-top: 18px; */
+    padding-top: 18px;
 
     font-size: 16px;
     font-style: normal;
     line-height: 150%; /* 24px */
+
+    background-color: var(--background-body);
 }
 
 .heading-logo__link::after
@@ -135,6 +185,7 @@ path
 .heading__burger-button-conteiner
 {
     display: none;
+    cursor: pointer;
 }
 
 .heading__burger-button
@@ -167,6 +218,7 @@ path
 
     border-radius: 2px;
     background-color: var(--text-dark);
+    transition: 0.6s;
 }
 
 .burger-button__line::after
@@ -183,14 +235,52 @@ path
 /* ===================== +Offer section+ ===================== */
 .offer
 {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     margin-top: 20px;
-    padding: 100px;
+    /* padding: 100px; */
     height: 644px;
 
+    overflow: hidden;
     border-radius: 40px;
     background-image: url(../assets/bigImg/img-header.png);
     background-size: cover;
     background-repeat: no-repeat;
+}
+
+.offer__video-container
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+    background: url(../assets/bigImg/img-header.png) no-repeat center center;
+    background-size: cover;
+}
+
+.offer__video-container video
+{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.offer-container
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+    padding: 100px;
 }
 
 .offer-container__blocks
@@ -329,6 +419,43 @@ path
     gap: 40px;
 }
 
+.carousel-container:hover .activ-pagination
+{
+    animation-play-state: paused;
+}
+
+.carousel-wrapper
+{
+    width: 480px;
+    overflow: hidden;
+}
+
+/* .carousel-wrapper:hover
+{
+    background-color: red;
+    animation-play-state: paused;
+} */
+
+.carousel-blocks
+{
+    position: relative;
+    left: 0;
+
+    display: flex;
+    gap: 100px;
+
+    /* Чтобы во время перетаскивания 
+    слайда ничего не выделить 
+    внутри него */
+    user-select: none;
+    /* Чтобы запретить скролл 
+    страницы, если мы начали 
+    двигать слайдер по оси X */
+    touch-action: pan-y;
+    
+    transition: 0.6s;
+}
+
 .carousel-blocks__item
 {
     width: 480px;
@@ -336,7 +463,10 @@ path
 
 .item-picture
 {
-    width: 100%;
+    width: 480px;
+    /* чтобы изображения 
+    не перетаскивались мышью */
+    pointer-events: none; 
 }
 
 .block-item__description
@@ -383,11 +513,6 @@ path
 
     border-radius: 100px;
     background-color: var(--border-dark);
-}
-
-.pagination-block__item:first-child .pagination-block__inner-item
-{
-    width: 100%;
 }
 /* ===================== -Favorite section- ===================== */
 
@@ -687,7 +812,7 @@ path
                                 /*  */
                                 /*  */
                                 /*  */
-/* ===================== @media hover:none ===================== */
+/* ===================== +@media hover:none+ ===================== */
 @media (hover: none)
 {
     a:hover::after
@@ -715,6 +840,11 @@ path
     .arrow-right-block:hover svg path
     {
         stroke: #403F3D;
+    }
+
+    .carousel-container:hover .activ-pagination
+    {
+        animation-play-state: running;
     }
 
     .image-block:nth-of-type(1):hover,
@@ -748,3 +878,21 @@ path
         background-color: var(--background-container);
     }
 }
+/* ===================== -@media hover:none- ===================== */
+                                /*  */
+                                /*  */
+                                /*  */
+                                /*  */
+/* ========================= +@Animation+ ========================= */
+@keyframes timerLine
+{
+    from
+    {
+        width: 0%;
+    }
+    to
+    {
+        width: 100%;
+    }
+}
+/* ========================= -@Animation- ========================= */

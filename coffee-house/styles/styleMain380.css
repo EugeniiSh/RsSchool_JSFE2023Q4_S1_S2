@@ -1,5 +1,13 @@
 @media (max-width: 700px)
 {
+    /* ===================== +Activators+ ===================== */
+    .active-heading
+    {
+        padding-left: 4.21%;
+        padding-right: 4.21%;
+    }
+    /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
     .wrapper
     {
         width: 91.57%;
@@ -8,7 +16,11 @@
     /* ===================== +Offer section+ ===================== */
     .offer
     {
-        height: auto;
+        height: 552px;
+    }
+
+    .offer-container
+    {
         padding: 60px 16px;
     }
 
@@ -27,6 +39,11 @@
     .favorite-heading
     {
         font-size: 32px;
+    }
+
+    .favorite__carousel-container
+    {
+        justify-content: center;
     }
 
     .carousel-arrow-left,
@@ -89,5 +106,26 @@
     .footer-offer__header
     {
         font-size: 32px;
+    }
+}
+
+@media (max-width: 510px)
+{
+    .carousel-wrapper
+    {
+        width: 348px;
+    }
+
+    .block-item__picture img
+    {
+        width: 348px;
+    }
+}
+
+@media (max-width: 381px)
+{
+    .heading__nav-container
+    {
+        padding: 80px 16px 60px;
     }
 }
