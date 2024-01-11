@@ -4,10 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hangman</title>
-  <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style768.css">
 </head>
 <body>
   <div class="modal-window">
@@ -24,15 +25,8 @@
     </section>
 
     <section class="game-box">
-      <ul class="words-display">
-        <li class="letter"></li>
-        <li class="letter"></li>
-        <li class="letter"></li>
-        <li class="letter correct-guess">a</li>
-        <li class="letter"></li>
-        <li class="letter"></li>
-        <li class="letter"></li>
-      </ul>
+      
+      <ul class="words-display"></ul>
 
       <h4 class="hint-text">
         Hint: <span class="hint-text__details">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
@@ -42,38 +36,11 @@
         Incorrect guesses: <span class="guesses-text__details">0 / 6</span>
       </h4>
 
-      <div class="keyboard">
-        <button class="keyboard__btn">a</button>
-        <button class="keyboard__btn">b</button>
-        <button class="keyboard__btn">c</button>
-        <button class="keyboard__btn">d</button>
-        <button class="keyboard__btn">e</button>
-        <button class="keyboard__btn">f</button>
-        <button class="keyboard__btn">g</button>
-        <button class="keyboard__btn">h</button>
-        <button class="keyboard__btn">i</button>
-        <button class="keyboard__btn">g</button>
-        <button class="keyboard__btn">k</button>
-        <button class="keyboard__btn">l</button>
-        <button class="keyboard__btn">m</button>
-        <button class="keyboard__btn">n</button>
-        <button class="keyboard__btn">o</button>
-        <button class="keyboard__btn">p</button>
-        <button class="keyboard__btn">q</button>
-        <button class="keyboard__btn">r</button>
-        <button class="keyboard__btn">s</button>
-        <button class="keyboard__btn">t</button>
-        <button class="keyboard__btn">u</button>
-        <button class="keyboard__btn">v</button>
-        <button class="keyboard__btn">w</button>
-        <button class="keyboard__btn">x</button>
-        <button class="keyboard__btn">y</button>
-        <button class="keyboard__btn">z</button>
-      </div>
+      <div class="keyboard"></div>
     </section>
   </main>
   
-  <script src="words.js"></script>
-  <script src="main.js"></script>
+  <script src="words.js" defer></script>
+  <script src="main.js" defer></script>
 </body>
 </html>

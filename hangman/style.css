@@ -15,6 +15,8 @@ body
   justify-content: center;
 
   min-height: 100vh;
+  padding: 0 10px;
+
   background: #5E63BA;
 }
 
@@ -125,8 +127,11 @@ body
   outline: none;
 }
 
-/* ================ + Activators + ================ */
-/* ================ - Activators - ================ */
+.keyboard__btn[disabled]
+{
+  opacity: 0.6;
+  pointer-events: none;
+}
 
 /* ================ + Modal Windows + ================ */
 .modal-window
@@ -134,14 +139,21 @@ body
   position: fixed;
   left: 0;
   top: 0;
+
   width: 100%;
   height: 100%;
+  padding: 0 10px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
   background: rgba(0, 0, 0, 0.6);
+
+  opacity: 0;
+  pointer-events: none;
+  z-index: 999;
+  transition: 0.3s;
 }
 
 .window__end-game
@@ -202,3 +214,11 @@ body
   }
 }
 /* ===================== - @media hover:hover - ===================== */
+
+/* ================ + Activators + ================ */
+.active
+{
+  opacity: 1;
+  pointer-events: auto;
+}
+/* ================ - Activators - ================ */

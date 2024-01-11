@@ -100,10 +100,6 @@ const wordList = [
       hint: "A long musical composition for a full orchestra, typically in multiple movements."
   },
   {
-      word: "architecture",
-      hint: "The art and science of designing and constructing buildings."
-  },
-  {
       word: "ballet",
       hint: "A classical dance form characterized by precise and graceful movements."
   },
