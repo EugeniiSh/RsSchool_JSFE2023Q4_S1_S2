@@ -1,3 +1,43 @@
+// ========== + Create HTML + ==========
+const body = document.querySelector('body');
+
+// --- Modal window ---
+const createModalWindow = document.createElement('div');
+createModalWindow.classList.add('modal-window');
+createModalWindow.innerHTML = `
+  <div class="window__end-game">
+    <h4 class="end-game__header"></h4>
+    <p class="end-game__text"><span class="correct-word"></span></p>
+    <button class="end-game__play-again-btn">Play Again</button>
+  </div>`;
+body.appendChild(createModalWindow);
+
+// --- Main ---
+const createMain = document.createElement('main');
+createMain.classList.add('main-container');
+// - sections -
+let createSection = document.createElement('section');
+createSection.classList.add('hangman-box');
+createSection.innerHTML = `
+  <img class="hangman-box__img" src="assets/images/hangman-0.svg" alt="hungman">
+  <h1 class="hangman-box__header">Hangman game</h1>`;
+createMain.appendChild(createSection);
+
+createSection = document.createElement('section');
+createSection.classList.add('game-box');
+createSection.innerHTML = `
+  <ul class="words-display"></ul>
+  <h4 class="hint-text">
+    Hint: <span class="hint-text__details"></span>
+  </h4>
+  <h4 class="guesses-text">
+    Incorrect guesses: <span class="guesses-text__details"></span>
+  </h4>
+  <div class="keyboard"></div>`;
+createMain.appendChild(createSection);
+body.appendChild(createMain);
+// ========== - Create HTML - ==========
+
 const keyboard = document.querySelector('.keyboard');
 const wordsDisplay = document.querySelector('.words-display');
 const guessesTextDetails = document.querySelector('.guesses-text__details');
@@ -18,8 +58,6 @@ function getRandomWord()
   console.log('correct word: ', word);
   document.querySelector('.hint-text__details').textContent = hint;
   restartGame();
-  
-  // console.log(currentWord.split(''));
 }
 
 // initGame
@@ -85,6 +123,19 @@ for (let i = 97; i <= 122; i++) {
     getGame(event.target, String.fromCharCode(i));
   });
 }
+
+window.addEventListener('keydown', (event) =>
+{
+  const keyboardBtn = document.querySelectorAll('.keyboard__btn'); 
+  keyboardBtn.forEach((item) => 
+  {
+    if(item.textContent === event.key
+    && item.disabled !== true)
+    {
+      getGame(item, event.key);
+    }
+  })
+});
 
 getRandomWord();
 endGamePlayAgainBtn.addEventListener('click', getRandomWord)

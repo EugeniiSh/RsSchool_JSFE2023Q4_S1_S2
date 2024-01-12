@@ -172,10 +172,6 @@ const wordList = [
       hint: "A fertile spot in a desert where water is found."
   },
   {
-      word: "photography",
-      hint: "The art, process, or practice of creating images by recording light or other electromagnetic radiation."
-  },
-  {
       word: "safari",
       hint: "An expedition or journey, typically to observe wildlife in their natural habitat."
   },
