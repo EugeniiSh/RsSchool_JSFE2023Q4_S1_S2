@@ -1,0 +1,27 @@
+*
+{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+table
+{
+  border-collapse: collapse;
+}
+
+th
+{
+  width: 100px;
+  height: 100px;
+  padding: 5px;
+  border: 1px solid #dd2b2b;
+}
+
+td
+{
+  width: 100px;
+  height: 100px;
+  padding: 5px;
+  border: 1px solid #000000;
+}
