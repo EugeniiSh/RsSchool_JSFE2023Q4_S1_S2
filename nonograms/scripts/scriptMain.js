@@ -1,6 +1,7 @@
 import {nono} from './nonograms.js';
 
-const curentNono = nono.easy.candle;
+const curentNono = nono.hard.dinosaur;
+// const curentNono = nono.easy.candle;
 
 const rowKeys = [];
 const columKeys = [];
@@ -80,22 +81,46 @@ for(let i = 0; i < curentNono.length + maxLengthColumKeys; i++)
 {
   const newRow = document.createElement('tr');
 
-  for(let j = 0; j < curentNono[0].length + maxLengthRowKeys; j++)
+  if(i < maxLengthColumKeys)
   {
-    let newCell;
-
-    if(i < maxLengthRowKeys || j < maxLengthColumKeys)
+    // loop to create first rows with keys
+    for(let j = 0; j < curentNono[0].length; j++)
     {
+      let newCell;
       newCell = document.createElement('th');
-    }
-    else
-    {
-      newCell = document.createElement('td');
-    }
-    
-    newRow.append(newCell);
-  }
 
+      // set the attributes for merging in the first cell
+      if(j === 0 && i === 0)
+      {
+        newCell.setAttribute('colspan', maxLengthRowKeys);
+        newCell.setAttribute('rowspan', maxLengthColumKeys);
+        newRow.append(newCell);
+        newCell = document.createElement('th');
+      }
+      
+      newRow.append(newCell);
+    }
+  }
+  else
+  {
+    // loop to create all other rows
+    for(let j = 0; j < curentNono[0].length + maxLengthRowKeys; j++)
+    {
+      let newCell;
+
+      if(i < maxLengthColumKeys || j < maxLengthRowKeys)
+      {
+        newCell = document.createElement('th');
+      }
+      else
+      {
+        newCell = document.createElement('td');
+      }
+    
+      newRow.append(newCell)
+    }
+  }
+  
   tableTag.append(newRow);
 }
 

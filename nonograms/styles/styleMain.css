@@ -12,16 +12,16 @@ table
 
 th
 {
-  width: 100px;
-  height: 100px;
+  width: 60px;
+  height: 60px;
   padding: 5px;
   border: 1px solid #dd2b2b;
 }
 
 td
 {
-  width: 100px;
-  height: 100px;
+  width: 60px;
+  height: 60px;
   padding: 5px;
   border: 1px solid #000000;
 }
