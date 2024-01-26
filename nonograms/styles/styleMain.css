@@ -5,9 +5,10 @@
   box-sizing: border-box;
 }
 
-table
+.game-field
 {
-  border-collapse: collapse;
+  border: 6px solid #000000;
+  border-collapse: collapse; 
 }
 
 th
@@ -15,7 +16,7 @@ th
   width: 60px;
   height: 60px;
   padding: 5px;
-  border: 1px solid #dd2b2b;
+  border: 1px solid #a3a3a3;
 }
 
 td
@@ -23,5 +24,37 @@ td
   width: 60px;
   height: 60px;
   padding: 5px;
-  border: 1px solid #000000;
+  border: 1px solid #a3a3a3;
+}
+
+.game-field td:nth-of-type(5n)
+{
+  border-right: 3.9px solid #a3a3a3;
+}
+
+.game-field td:nth-of-type(1)
+{
+  border-left: 4px solid #000000;
+}
+
+/* Select all tr that do not contain td and are followed by a tr that contains td. */
+/* Выбрать все tr, которые не содержат td, и после которых идёт tr, который содержит td. */
+.game-field tr:not(:has(td)) + tr:has(td) td
+{
+  border-top: 4px solid #000000;
+}
+
+.game-field tr:nth-last-child(5n)
+{
+  border-top: 3.9px solid #a3a3a3;
+}
+
+.game-field tr:nth-of-type(1) th:nth-of-type(5n + 1)
+{
+  border-right: 3.9px solid #a3a3a3;
+}
+
+.game-field tr:not(:has(td)):nth-of-type(1n + 2) th:nth-of-type(5n)
+{
+  border-right: 3.9px solid #a3a3a3;
 }

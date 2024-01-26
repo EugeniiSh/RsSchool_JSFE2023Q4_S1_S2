@@ -1,6 +1,7 @@
 import {nono} from './nonograms.js';
 
-const curentNono = nono.hard.dinosaur;
+// const curentNono = nono.hard.dinosaur;
+const curentNono = nono.midle.boat;
 // const curentNono = nono.easy.candle;
 
 const rowKeys = [];
@@ -12,7 +13,7 @@ for(let i = 0; i < curentNono.length; i++)
 {
   const tempRowKeys = [];
 
-  for(let j = 0; j < curentNono[i].length; j++)
+  for(let j = curentNono[i].length - 1; j >= 0; j--)
   {
     if(curentNono[i][j] === 1)
     {
@@ -41,11 +42,11 @@ for(let i = 0; i < curentNono.length; i++)
 count = 0;
 
 // Get column keys
-for(let i = 0; i < curentNono[0].length; i++)
+for(let i = 0; i < curentNono.length; i++)
 {
   const tempColumKeys = [];
 
-  for(let j = 0; j < curentNono.length; j++)
+  for(let j = curentNono[i].length - 1; j >= 0; j--)
   {
     if(curentNono[j][i] === 1)
     {
@@ -76,6 +77,7 @@ const maxLengthColumKeys = Math.max(...columKeys.map((item) => item.length));
 
 const bodyTag = document.querySelector('body');
 const tableTag = document.createElement('table');
+tableTag.classList.add('game-field');
 
 for(let i = 0; i < curentNono.length + maxLengthColumKeys; i++)
 {
@@ -97,6 +99,12 @@ for(let i = 0; i < curentNono.length + maxLengthColumKeys; i++)
         newRow.append(newCell);
         newCell = document.createElement('th');
       }
+
+      // write the key in the cell if there is one
+      if(columKeys[j][maxLengthColumKeys - 1 - i])
+      {
+        newCell.textContent = columKeys[j][maxLengthColumKeys - 1 - i];
+      }
       
       newRow.append(newCell);
     }
@@ -111,6 +119,12 @@ for(let i = 0; i < curentNono.length + maxLengthColumKeys; i++)
       if(i < maxLengthColumKeys || j < maxLengthRowKeys)
       {
         newCell = document.createElement('th');
+
+        // write the key in the cell if there is one
+        if(rowKeys[i - maxLengthColumKeys][maxLengthRowKeys - 1 - j])
+        {
+          newCell.textContent = rowKeys[i - maxLengthColumKeys][maxLengthRowKeys - 1 - j];
+        }
       }
       else
       {
