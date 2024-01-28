@@ -1,0 +1,9 @@
+@media (max-width: 768px)
+{
+  th,
+  td
+  {
+    width: 27px;
+    height: 27px;
+  }
+}

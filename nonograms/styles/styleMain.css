@@ -7,23 +7,19 @@
 
 .game-field
 {
+  margin: 0 auto;
+
   border: 6px solid #000000;
   border-collapse: collapse; 
 }
 
-th
-{
-  width: 60px;
-  height: 60px;
-  padding: 5px;
-  border: 1px solid #a3a3a3;
-}
-
+th,
 td
 {
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
   padding: 5px;
+
   border: 1px solid #a3a3a3;
 }
 
@@ -58,3 +54,21 @@ td
 {
   border-right: 3.9px solid #a3a3a3;
 }
+
+/* ===================== + @media hover:hover + ===================== */
+@media (hover: hover)
+{
+  td:hover
+  {
+    box-shadow: 0 0 4px black;
+  }
+}
+/* ===================== - @media hover:hover - ===================== */
+
+
+/* ================ + Activators + ================ */
+.shaded-cell
+{
+  background-color: #000000;
+}
+/* ================ - Activators - ================ */

@@ -1,12 +1,13 @@
 import {nono} from './nonograms.js';
 
-// const curentNono = nono.hard.dinosaur;
-const curentNono = nono.midle.boat;
+const curentNono = nono.hard.dinosaur;
+// const curentNono = nono.midle.boat;
 // const curentNono = nono.easy.candle;
 
 const rowKeys = [];
 const columKeys = [];
 let count = 0;
+let isWin = false;
 
 // Get row keys
 for(let i = 0; i < curentNono.length; i++)
@@ -139,3 +140,34 @@ for(let i = 0; i < curentNono.length + maxLengthColumKeys; i++)
 }
 
 bodyTag.append(tableTag);
+
+// Init Game
+const gameField = bodyTag.querySelectorAll('td');
+const copyCurrentNono = curentNono.slice();
+
+gameField.forEach((item, index) =>
+{
+  item.addEventListener('click', (event) =>
+  {
+    item.classList.toggle('shaded-cell');
+
+    const rowField = Math.floor(index / curentNono[0].length);
+    const columField = index - (rowField * curentNono[0].length);
+
+    if(copyCurrentNono[rowField][columField] === 1)
+    {
+      copyCurrentNono[rowField][columField] = 0;
+    }
+    else
+    {
+      copyCurrentNono[rowField][columField] = 1;
+    }
+
+    isWin = !copyCurrentNono.some((item) => item.some((item2) => item2 === 1));
+
+    if(isWin)
+    {
+      alert('Great! You have solved the nonogram!');
+    }
+  })
+})
