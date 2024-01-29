@@ -3,8 +3,8 @@ import {nono} from './nonograms.js';
 const bodyTag = document.querySelector('body');
 // const curentNono = nono.hard.dinosaur;
 // const curentNono = nono.midle.boat;
-const curentNono = nono.easy.candle;
-console.log(curentNono)
+let curentNono = nono.easy.candle;
+console.log(curentNono);
 
 const mainVar =
 {
@@ -191,6 +191,44 @@ function getEndGame()
   alert(`Great! You have solved the nonogram in ${Math.floor(mainVar.elapsedTime / 1000)} seconds!`);
 }
 
+function getKeySelect(obj, label)
+{
+  const div = document.createElement('div');
+  const p = document.createElement('p');
+  const select = document.createElement('select');
+  div.classList.add('menu-item');
+  select.classList.add(label);
+  p.textContent = label;
+
+  Object.keys(obj).forEach((item, index) => 
+  {
+    const option = document.createElement('option');
+    option.textContent = item;
+
+    // if(index === 0)
+    // {
+    //   option.setAttribute('selected', 'selected');
+    // }
+
+    select.append(option);
+  })
+
+  div.append(p);
+  div.append(select);
+  return div;
+}
+
+function changeCurentNono()
+{
+  const difficulty = document.querySelector('.difficulty');
+  const nonograms = document.querySelector('.nonograms');
+
+  const diffValue = difficulty.options[difficulty.options.selectedIndex].textContent;
+  const nonoValue = nonograms.options[nonograms.options.selectedIndex].textContent;
+
+  curentNono = nono[diffValue][nonoValue];
+}
+
 function loadPage(curentNono)
 {
   getRowKeys(curentNono);
@@ -202,10 +240,14 @@ function loadPage(curentNono)
   const timer = document.createElement('p');
   timer.classList.add('header__timer');
 
-  
+  const menu = document.createElement('div');
+  menu.classList.add('main__menu');
+  menu.append(getKeySelect(nono, 'difficulty'));
+  menu.append(getKeySelect(nono.easy, 'nonograms'));
 
   header.append(timer);
   main.append(getGameField(curentNono));
+  main.append(menu);
 
   bodyTag.append(header);
   bodyTag.append(main);
@@ -252,4 +294,24 @@ gameField.forEach((item, index) =>
     }
   })
 })
+
+// Change nonograms select
+const difficulty = document.querySelector('.difficulty');
+
+difficulty.addEventListener('change', (event) =>
+{
+  const nonoDivSelect = document.querySelectorAll('.menu-item')[1];
+  const options = difficulty.options[difficulty.options.selectedIndex].textContent
+  const newNonoDivSelect = getKeySelect(nono[options], 'nonograms');
+
+  nonoDivSelect.replaceWith(newNonoDivSelect);
+  changeCurentNono();
+
+  const gameField = document.querySelector('.game-field');
+
+  getRowKeys(curentNono);
+  getColumnKeys(curentNono);
+  gameField.replaceWith(getGameField(curentNono));
+});
+
 
