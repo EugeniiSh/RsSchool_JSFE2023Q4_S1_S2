@@ -5,6 +5,15 @@
   box-sizing: border-box;
 }
 
+.header__timer
+{
+  padding-bottom: 20px;
+
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+}
+
 .game-field
 {
   margin: 0 auto;
@@ -70,5 +79,10 @@ td
 .shaded-cell
 {
   background-color: #000000;
+}
+
+.active__end-game
+{
+  pointer-events: none;
 }
 /* ================ - Activators - ================ */
