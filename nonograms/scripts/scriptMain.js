@@ -181,6 +181,14 @@ function displayTimer()
   }
 }
 
+function resetTimer()
+{
+  mainVar.isGameStart = false;
+  mainVar.startGame = 0;
+  mainVar.endGame = 0;
+  mainVar.elapsedTime = 0;
+}
+
 function getEndGame()
 {
   const gameField = document.querySelector('.game-field');
@@ -196,6 +204,7 @@ function getKeySelect(obj, label)
   const div = document.createElement('div');
   const p = document.createElement('p');
   const select = document.createElement('select');
+  
   div.classList.add('menu-item');
   select.classList.add(label);
   p.textContent = label;
@@ -204,11 +213,6 @@ function getKeySelect(obj, label)
   {
     const option = document.createElement('option');
     option.textContent = item;
-
-    // if(index === 0)
-    // {
-    //   option.setAttribute('selected', 'selected');
-    // }
 
     select.append(option);
   })
@@ -229,6 +233,55 @@ function changeCurentNono()
   curentNono = nono[diffValue][nonoValue];
 }
 
+function setNonoHead()
+{
+  const nonograms = document.querySelector('.nonograms');
+  const head = document.querySelector('.header__head'); 
+
+  const nonoValue = nonograms.options[nonograms.options.selectedIndex].textContent;
+  head.textContent = nonoValue;
+}
+
+function initGame()
+{
+  const gameField = bodyTag.querySelectorAll('td');
+  const copyCurrentNono = curentNono.slice();
+
+  gameField.forEach((item, index) =>
+  {
+    item.addEventListener('click', (event) =>
+    {
+      item.classList.toggle('shaded-cell');
+
+      if(!mainVar.isGameStart)
+      {
+        mainVar.isGameStart = true;
+        mainVar.startGame = Date.now();
+        displayTimer();
+      }
+
+      const rowField = Math.floor(index / curentNono[0].length);
+      const columField = index - (rowField * curentNono[0].length);
+
+      if(copyCurrentNono[rowField][columField] === 1)
+      {
+        copyCurrentNono[rowField][columField] = 0;
+      }
+      else
+      {
+        copyCurrentNono[rowField][columField] = 1;
+      }
+
+      mainVar.isWin = !copyCurrentNono.some((item) => item.some((item2) => item2 === 1));
+
+      if(mainVar.isWin)
+      {
+        setTimeout(getEndGame, 10);
+      }
+    })
+  })
+}
+
 function loadPage(curentNono)
 {
   getRowKeys(curentNono);
@@ -237,7 +290,9 @@ function loadPage(curentNono)
   const header = document.createElement('header');
   const main = document.createElement('main');
 
+  const head = document.createElement('h1');
   const timer = document.createElement('p');
+  head.classList.add('header__head');
   timer.classList.add('header__timer');
 
   const menu = document.createElement('div');
@@ -245,6 +300,7 @@ function loadPage(curentNono)
   menu.append(getKeySelect(nono, 'difficulty'));
   menu.append(getKeySelect(nono.easy, 'nonograms'));
 
+  header.append(head);
   header.append(timer);
   main.append(getGameField(curentNono));
   main.append(menu);
@@ -252,50 +308,14 @@ function loadPage(curentNono)
   bodyTag.append(header);
   bodyTag.append(main);
 
+  setNonoHead();
   displayTimer();
 }
 
 loadPage(curentNono);
+initGame();
 
-// Init Game
-const gameField = bodyTag.querySelectorAll('td');
-const copyCurrentNono = curentNono.slice();
-
-gameField.forEach((item, index) =>
-{
-  item.addEventListener('click', (event) =>
-  {
-    item.classList.toggle('shaded-cell');
-
-    if(!mainVar.isGameStart)
-    {
-      mainVar.isGameStart = true;
-      mainVar.startGame = Date.now();
-      displayTimer();
-    }
-
-    const rowField = Math.floor(index / curentNono[0].length);
-    const columField = index - (rowField * curentNono[0].length);
-
-    if(copyCurrentNono[rowField][columField] === 1)
-    {
-      copyCurrentNono[rowField][columField] = 0;
-    }
-    else
-    {
-      copyCurrentNono[rowField][columField] = 1;
-    }
-
-    mainVar.isWin = !copyCurrentNono.some((item) => item.some((item2) => item2 === 1));
-
-    if(mainVar.isWin)
-    {
-      setTimeout(getEndGame, 10);
-    }
-  })
-})
-
-// Change nonograms select
+// Change difficulty select
 const difficulty = document.querySelector('.difficulty');
 
 difficulty.addEventListener('change', (event) =>
@@ -303,8 +323,26 @@ difficulty.addEventListener('change', (event) =>
   const nonoDivSelect = document.querySelectorAll('.menu-item')[1];
   const options = difficulty.options[difficulty.options.selectedIndex].textContent
   const newNonoDivSelect = getKeySelect(nono[options], 'nonograms');
-
+  
   nonoDivSelect.replaceWith(newNonoDivSelect);
+
+  // Change nonograms select (after change difficulty)
+  const newNonoSelect = document.querySelector('.nonograms');
+  newNonoSelect.addEventListener('change', (event) =>
+  {
+    changeCurentNono();
+
+    const gameField = document.querySelector('.game-field');
+
+    getRowKeys(curentNono);
+    getColumnKeys(curentNono);
+    gameField.replaceWith(getGameField(curentNono));
+
+    setNonoHead();
+    resetTimer()
+    initGame();
+  })
+
   changeCurentNono();
 
   const gameField = document.querySelector('.game-field');
@@ -312,6 +350,29 @@ difficulty.addEventListener('change', (event) =>
   getRowKeys(curentNono);
   getColumnKeys(curentNono);
   gameField.replaceWith(getGameField(curentNono));
+
+  setNonoHead();
+  resetTimer()
+  initGame();
 });
+
+// Change nonograms select
+const nonoSelect = document.querySelector('.nonograms');
+nonoSelect.addEventListener('change', (event) =>
+{
+  changeCurentNono();
+
+  const gameField = document.querySelector('.game-field');
+
+  getRowKeys(curentNono);
+  getColumnKeys(curentNono);
+  gameField.replaceWith(getGameField(curentNono));
+  
+  setNonoHead();
+  resetTimer()
+  initGame();
+})
+
+
 
 
