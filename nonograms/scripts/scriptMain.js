@@ -195,10 +195,11 @@ function getEndGame()
 {
   const gameField = document.querySelector('.game-field');
   gameField.classList.add('active__end-game');
+  playSound(gameField);
 
   mainVar.isGameStart = false;
   mainVar.endGame = Date.now();
-  alert(`Great! You have solved the nonogram in ${Math.floor(mainVar.elapsedTime / 1000)} seconds!`);
+  setTimeout(alert, 10, `Great! You have solved the nonogram in ${Math.floor(mainVar.elapsedTime / 1000)} seconds!`);
 }
 
 function getKeySelect(obj, label)
@@ -260,6 +261,27 @@ function setNonoHead()
   head.textContent = nonoValue;
 }
 
+function playSound(element)
+{
+  const audio = document.querySelector('.audio-sounds');
+
+  switch(true)
+  {
+    case(element.classList.contains('shaded-cell')):
+      audio.src = `assets/sound/fit.mp3`;
+      break;
+    case(element.classList.contains('crossed-cell')):
+      audio.src = `assets/sound/puh.mp3`;
+      break;
+    case(element.classList.contains('active__end-game')):
+      audio.src = `assets/sound/trrr.mp3`;
+      break;
+    default: audio.src = `assets/sound/fjuh.mp3`;
+  }
+
+  audio.play();
+}
+
 function initGame()
 {
   const gameField = bodyTag.querySelectorAll('td');
@@ -271,6 +293,7 @@ function initGame()
     {
       item.classList.remove('crossed-cell');
       item.classList.toggle('shaded-cell');
+      playSound(item);
 
       if(!mainVar.isGameStart)
       {
@@ -307,6 +330,7 @@ function initGame()
       event.preventDefault();
       item.classList.remove('shaded-cell');
       item.classList.toggle('crossed-cell');
+      playSound(item);
 
       if(!mainVar.isGameStart)
       {
@@ -333,6 +357,9 @@ function loadPage(curentNono)
 
   const header = document.createElement('header');
   const main = document.createElement('main');
+  const audio = document.createElement('audio');
+  audio.classList.add('audio-sounds');
+  // audio.setAttribute('src', '../assets');
 
   const head = document.createElement('h1');
   const timer = document.createElement('p');
@@ -348,6 +375,7 @@ function loadPage(curentNono)
 
   header.append(head);
   header.append(timer);
+  main.append(audio);
   main.append(getGameField(curentNono));
   main.append(menu);
 
@@ -423,9 +451,12 @@ nonoSelect.addEventListener('change', (event) =>
 const resetGame = document.querySelector('.reset-game');
 resetGame.addEventListener('click', (event) =>
 {
-  const gameField = document.querySelectorAll('td');
+  const gameField = document.querySelector('.game-field');
+  const allTd = document.querySelectorAll('td');
 
-  gameField.forEach((item) => 
+  gameField.classList.remove('active__end-game');
+
+  allTd.forEach((item) => 
   {
     item.className = '';
   })
