@@ -16,6 +16,8 @@ const mainVar =
   startGame: 0,
   endGame: 0,
   elapsedTime: 0,
+  copyCurrentNono: [],
+  currentFillingNono: [],
 }
 
 function getRowKeys(curentNono)
@@ -222,6 +224,22 @@ function getKeySelect(obj, label)
   return div;
 }
 
+function getButton(label)
+{
+  const div = document.createElement('div');
+  const p = document.createElement('p');
+  const button = document.createElement('button');
+  
+  div.classList.add('menu-item');
+  button.classList.add(label);
+  button.textContent = 'click!'
+  p.textContent = label;
+
+  div.append(p);
+  div.append(button);
+  return div;
+}
+
 function changeCurentNono()
 {
   const difficulty = document.querySelector('.difficulty');
@@ -245,12 +263,13 @@ function setNonoHead()
 function initGame()
 {
   const gameField = bodyTag.querySelectorAll('td');
-  const copyCurrentNono = curentNono.slice();
+  mainVar.copyCurrentNono = curentNono.map((item) => item.slice());
 
   gameField.forEach((item, index) =>
   {
     item.addEventListener('click', (event) =>
     {
+      item.classList.remove('crossed-cell');
       item.classList.toggle('shaded-cell');
 
       if(!mainVar.isGameStart)
@@ -263,21 +282,46 @@ function initGame()
       const rowField = Math.floor(index / curentNono[0].length);
       const columField = index - (rowField * curentNono[0].length);
 
-      if(copyCurrentNono[rowField][columField] === 1)
+      if(mainVar.copyCurrentNono[rowField][columField] === 1)
       {
-        copyCurrentNono[rowField][columField] = 0;
+        mainVar.copyCurrentNono[rowField][columField] = 0;
       }
       else
       {
-        copyCurrentNono[rowField][columField] = 1;
+        mainVar.copyCurrentNono[rowField][columField] = 1;
       }
 
-      mainVar.isWin = !copyCurrentNono.some((item) => item.some((item2) => item2 === 1));
+      mainVar.isWin = !mainVar.copyCurrentNono.some((item) => item.some((item2) => item2 === 1));
 
       if(mainVar.isWin)
       {
         setTimeout(getEndGame, 10);
       }
+
+      console.log('curent - ', curentNono);
+      console.log('filling - ', mainVar.copyCurrentNono);
+    });
+
+    item.addEventListener('contextmenu', (event) =>
+    {
+      event.preventDefault();
+      item.classList.remove('shaded-cell');
+      item.classList.toggle('crossed-cell');
+
+      if(!mainVar.isGameStart)
+      {
+        mainVar.isGameStart = true;
+        mainVar.startGame = Date.now();
+        displayTimer();
+      }
+
+      const rowField = Math.floor(index / curentNono[0].length);
+      const columField = index - (rowField * curentNono[0].length);
+
+      mainVar.copyCurrentNono[rowField][columField] = curentNono[rowField][columField]
+
+      console.log('curent - ', curentNono);
+      console.log('filling - ', mainVar.copyCurrentNono);
     })
   })
 }
@@ -299,6 +343,8 @@ function loadPage(curentNono)
   menu.classList.add('main__menu');
   menu.append(getKeySelect(nono, 'difficulty'));
   menu.append(getKeySelect(nono.easy, 'nonograms'));
+  menu.append(getButton('reset-game'));
+  
 
   header.append(head);
   header.append(timer);
@@ -339,7 +385,7 @@ difficulty.addEventListener('change', (event) =>
     gameField.replaceWith(getGameField(curentNono));
 
     setNonoHead();
-    resetTimer()
+    resetTimer();
     initGame();
   })
 
@@ -352,7 +398,7 @@ difficulty.addEventListener('change', (event) =>
   gameField.replaceWith(getGameField(curentNono));
 
   setNonoHead();
-  resetTimer()
+  resetTimer();
   initGame();
 });
 
@@ -369,10 +415,24 @@ nonoSelect.addEventListener('change', (event) =>
   gameField.replaceWith(getGameField(curentNono));
   
   setNonoHead();
-  resetTimer()
+  resetTimer();
   initGame();
 })
 
+// Reset game
+const resetGame = document.querySelector('.reset-game');
+resetGame.addEventListener('click', (event) =>
+{
+  const gameField = document.querySelectorAll('td');
+
+  gameField.forEach((item) => 
+  {
+    item.className = '';
+  })
+
+  mainVar.copyCurrentNono = curentNono.map((item) => item.slice());
+  resetTimer();
+});
 
 
 
