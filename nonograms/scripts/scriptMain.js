@@ -17,8 +17,13 @@ const mainVar =
   endGame: 0,
   elapsedTime: 0,
   copyCurrentNono: [],
-  currentFillingNono: [],
+  currentGame: [],
 }
+
+
+
+// console.log(getEmptyMatrix(curentNono.length, curentNono[0].length));
+// console.log(new Array(curentNono.length).fill(0));
 
 function getRowKeys(curentNono)
 {
@@ -282,9 +287,67 @@ function playSound(element)
   audio.play();
 }
 
+function getEmptyMatrix(rows, columns)
+{
+  return new Array(rows).fill(0).map((item) => item = new Array(columns).fill(0))
+}
+
+function setCurrentGameValue(element, row, column)
+{
+  switch(true)
+  {
+    case(element.classList.contains('shaded-cell')):
+      mainVar.currentGame[row][column] = 1;
+      break;
+    case(element.classList.contains('crossed-cell')):
+      mainVar.currentGame[row][column] = 2;
+      break;
+    default: mainVar.currentGame[row][column] = 0;
+  }
+}
+
+function addEventToNonoSelect(element)
+{
+  element.addEventListener('change', (event) =>
+  {
+    changeCurentNono();
+
+    const gameField = document.querySelector('.game-field');
+
+    getRowKeys(curentNono);
+    getColumnKeys(curentNono);
+    gameField.replaceWith(getGameField(curentNono));
+
+    setNonoHead();
+    resetTimer();
+    initGame();
+  })
+}
+
+function fillGameField(filledArr)
+{
+  const allTd = document.querySelectorAll('td');
+
+  allTd.forEach((item, index) =>
+  {
+    const rowField = Math.floor(index / curentNono[0].length);
+    const columField = index - (rowField * curentNono[0].length);
+
+    switch(filledArr[rowField][columField])
+    {
+      case(1): item.className = 'shaded-cell';
+        break;
+      case(2): item.className = 'crossed-cell';
+        break;
+      default: item.className = '';
+    }
+  })
+}
+
 function initGame()
 {
   const gameField = bodyTag.querySelectorAll('td');
+  mainVar.currentGame = getEmptyMatrix(curentNono.length, curentNono[0].length);
   mainVar.copyCurrentNono = curentNono.map((item) => item.slice());
 
   gameField.forEach((item, index) =>
@@ -313,7 +376,8 @@ function initGame()
       {
         mainVar.copyCurrentNono[rowField][columField] = 1;
       }
-
+      
+      setCurrentGameValue(item, rowField, columField);
       mainVar.isWin = !mainVar.copyCurrentNono.some((item) => item.some((item2) => item2 === 1));
 
       if(mainVar.isWin)
@@ -321,8 +385,9 @@ function initGame()
         setTimeout(getEndGame, 10);
       }
 
-      console.log('curent - ', curentNono);
+      console.log('curentNono - ', curentNono);
       console.log('filling - ', mainVar.copyCurrentNono);
+      console.log('curentGame - ', mainVar.currentGame);
     });
 
     item.addEventListener('contextmenu', (event) =>
@@ -342,10 +407,12 @@ function initGame()
       const rowField = Math.floor(index / curentNono[0].length);
       const columField = index - (rowField * curentNono[0].length);
 
+      setCurrentGameValue(item, rowField, columField);
       mainVar.copyCurrentNono[rowField][columField] = curentNono[rowField][columField]
 
-      console.log('curent - ', curentNono);
+      console.log('curentNono - ', curentNono);
       console.log('filling - ', mainVar.copyCurrentNono);
+      console.log('curentGame - ', mainVar.currentGame);
     })
   })
 }
@@ -371,6 +438,8 @@ function loadPage(curentNono)
   menu.append(getKeySelect(nono, 'difficulty'));
   menu.append(getKeySelect(nono.easy, 'nonograms'));
   menu.append(getButton('reset-game'));
+  menu.append(getButton('save-game'));
+  menu.append(getButton('continues'));
   
 
   header.append(head);
@@ -389,6 +458,10 @@ function loadPage(curentNono)
 loadPage(curentNono);
 initGame();
 
+// ===================================================================================
+// =============================== + EVENTS + ========================================
+// ===================================================================================
+
 // Change difficulty select
 const difficulty = document.querySelector('.difficulty');
 
@@ -402,20 +475,7 @@ difficulty.addEventListener('change', (event) =>
 
   // Change nonograms select (after change difficulty)
   const newNonoSelect = document.querySelector('.nonograms');
-  newNonoSelect.addEventListener('change', (event) =>
-  {
-    changeCurentNono();
-
-    const gameField = document.querySelector('.game-field');
-
-    getRowKeys(curentNono);
-    getColumnKeys(curentNono);
-    gameField.replaceWith(getGameField(curentNono));
-
-    setNonoHead();
-    resetTimer();
-    initGame();
-  })
+  addEventToNonoSelect(newNonoSelect);
 
   changeCurentNono();
 
@@ -432,20 +492,7 @@ difficulty.addEventListener('change', (event) =>
 
 // Change nonograms select
 const nonoSelect = document.querySelector('.nonograms');
-nonoSelect.addEventListener('change', (event) =>
-{
-  changeCurentNono();
-
-  const gameField = document.querySelector('.game-field');
-
-  getRowKeys(curentNono);
-  getColumnKeys(curentNono);
-  gameField.replaceWith(getGameField(curentNono));
-  
-  setNonoHead();
-  resetTimer();
-  initGame();
-})
+addEventToNonoSelect(nonoSelect);
 
 // Reset game
 const resetGame = document.querySelector('.reset-game');
@@ -461,8 +508,76 @@ resetGame.addEventListener('click', (event) =>
     item.className = '';
   })
 
+  mainVar.currentGame = getEmptyMatrix(curentNono.length, curentNono[0].length);
   mainVar.copyCurrentNono = curentNono.map((item) => item.slice());
   resetTimer();
+});
+
+// Save game
+const saveGame = document.querySelector('.save-game');
+saveGame.addEventListener('click', (event) =>
+{
+  const difficulty = document.querySelector('.difficulty');
+  const nonoSelect = document.querySelector('.nonograms');
+
+  const currentGameInfo =
+  {
+    difficulty: difficulty.options[difficulty.options.selectedIndex].textContent,
+    nonogram: nonoSelect.options[nonoSelect.options.selectedIndex].textContent,
+    difficultyIndex: difficulty.options.selectedIndex,
+    nonogramIndex: nonoSelect.options.selectedIndex,
+    guess: mainVar.copyCurrentNono,
+    fillingFileld: mainVar.currentGame,
+    elapsedTime: mainVar.elapsedTime, 
+  }
+
+  localStorage.setItem('last-game', JSON.stringify(currentGameInfo));
+  alert('Game saved!');
+});
+
+// Load game
+const loadGame = document.querySelector('.continues');
+loadGame.addEventListener('click', (event) =>
+{
+  const lastGameInfo = JSON.parse(localStorage.getItem('last-game'));
+  const difficulty = document.querySelector('.difficulty');
+
+  if(lastGameInfo)
+  {
+    //Change difficulty select
+    difficulty.options.selectedIndex = lastGameInfo.difficultyIndex; 
+
+    // Change div block with nonoSelect and add events
+    const nonoDivSelect = document.querySelectorAll('.menu-item')[1];
+    const newNonoDivSelect = getKeySelect(nono[lastGameInfo.difficulty], 'nonograms');
+    nonoDivSelect.replaceWith(newNonoDivSelect);
+    const newNonoSelect = document.querySelector('.nonograms');
+    newNonoSelect.options.selectedIndex = lastGameInfo.nonogramIndex; //Change nono select
+    addEventToNonoSelect(newNonoSelect);
+
+    changeCurentNono();
+
+    const gameField = document.querySelector('.game-field');
+
+    getRowKeys(curentNono);
+    getColumnKeys(curentNono);
+    gameField.replaceWith(getGameField(curentNono));
+
+    setNonoHead();
+    initGame();
+
+    mainVar.copyCurrentNono = lastGameInfo.guess;
+    mainVar.currentGame = lastGameInfo.fillingFileld;
+    fillGameField(lastGameInfo.fillingFileld);
+
+    mainVar.startGame = Date.now() - lastGameInfo.elapsedTime;
+    mainVar.isGameStart = true;
+    displayTimer();
+  }
+  else
+  {
+    alert('No saved games!')
+  }
 });
 
 
