@@ -168,8 +168,12 @@ td
   background-color: #000000;
 }
 
-
 .active__end-game
+{
+  pointer-events: none;
+}
+
+.active__solution
 {
   pointer-events: none;
 }
