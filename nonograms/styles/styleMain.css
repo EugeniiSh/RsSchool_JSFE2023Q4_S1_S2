@@ -7,7 +7,7 @@
 
 body
 {
-  padding-top: 20px;
+  padding: 20px 0;
 }
 
 .header__head
@@ -29,8 +29,6 @@ body
 
 .game-field
 {
-  /* height: 60vh;
-  width: 60vh; */
   margin: 0 auto;
 
   border: 6px solid #000000;
@@ -48,6 +46,13 @@ td
   padding: 5px;
 
   border: 1px solid #a3a3a3;
+}
+
+td,
+select,
+button
+{
+  cursor: pointer;
 }
 
 .game-field td:nth-of-type(5n)

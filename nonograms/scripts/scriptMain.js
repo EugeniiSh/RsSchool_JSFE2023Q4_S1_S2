@@ -476,6 +476,7 @@ function loadPage(curentNono)
   menu.append(getButton('achievements'));
   menu.append(getButton('solution'));
   menu.append(getButton('random-game'));
+  menu.append(getButton('theme'));
   
 
   header.append(head);
@@ -671,10 +672,42 @@ solution.addEventListener('click', (event) =>
 })
 
 // Random game
-// const randomGame = document.querySelector('.random-game');
-// randomGame.addEventListener('click', (event) =>
-// {
-//   const randomDiffIndex = Math.floor(Math.random() * Object.keys(nono).length + 1);
-//   const randomDiffText = Object.keys(nono)[randomDiffIndex];
-//   const randomNonoIndex = Math.floor(Math.random() * Object.keys(nono[randomDiffText]).length + 1);
-// })
+const randomGame = document.querySelector('.random-game');
+randomGame.addEventListener('click', (event) =>
+{
+  const randomDiffIndex = Math.floor(Math.random() * Object.keys(nono).length);
+  const randomDiffText = Object.keys(nono)[randomDiffIndex];
+  const randomNonoIndex = Math.floor(Math.random() * Object.keys(nono[randomDiffText]).length);
+
+  //Change difficulty select
+  const difficulty = document.querySelector('.difficulty');
+  difficulty.options.selectedIndex = randomDiffIndex;
+
+  // Change div block with nonoSelect and add events
+  const nonoDivSelect = document.querySelectorAll('.menu-item')[1];
+  const newNonoDivSelect = getKeySelect(nono[randomDiffText], 'nonograms');
+  nonoDivSelect.replaceWith(newNonoDivSelect);
+  const newNonoSelect = document.querySelector('.nonograms');
+  newNonoSelect.options.selectedIndex = randomNonoIndex; //Change nono select
+  addEventToNonoSelect(newNonoSelect);
+
+  changeCurentNono();
+
+  const gameField = document.querySelector('.game-field');
+
+  getRowKeys(curentNono);
+  getColumnKeys(curentNono);
+  gameField.replaceWith(getGameField(curentNono));
+
+  setNonoHead();
+  resetTimer();
+  initGame();
+})
+
+// Change theme
+const theme = document.querySelector('.theme');
+theme.addEventListener('click', (event) =>
+{
+  const body = document.querySelector('body');
+  body.classList.toggle('dark-theme');
+});
