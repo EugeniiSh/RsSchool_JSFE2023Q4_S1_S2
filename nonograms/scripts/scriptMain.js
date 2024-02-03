@@ -1,10 +1,7 @@
 import {nono} from './nonograms.js';
 
 const bodyTag = document.querySelector('body');
-// const curentNono = nono.hard.dinosaur;
-// const curentNono = nono.midle.boat;
 let curentNono = nono.easy.candle;
-console.log(curentNono);
 
 const mainVar =
 {
@@ -20,11 +17,8 @@ const mainVar =
   currentGame: [],
 }
 
-
-
-// console.log(getEmptyMatrix(curentNono.length, curentNono[0].length));
-// console.log(new Array(curentNono.length).fill(0));
-
+// ============================ + Get & Set + ============================
+// =======================================================================
 function getRowKeys(curentNono)
 {
   mainVar.rowKeys.length = 0;
@@ -167,35 +161,6 @@ function getGameField(curentNono)
   return tableTag;
 }
 
-function displayTimer()
-{
-  if(mainVar.isGameStart)
-  {
-    const elapsetTime = Date.now() - mainVar.startGame;
-    mainVar.elapsedTime = elapsetTime;
-    const second = Math.floor(elapsetTime / 1000);
-    const minuts = Math.floor(second / 60);
-
-    const timer = document.querySelector('.header__timer');
-    timer.textContent = 
-    `Timer: ${minuts.toString().padStart(2, '0')}:${(second % 60).toString().padStart(2, '0')}`;
-    setTimeout(displayTimer, 1000);
-  }
-  else
-  {
-    const timer = document.querySelector('.header__timer');
-    timer.textContent = `Timer: 00:00`;
-  }
-}
-
-function resetTimer()
-{
-  mainVar.isGameStart = false;
-  mainVar.startGame = 0;
-  mainVar.endGame = 0;
-  mainVar.elapsedTime = 0;
-}
-
 function getEndGame()
 {
   const gameField = document.querySelector('.game-field');
@@ -272,15 +237,9 @@ function getButton(label)
   return div;
 }
 
-function changeCurentNono()
+function getEmptyMatrix(rows, columns)
 {
-  const difficulty = document.querySelector('.difficulty');
-  const nonograms = document.querySelector('.nonograms');
-
-  const diffValue = difficulty.options[difficulty.options.selectedIndex].textContent;
-  const nonoValue = nonograms.options[nonograms.options.selectedIndex].textContent;
-
-  curentNono = nono[diffValue][nonoValue];
+  return new Array(rows).fill(0).map((item) => item = new Array(columns).fill(0))
 }
 
 function setNonoHead()
@@ -290,6 +249,64 @@ function setNonoHead()
 
   const nonoValue = nonograms.options[nonograms.options.selectedIndex].textContent;
   head.textContent = nonoValue;
+}
+
+function setCurrentGameValue(element, row, column)
+{
+  switch(true)
+  {
+    case(element.classList.contains('shaded-cell')):
+      mainVar.currentGame[row][column] = 1;
+      break;
+    case(element.classList.contains('crossed-cell')):
+      mainVar.currentGame[row][column] = 2;
+      break;
+    default: mainVar.currentGame[row][column] = 0;
+  }
+}
+// ============================ - Get & Set - ============================
+// =======================================================================
+
+// ============================ + Secondary functions + ============================
+// =================================================================================
+function displayTimer()
+{
+  if(mainVar.isGameStart)
+  {
+    const elapsetTime = Date.now() - mainVar.startGame;
+    mainVar.elapsedTime = elapsetTime;
+    const second = Math.floor(elapsetTime / 1000);
+    const minuts = Math.floor(second / 60);
+
+    const timer = document.querySelector('.header__timer');
+    timer.textContent = 
+    `Timer: ${minuts.toString().padStart(2, '0')}:${(second % 60).toString().padStart(2, '0')}`;
+    setTimeout(displayTimer, 1000);
+  }
+  else
+  {
+    const timer = document.querySelector('.header__timer');
+    timer.textContent = `Timer: 00:00`;
+  }
+}
+
+function resetTimer()
+{
+  mainVar.isGameStart = false;
+  mainVar.startGame = 0;
+  mainVar.endGame = 0;
+  mainVar.elapsedTime = 0;
+}
+
+function changeCurentNono()
+{
+  const difficulty = document.querySelector('.difficulty');
+  const nonograms = document.querySelector('.nonograms');
+
+  const diffValue = difficulty.options[difficulty.options.selectedIndex].textContent;
+  const nonoValue = nonograms.options[nonograms.options.selectedIndex].textContent;
+
+  curentNono = nono[diffValue][nonoValue];
 }
 
 function playSound(element)
@@ -311,25 +328,6 @@ function playSound(element)
   }
 
   audio.play();
-}
-
-function getEmptyMatrix(rows, columns)
-{
-  return new Array(rows).fill(0).map((item) => item = new Array(columns).fill(0))
-}
-
-function setCurrentGameValue(element, row, column)
-{
-  switch(true)
-  {
-    case(element.classList.contains('shaded-cell')):
-      mainVar.currentGame[row][column] = 1;
-      break;
-    case(element.classList.contains('crossed-cell')):
-      mainVar.currentGame[row][column] = 2;
-      break;
-    default: mainVar.currentGame[row][column] = 0;
-  }
 }
 
 function addEventToNonoSelect(element)
@@ -376,7 +374,11 @@ function Achievements(nono, diff, time)
   this.diff = diff;
   this.time = time;
 }
+// ============================ - Secondary functions - ============================
+// =================================================================================
 
+// =====================  + Load & Init game + =====================
+// =================================================================
 function initGame()
 {
   const gameField = bodyTag.querySelectorAll('td');
@@ -417,10 +419,6 @@ function initGame()
       {
         setTimeout(getEndGame, 10);
       }
-
-      // console.log('curentNono - ', curentNono);
-      // console.log('filling - ', mainVar.copyCurrentNono);
-      // console.log('curentGame - ', mainVar.currentGame);
     });
 
     item.addEventListener('contextmenu', (event) =>
@@ -441,14 +439,9 @@ function initGame()
       const columField = index - (rowField * curentNono[0].length);
 
       setCurrentGameValue(item, rowField, columField);
-      mainVar.copyCurrentNono[rowField][columField] = curentNono[rowField][columField]
-
-      // console.log('curentNono - ', curentNono);
-      // console.log('filling - ', mainVar.copyCurrentNono);
-      // console.log('curentGame - ', mainVar.currentGame);
+      mainVar.copyCurrentNono[rowField][columField] = curentNono[rowField][columField];
     })
   })
-  console.log('Current nonogram:', curentNono);
 }
 
 function loadPage(curentNono)
@@ -504,15 +497,16 @@ const difficulty = document.querySelector('.difficulty');
 
 difficulty.addEventListener('change', (event) =>
 {
+  // Change nonograms select (after change difficulty)-----------
   const nonoDivSelect = document.querySelectorAll('.menu-item')[1];
   const options = difficulty.options[difficulty.options.selectedIndex].textContent
-  const newNonoDivSelect = getKeySelect(nono[options], 'nonograms');
+  const newNonoDivSelect = getKeySelect(nono[options], 'nonograms'); //create new div width nono select
   
-  nonoDivSelect.replaceWith(newNonoDivSelect);
+  nonoDivSelect.replaceWith(newNonoDivSelect); //change old to new
 
-  // Change nonograms select (after change difficulty)
   const newNonoSelect = document.querySelector('.nonograms');
-  addEventToNonoSelect(newNonoSelect);
+  addEventToNonoSelect(newNonoSelect); //add events to new nono select
+  // -------------------------------------------------------------
 
   changeCurentNono();
 
@@ -529,10 +523,12 @@ difficulty.addEventListener('change', (event) =>
 
 // Change nonograms select
 const nonoSelect = document.querySelector('.nonograms');
+
 addEventToNonoSelect(nonoSelect);
 
 // Reset game
 const resetGame = document.querySelector('.reset-game');
+
 resetGame.addEventListener('click', (event) =>
 {
   const gameField = document.querySelector('.game-field');
@@ -552,6 +548,7 @@ resetGame.addEventListener('click', (event) =>
 
 // Save game
 const saveGame = document.querySelector('.save-game');
+
 saveGame.addEventListener('click', (event) =>
 {
   const difficulty = document.querySelector('.difficulty');
@@ -583,6 +580,7 @@ saveGame.addEventListener('click', (event) =>
 
 // Load game
 const loadGame = document.querySelector('.continues');
+
 loadGame.addEventListener('click', (event) =>
 {
   const lastGameInfo = JSON.parse(localStorage.getItem('last-game'));
@@ -628,6 +626,7 @@ loadGame.addEventListener('click', (event) =>
 
 // Show achievements
 const achievements = document.querySelector('.achievements');
+
 achievements.addEventListener('click', (event) =>
 {
   const achievementsTable = JSON.parse(localStorage.getItem('achievements-table'));
@@ -656,6 +655,7 @@ achievements.addEventListener('click', (event) =>
 
 // Show solution
 const solution = document.querySelector('.solution');
+
 solution.addEventListener('click', (event) =>
 {
   const gameField = document.querySelector('.game-field'); 
@@ -673,6 +673,7 @@ solution.addEventListener('click', (event) =>
 
 // Random game
 const randomGame = document.querySelector('.random-game');
+
 randomGame.addEventListener('click', (event) =>
 {
   const randomDiffIndex = Math.floor(Math.random() * Object.keys(nono).length);
@@ -711,3 +712,5 @@ theme.addEventListener('click', (event) =>
   const body = document.querySelector('body');
   body.classList.toggle('dark-theme');
 });
+
+alert("Sorry about the design, I didn't have enough time. :)");
