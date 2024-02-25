@@ -1,24 +1,21 @@
-import {ResponseData} from '../view/appView';
+import { ResponseData } from '../view/appView';
 
-interface LoaderSetting 
-{
+interface LoaderSetting {
     method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
     callback: CallBackFunc<ResponseData, void>;
     options?: Options;
     endpoint: 'sources' | 'everything';
 }
 
-interface Options 
-{
+interface Options {
     [key: string]: string;
 }
 
-interface CallBackFunc<T, U> 
-{
+interface CallBackFunc<T, U> {
     (arg: T): U;
 }
 
-type RequestConfig =  Pick<LoaderSetting, 'options' | 'endpoint'>;;
+type RequestConfig = Pick<LoaderSetting, 'options' | 'endpoint'>;
 
 class Loader {
     baseLink: string;
@@ -35,7 +32,7 @@ class Loader {
             console.error('No callback for GET response');
         }
     ): void {
-        this.load({method: 'GET', endpoint, callback, options});
+        this.load({ method: 'GET', endpoint, callback, options });
     }
 
     errorHandler(res: Response): Response {
@@ -48,7 +45,7 @@ class Loader {
         return res;
     }
 
-    makeUrl({options, endpoint}: RequestConfig): string {
+    makeUrl({ options, endpoint }: RequestConfig): string {
         const urlOptions = { ...this.options, ...options };
         let url = `${this.baseLink}${endpoint}?`;
 
@@ -59,8 +56,8 @@ class Loader {
         return url.slice(0, -1);
     }
 
-    load({method, endpoint, callback, options}: LoaderSetting): void {
-        fetch(this.makeUrl({options, endpoint}), { method })
+    load({ method, endpoint, callback, options }: LoaderSetting): void {
+        fetch(this.makeUrl({ options, endpoint }), { method })
             .then(this.errorHandler)
             .then((res) => res.json())
             .then((data: ResponseData) => callback(data))
@@ -68,4 +65,4 @@ class Loader {
     }
 }
 
-export {Loader, CallBackFunc};
+export { Loader, CallBackFunc };

@@ -1,7 +1,6 @@
 import './sources.css';
 
-interface SourceObject
-{
+interface SourceObject {
     id: string;
     name: string;
     category: string;
@@ -31,4 +30,4 @@ class Sources {
     }
 }
 
-export {Sources, SourceObject};
+export { Sources, SourceObject };

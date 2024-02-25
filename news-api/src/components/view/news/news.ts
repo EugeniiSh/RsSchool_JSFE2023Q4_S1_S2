@@ -12,22 +12,20 @@ interface NewsObject {
 }
 
 class News {
-    draw(data: NewsObject[]): void 
-    {
+    draw(data: NewsObject[]): void {
         const news: NewsObject[] = data.length >= 10 ? data.filter((_item, idx: number) => idx < 10) : data;
 
         const fragment: DocumentFragment = document.createDocumentFragment();
         const newsItemTemp: HTMLTemplateElement | null = document.querySelector('#newsItemTemp');
 
-        news.forEach((item, idx) => 
-        {
+        news.forEach((item, idx) => {
             const newsClone = newsItemTemp?.content.cloneNode(true) as DocumentFragment;
             const newsItem = newsClone.querySelector('.news__item');
             if (idx % 2) newsItem?.classList.add('alt');
 
             const newsPhoto = newsClone.querySelector('.news__meta-photo') as HTMLElement;
             newsPhoto.style.backgroundImage = `url(${item.urlToImage || 'img/news_placeholder.jpg'})`;
-            
+
             const newsAuthor = newsClone.querySelector('.news__meta-author') as HTMLElement;
             newsAuthor.textContent = item.author || item.source?.name || '';
 
@@ -57,4 +55,4 @@ class News {
     }
 }
 
-export {News, NewsObject};
+export { News, NewsObject };

@@ -1,8 +1,7 @@
-import {News, NewsObject} from './news/news';
-import {Sources, SourceObject} from './sources/sources';
+import { News, NewsObject } from './news/news';
+import { Sources, SourceObject } from './sources/sources';
 
-interface ResponseData
-{
+interface ResponseData {
     articles?: NewsObject[];
     sources?: SourceObject[];
 }
@@ -27,4 +26,4 @@ class AppView {
     }
 }
 
-export {AppView, ResponseData};
+export { AppView, ResponseData };

@@ -16,13 +16,11 @@ class AppController extends AppLoader {
         let { target } = e;
         const newsContainer = e.currentTarget as HTMLElement;
 
-        while (target !== newsContainer) 
-        {
+        while (target !== newsContainer) {
             if (!(target instanceof HTMLElement && target.classList.contains('source__item'))) return;
 
             const sourceId = target.getAttribute('data-source-id');
-            if (sourceId && newsContainer.getAttribute('data-source') !== sourceId) 
-            {
+            if (sourceId && newsContainer.getAttribute('data-source') !== sourceId) {
                 newsContainer.setAttribute('data-source', sourceId);
                 super.getResp({ endpoint: 'everything', options: { sources: sourceId } }, callback);
             }
