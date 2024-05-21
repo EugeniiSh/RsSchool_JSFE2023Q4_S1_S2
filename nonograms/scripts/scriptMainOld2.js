@@ -7,6 +7,7 @@ const mainVar =
 {
   rowKeys: [],
   columKeys: [],
+  // count: 0,
   isWin: false,
   isGameStart: false,
   startGame: 0,
@@ -31,26 +32,31 @@ function getRowKeys(curentNono)
     {
       if(curentNono[i][j] === 1)
       {
+        // mainVar.count++;
         count++;
       }
       else
       {
-        if(count > 0)
+        if(count > 0 /*mainVar.count > 0*/)
         {
-          tempRowKeys.push(count);
+          tempRowKeys.push(count /*mainVar.count*/);
+          // mainVar.count = 0;
           count = 0;
         }
       }
     }
 
-    if(count > 0)
+    if(count > 0 /*mainVar.count > 0*/)
     {
-      tempRowKeys.push(count);
+      tempRowKeys.push(count /*mainVar.count*/);
+      // mainVar.count = 0;
       count = 0;
     }
 
     mainVar.rowKeys.push(tempRowKeys);
   }
+
+  // mainVar.count = 0;
 }
 
 function getColumnKeys(curentNono)
@@ -58,34 +64,41 @@ function getColumnKeys(curentNono)
   mainVar.columKeys.length = 0;
 
   for(let i = 0; i < curentNono[0].length; i++)
+  // for(let i = 0; i < curentNono.length; i++)
   {
     const tempColumKeys = [];
     let count = 0;
 
     for(let j = curentNono.length - 1; j >= 0; j--)
+    // for(let j = curentNono[i].length - 1; j >= 0; j--)
     {
       if(curentNono[j][i] === 1)
       {
+        // mainVar.count++;
         count++;
       }
       else
       {
-        if(count > 0)
+        if(count > 0 /*mainVar.count > 0*/)
         {
-          tempColumKeys.push(count);
+          tempColumKeys.push(count /*mainVar.count*/);
+          // mainVar.count = 0;
           count = 0;
         }
       }
     }
 
-    if(count > 0)
+    if(count > 0 /*mainVar.count > 0*/)
     {
-      tempColumKeys.push(count);
+      tempColumKeys.push(count /*mainVar.count*/);
+      // mainVar.count = 0;
       count = 0;
     }
 
     mainVar.columKeys.push(tempColumKeys);
   }
+
+  // mainVar.count = 0;
 }
 
 function getGameField(curentNono)
@@ -371,6 +384,7 @@ function addEventToNonoSelect(element)
   {
     changeCurentNono();
 
+    // const gameField = document.querySelector('.game-field');
     const tableWrapper = document.querySelector('.table-wrapper');
 
     getRowKeys(curentNono);
@@ -533,6 +547,7 @@ const difficulty = document.querySelector('.difficulty');
 difficulty.addEventListener('change', (event) =>
 {
   // Change nonograms select (after change difficulty)-----------
+  // const nonoDivSelect = document.querySelectorAll('.menu-item')[1];
   const nonoDivSelect = document.querySelector('.nonograms').parentNode;
   const options = difficulty.options[difficulty.options.selectedIndex].textContent
   const newNonoDivSelect = getKeySelect(nono[options], 'nonograms'); //create new div width nono select
@@ -545,6 +560,7 @@ difficulty.addEventListener('change', (event) =>
 
   changeCurentNono();
 
+  // const gameField = document.querySelector('.game-field');
   const tableWrapper = document.querySelector('.table-wrapper');
 
   getRowKeys(curentNono);
@@ -627,6 +643,7 @@ loadGame.addEventListener('click', (event) =>
     difficulty.options.selectedIndex = lastGameInfo.difficultyIndex; 
 
     // Change div block with nonoSelect and add events
+    // const nonoDivSelect = document.querySelectorAll('.menu-item')[1];
     const nonoDivSelect = document.querySelector('.nonograms').parentNode;
     const newNonoDivSelect = getKeySelect(nono[lastGameInfo.difficulty], 'nonograms');
     nonoDivSelect.replaceWith(newNonoDivSelect);
@@ -636,6 +653,7 @@ loadGame.addEventListener('click', (event) =>
 
     changeCurentNono();
 
+    // const gameField = document.querySelector('.game-field');
     const tableWrapper = document.querySelector('.table-wrapper');
 
     getRowKeys(curentNono);
@@ -720,6 +738,7 @@ randomGame.addEventListener('click', (event) =>
   difficulty.options.selectedIndex = randomDiffIndex;
 
   // Change div block with nonoSelect and add events
+  // const nonoDivSelect = document.querySelectorAll('.menu-item')[1];
   const nonoDivSelect = document.querySelector('.nonograms').parentNode;
   const newNonoDivSelect = getKeySelect(nono[randomDiffText], 'nonograms');
   nonoDivSelect.replaceWith(newNonoDivSelect);
@@ -729,6 +748,7 @@ randomGame.addEventListener('click', (event) =>
 
   changeCurentNono();
 
+  // const gameField = document.querySelector('.game-field');
   const tableWrapper = document.querySelector('.table-wrapper');
 
   getRowKeys(curentNono);
@@ -754,3 +774,8 @@ window.addEventListener('resize', () =>
   const currentTable = document.querySelector('.game-field');
   setCellSize(currentTable);
 });
+
+// alert("Sorry about the design, I didn't have enough time. :)");
+//  console.log(document.body.clientHeight)
+// const tableLink = document.querySelector('.game-field');
+// setCellSize(tableLink);

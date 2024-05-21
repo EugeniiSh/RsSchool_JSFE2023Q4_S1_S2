@@ -7,6 +7,7 @@
 
 body
 {
+  min-height: 100vh;
   padding: 20px 0;
 }
 
@@ -27,9 +28,19 @@ body
   font-weight: 600;
 }
 
+.table-wrapper
+{
+  /* width: 750px; */
+
+  margin: 0 auto;
+}
+
 .game-field
 {
   margin: 0 auto;
+  /* table-layout: fixed; */
+  /* aspect-ratio: 1 / 1; */
+  max-width: 100%;
 
   border: 6px solid #000000;
   border-collapse: collapse; 
@@ -38,12 +49,15 @@ body
 th,
 td
 {
-  width: 40px;
-  height: 40px;
+  --cell-size: 50px;
+  width: var(--cell-size);
+  height: var(--cell-size);
+  /* width: 40px; */
+  /* height: 40px; */
   /* width: 2.5%; */
   /* height: 2.5%; */
   /* aspect-ratio: 1 / 1; */
-  padding: 5px;
+  /* padding: 5px; */
 
   border: 1px solid #a3a3a3;
 }
@@ -72,7 +86,13 @@ button
   border-top: 4px solid #000000;
 }
 
-.game-field tr:nth-last-child(5n)
+/* .game-field tr:nth-last-child(5n)
+{
+  border-top: 3.9px solid #a3a3a3;
+} */
+
+/* Выбрать дочерние tr, каждый пятый в котором есть td, начиная с первого */
+.game-field tr:nth-child(5n + 1 of :has(td))
 {
   border-top: 3.9px solid #a3a3a3;
 }
