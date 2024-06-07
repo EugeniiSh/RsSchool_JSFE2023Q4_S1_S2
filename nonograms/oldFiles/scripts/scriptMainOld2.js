@@ -1,4 +1,4 @@
-import {nono} from './nonograms.js';
+import {nono} from '../../scripts/nonograms.js';
 
 const bodyTag = document.querySelector('body');
 let curentNono = nono.easy.candle;

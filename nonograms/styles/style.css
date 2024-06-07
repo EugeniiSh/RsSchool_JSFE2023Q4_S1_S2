@@ -1,0 +1,213 @@
+@charset "UTF-8";
+/* +++ === _styleMain.scss === +++ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  padding: 20px 0;
+}
+
+.header__head {
+  padding-bottom: 20px;
+  text-align: center;
+  text-transform: capitalize;
+}
+@media (max-width: 780px) {
+  .header__head {
+    padding-bottom: 10px;
+    font-size: 24px;
+  }
+}
+
+.header__timer {
+  padding-bottom: 20px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+}
+@media (max-width: 780px) {
+  .header__timer {
+    padding-bottom: 10px;
+    font-size: 16px;
+  }
+}
+
+.table-wrapper {
+  margin: 0 auto;
+}
+@media (max-width: 780px) {
+  .table-wrapper {
+    width: auto;
+  }
+}
+
+select,
+button {
+  cursor: pointer;
+}
+
+.game-field {
+  margin: 0 auto;
+  max-width: 100%;
+  border: 6px solid #000000;
+  border-collapse: collapse;
+  /* Select all tr that do not contain td and are followed by a tr that contains td. */
+  /* Выбрать все tr, которые не содержат td, и после которых идёт tr, который содержит td. */
+  /* Выбрать дочерние tr, каждый пятый в котором есть td, начиная с первого */
+}
+@media (max-width: 780px) {
+  .game-field {
+    font-size: 12px;
+  }
+}
+@media (max-width: 510px) {
+  .game-field {
+    font-size: 10px;
+  }
+}
+.game-field th,
+.game-field td {
+  --cell-size: 50px;
+  width: var(--cell-size);
+  height: var(--cell-size);
+  border: 1px solid #a3a3a3;
+}
+@media (max-width: 780px) {
+  .game-field th,
+  .game-field td {
+    --cell-size: 27px;
+    width: var(--cell-size);
+    height: var(--cell-size);
+  }
+}
+.game-field td {
+  cursor: pointer;
+}
+@media (hover: hover) {
+  .game-field td:hover {
+    box-shadow: 0 0 4px black;
+  }
+}
+.game-field td:nth-of-type(5n) {
+  border-right: 3.9px solid #a3a3a3;
+}
+.game-field td:nth-of-type(1) {
+  border-left: 4px solid #000000;
+}
+.game-field tr:not(:has(td)) + tr:has(td) td {
+  border-top: 4px solid #000000;
+}
+.game-field tr:nth-child(5n+1 of :has(td)) {
+  border-top: 3.9px solid #a3a3a3;
+}
+.game-field tr:nth-of-type(1) th:nth-of-type(5n + 1) {
+  border-right: 3.9px solid #a3a3a3;
+}
+.game-field tr:not(:has(td)):nth-of-type(1n + 2) th:nth-of-type(5n) {
+  border-right: 3.9px solid #a3a3a3;
+}
+
+.main__menu {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding-top: 20px;
+  text-align: center;
+  text-transform: capitalize;
+}
+.main__menu p {
+  padding-bottom: 10px;
+  font-size: 24px;
+}
+.main__menu select {
+  width: 100px;
+  font-size: 18px;
+  border: 2px solid #000000;
+}
+.main__menu button {
+  width: 90%;
+  margin: 0 5px;
+  padding: 1px 0;
+  font-size: 18px;
+}
+
+/*! --- === _styleMain.scss === ---*/
+/* +++ === _styleDark.scss === +++ */
+.dark-theme {
+  color: #ffffff;
+  background-color: #000000;
+}
+.dark-theme .game-field {
+  border-color: #ffffff;
+}
+.dark-theme .game-field td:nth-of-type(1) {
+  border-left: 4px solid #ffffff;
+}
+@media (hover: hover) {
+  .dark-theme .game-field td:hover {
+    box-shadow: 0 0 4px #ffffff;
+  }
+}
+.dark-theme .game-field tr:not(:has(td)) + tr:has(td) td {
+  border-top: 4px solid #ffffff;
+}
+.dark-theme .main__menu select {
+  border: 2px solid #ffffff;
+}
+
+/* --- === _styleDark.scss === --- */
+/* +++ === _activators.scss === +++ */
+.shaded-cell {
+  background-color: #000000;
+}
+
+.crossed-cell {
+  position: relative;
+}
+
+.crossed-cell::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  transform: translateY(-50%) rotate(45deg);
+  background-color: #000000;
+}
+
+.crossed-cell::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  transform: translateY(-50%) rotate(-45deg);
+  background-color: #000000;
+}
+
+.active__end-game {
+  pointer-events: none;
+}
+
+.active__solution {
+  pointer-events: none;
+}
+
+.dark-theme .shaded-cell {
+  background-color: #ffffff;
+}
+.dark-theme .crossed-cell::after,
+.dark-theme .crossed-cell::before {
+  background-color: #ffffff;
+}
+
+/* --- === _activators.scss === --- */
+
+/*# sourceMappingURL=style.css.map */

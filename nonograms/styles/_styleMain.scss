@@ -1,0 +1,181 @@
+/* +++ === _styleMain.scss === +++ */
+
+*
+{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body
+{
+  min-height: 100vh;
+  padding: 20px 0;
+}
+
+.header__head
+{
+  padding-bottom: 20px;
+
+  text-align: center;
+  text-transform: capitalize;
+
+  @media (max-width: 780px)
+  {
+    padding-bottom: 10px;
+
+    font-size: 24px;
+  }
+}
+
+.header__timer
+{
+  padding-bottom: 20px;
+
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+
+  @media (max-width: 780px)
+  {
+    padding-bottom: 10px;
+
+    font-size: 16px;
+  }
+}
+
+.table-wrapper
+{
+  margin: 0 auto;
+
+  @media (max-width: 780px)
+  {
+    width: auto;
+  }
+}
+
+select,
+button
+{
+  cursor: pointer;
+}
+
+.game-field
+{
+  margin: 0 auto;
+  max-width: 100%;
+
+  border: 6px solid #000000;
+  border-collapse: collapse;
+
+  @media (max-width: 780px)
+  {
+    font-size: 12px;
+  }
+
+  @media (max-width: 510px)
+  {
+    font-size: 10px;
+  }
+
+  th,
+  td
+  {
+    --cell-size: 50px;
+    width: var(--cell-size);
+    height: var(--cell-size);
+
+    border: 1px solid #a3a3a3;
+
+    @media (max-width: 780px)
+    {
+      --cell-size: 27px;
+      width: var(--cell-size);
+      height: var(--cell-size);
+    }
+  }
+
+  td
+  {
+    cursor: pointer;
+
+    @media (hover: hover)
+    {
+      &:hover
+      {
+        box-shadow: 0 0 4px black;
+      }
+    }
+  }
+
+  td:nth-of-type(5n)
+  {
+    border-right: 3.9px solid #a3a3a3;
+  }
+
+  td:nth-of-type(1)
+  {
+    border-left: 4px solid #000000;
+  }
+
+  /* Select all tr that do not contain td and are followed by a tr that contains td. */
+  /* Выбрать все tr, которые не содержат td, и после которых идёт tr, который содержит td. */
+  tr:not(:has(td)) + tr:has(td) td
+  {
+    border-top: 4px solid #000000;
+  }
+
+  /* Выбрать дочерние tr, каждый пятый в котором есть td, начиная с первого */
+  tr:nth-child(5n + 1 of :has(td))
+  {
+    border-top: 3.9px solid #a3a3a3;
+  }
+
+  tr:nth-of-type(1) th:nth-of-type(5n + 1)
+  {
+    border-right: 3.9px solid #a3a3a3;
+  }
+
+  tr:not(:has(td)):nth-of-type(1n + 2) th:nth-of-type(5n)
+  {
+    border-right: 3.9px solid #a3a3a3;
+  }
+}
+
+.main__menu
+{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+
+  padding-top: 20px;
+
+  text-align: center;
+  text-transform: capitalize;
+
+  p
+  {
+    padding-bottom: 10px;
+    font-size: 24px;
+  }
+
+  select
+  {
+    width: 100px;
+
+    font-size: 18px;
+    border: 2px solid #000000;
+  }
+
+  button
+  {
+    width: 90%;
+    margin: 0 5px;
+    padding: 1px 0;
+
+    font-size: 18px;
+  }
+}
+
+/*! --- === _styleMain.scss === ---*/

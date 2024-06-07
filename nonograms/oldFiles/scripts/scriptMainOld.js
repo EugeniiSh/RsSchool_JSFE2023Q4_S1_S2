@@ -1,4 +1,4 @@
-import {nono} from './nonograms.js';
+import {nono} from '../../scripts/nonograms.js';
 
 const curentNono = nono.hard.dinosaur;
 // const curentNono = nono.midle.boat;

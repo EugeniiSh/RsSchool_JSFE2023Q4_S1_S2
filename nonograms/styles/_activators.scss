@@ -1,0 +1,65 @@
+/* +++ === _activators.scss === +++ */
+
+.shaded-cell
+{
+  background-color: #000000;
+}
+
+.crossed-cell
+{
+  position: relative;
+}
+
+.crossed-cell::after
+{
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+
+  width: 100%;
+  height: 2px;
+
+  transform: translateY(-50%) rotate(45deg); 
+  background-color: #000000;
+}
+
+.crossed-cell::before
+{
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+
+  width: 100%;
+  height: 2px;
+
+  transform: translateY(-50%) rotate(-45deg); 
+  background-color: #000000;
+}
+
+.active__end-game
+{
+  pointer-events: none;
+}
+
+.active__solution
+{
+  pointer-events: none;
+}
+
+.dark-theme 
+{
+  .shaded-cell
+  {
+    background-color: #ffffff;
+  }
+
+  .crossed-cell::after,
+  .crossed-cell::before
+  {
+    background-color: #ffffff;
+  }
+}
+
+/* --- === _activators.scss === --- */
