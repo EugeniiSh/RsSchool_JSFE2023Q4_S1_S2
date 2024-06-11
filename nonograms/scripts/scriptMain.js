@@ -1,4 +1,5 @@
 import {nono} from './nonograms.js';
+import * as secondJs from './scriptSecond.js';
 
 const bodyTag = document.querySelector('body');
 let curentNono = nono.easy.candle;
@@ -753,4 +754,14 @@ window.addEventListener('resize', () =>
 {
   const currentTable = document.querySelector('.game-field');
   setCellSize(currentTable);
+  const currentSizeBgImg = secondJs.setBackGroundSize(currentTable.offsetWidth, bodyTag);
+  secondJs.setBackGroundPosition(currentSizeBgImg, bodyTag);
 });
+
+window.addEventListener('load', () =>
+  {
+    const currentTable = document.querySelector('.game-field');
+    setCellSize(currentTable);
+    const currentSizeBgImg = secondJs.setBackGroundSize(currentTable.offsetWidth, bodyTag);
+    secondJs.setBackGroundPosition(currentSizeBgImg, bodyTag);
+  });

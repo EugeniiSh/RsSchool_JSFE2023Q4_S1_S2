@@ -11,6 +11,16 @@ body
 {
   min-height: 100vh;
   padding: 20px 0;
+
+  --backGroundSize: 2048px;
+  --backGroundPositionHeight: -750px;
+  background-image: url(../assets/images/dojo.png);
+  background-repeat: no-repeat;
+  // background-origin: content-box;
+  // background-clip: content-box;
+  background-size: var(--backGroundSize);
+  // background-position: 55% -750px;
+  background-position: 55% var(--backGroundPositionHeight);
 }
 
 .header__head
@@ -47,6 +57,12 @@ body
 .table-wrapper
 {
   margin: 0 auto;
+  // max-width: 60%;
+
+  // background-image: url(../assets/images/dojo.png);
+  // background-repeat: no-repeat;
+  // background-clip: content-box;
+  // background-size: 100%;
 
   @media (max-width: 780px)
   {
@@ -65,8 +81,12 @@ button
   margin: 0 auto;
   max-width: 100%;
 
-  border: 6px solid #000000;
+  border: 6px solid #f07d7d;
   border-collapse: collapse;
+
+  // background-image: url(../assets/images/dojo.png);
+  // background-repeat: no-repeat;
+  // background-size: 110%;
 
   @media (max-width: 780px)
   {

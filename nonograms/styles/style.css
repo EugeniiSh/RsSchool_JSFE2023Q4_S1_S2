@@ -9,6 +9,12 @@
 body {
   min-height: 100vh;
   padding: 20px 0;
+  --backGroundSize: 2048px;
+  --backGroundPositionHeight: -750px;
+  background-image: url(../assets/images/dojo.png);
+  background-repeat: no-repeat;
+  background-size: var(--backGroundSize);
+  background-position: 55% var(--backGroundPositionHeight);
 }
 
 .header__head {
@@ -53,7 +59,7 @@ button {
 .game-field {
   margin: 0 auto;
   max-width: 100%;
-  border: 6px solid #000000;
+  border: 6px solid #f07d7d;
   border-collapse: collapse;
   /* Select all tr that do not contain td and are followed by a tr that contains td. */
   /* Выбрать все tr, которые не содержат td, и после которых идёт tr, который содержит td. */
