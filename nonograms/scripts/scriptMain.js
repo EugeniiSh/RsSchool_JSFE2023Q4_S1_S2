@@ -378,6 +378,9 @@ function addEventToNonoSelect(element)
     getColumnKeys(curentNono);
     tableWrapper.replaceWith(getGameField(curentNono));
 
+    const currentTable = document.querySelector('.game-field');
+    secondJs.adaptationBgImg(currentTable.offsetWidth, bodyTag);
+
     setNonoHead();
     resetTimer();
     initGame();
@@ -552,6 +555,9 @@ difficulty.addEventListener('change', (event) =>
   getColumnKeys(curentNono);
   tableWrapper.replaceWith(getGameField(curentNono));
 
+  const currentTable = document.querySelector('.game-field');
+  secondJs.adaptationBgImg(currentTable.offsetWidth, bodyTag);
+
   setNonoHead();
   resetTimer();
   initGame();
@@ -642,6 +648,9 @@ loadGame.addEventListener('click', (event) =>
     getRowKeys(curentNono);
     getColumnKeys(curentNono);
     tableWrapper.replaceWith(getGameField(curentNono));
+
+    const currentTable = document.querySelector('.game-field');
+    secondJs.adaptationBgImg(currentTable.offsetWidth, bodyTag);
 
     setNonoHead();
     initGame();
@@ -736,6 +745,9 @@ randomGame.addEventListener('click', (event) =>
   getColumnKeys(curentNono);
   tableWrapper.replaceWith(getGameField(curentNono));
 
+  const currentTable = document.querySelector('.game-field');
+  secondJs.adaptationBgImg(currentTable.offsetWidth, bodyTag);
+
   setNonoHead();
   resetTimer();
   initGame();
@@ -754,14 +766,16 @@ window.addEventListener('resize', () =>
 {
   const currentTable = document.querySelector('.game-field');
   setCellSize(currentTable);
-  const currentSizeBgImg = secondJs.setBackGroundSize(currentTable.offsetWidth, bodyTag);
-  secondJs.setBackGroundPosition(currentSizeBgImg, bodyTag);
+  secondJs.adaptationBgImg(currentTable.offsetWidth, bodyTag);
+  // const currentSizeBgImg = secondJs.setBackGroundSize(currentTable.offsetWidth, bodyTag);
+  // secondJs.setBackGroundPosition(currentSizeBgImg, bodyTag);
 });
 
 window.addEventListener('load', () =>
   {
     const currentTable = document.querySelector('.game-field');
     setCellSize(currentTable);
-    const currentSizeBgImg = secondJs.setBackGroundSize(currentTable.offsetWidth, bodyTag);
-    secondJs.setBackGroundPosition(currentSizeBgImg, bodyTag);
+    secondJs.adaptationBgImg(currentTable.offsetWidth, bodyTag);
+    // const currentSizeBgImg = secondJs.setBackGroundSize(currentTable.offsetWidth, bodyTag);
+    // secondJs.setBackGroundPosition(currentSizeBgImg, bodyTag);
   });

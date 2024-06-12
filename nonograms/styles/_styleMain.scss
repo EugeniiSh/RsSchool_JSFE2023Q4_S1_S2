@@ -13,14 +13,15 @@ body
   padding: 20px 0;
 
   --backGroundSize: 2048px;
-  --backGroundPositionHeight: -750px;
+  --backGroundPositionTop: -750px;
+  --backGroundPositionLeft: 55%;
   background-image: url(../assets/images/dojo.png);
   background-repeat: no-repeat;
   // background-origin: content-box;
   // background-clip: content-box;
   background-size: var(--backGroundSize);
   // background-position: 55% -750px;
-  background-position: 55% var(--backGroundPositionHeight);
+  background-position: var(--backGroundPositionLeft) var(--backGroundPositionTop);
 }
 
 .header__head
