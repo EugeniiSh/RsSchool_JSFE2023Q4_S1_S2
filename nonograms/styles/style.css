@@ -12,7 +12,7 @@ body {
   --backGroundSize: 2048px;
   --backGroundPositionTop: -750px;
   --backGroundPositionLeft: 55%;
-  background-image: url(../assets/images/dojo.png);
+  background-image: url(../assets/images/dojo2.png);
   background-repeat: no-repeat;
   background-size: var(--backGroundSize);
   background-position: var(--backGroundPositionLeft) var(--backGroundPositionTop);
@@ -58,13 +58,35 @@ button {
 }
 
 .game-field {
+  position: relative;
   margin: 0 auto;
   max-width: 100%;
-  border: 6px solid #f07d7d;
+  border: 6px solid transparent;
   border-collapse: collapse;
+  border-image-source: url(../assets/images/border.png);
+  border-image-slice: 16;
+  border-image-repeat: stretch;
+  background-image: url(../assets/images/backGroundPaper.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
   /* Select all tr that do not contain td and are followed by a tr that contains td. */
   /* Выбрать все tr, которые не содержат td, и после которых идёт tr, который содержит td. */
   /* Выбрать дочерние tr, каждый пятый в котором есть td, начиная с первого */
+}
+.game-field::before {
+  position: absolute;
+  content: "";
+  width: 99%;
+  height: 98.6%;
+  left: -3px;
+  top: -2px;
+  border-style: solid;
+  border-width: 6px;
+  border-image-source: url(../assets/images/border.png);
+  border-image-slice: 16;
+  border-image-repeat: stretch;
+  overflow: hidden;
+  pointer-events: none;
 }
 @media (max-width: 780px) {
   .game-field {
@@ -81,7 +103,7 @@ button {
   --cell-size: 50px;
   width: var(--cell-size);
   height: var(--cell-size);
-  border: 1px solid #a3a3a3;
+  border: 1px solid rgb(95, 85, 79);
 }
 @media (max-width: 780px) {
   .game-field th,
@@ -100,22 +122,22 @@ button {
   }
 }
 .game-field td:nth-of-type(5n) {
-  border-right: 3.9px solid #a3a3a3;
+  border-right: 3.9px ridge rgb(159, 134, 121);
 }
 .game-field td:nth-of-type(1) {
-  border-left: 4px solid #000000;
+  border-left: 4px ridge rgb(162, 112, 92);
 }
 .game-field tr:not(:has(td)) + tr:has(td) td {
-  border-top: 4px solid #000000;
+  border-top: 4px ridge rgb(162, 112, 92);
 }
 .game-field tr:nth-child(5n+1 of :has(td)) {
-  border-top: 3.9px solid #a3a3a3;
+  border-top: 3.9px ridge rgb(159, 134, 121);
 }
 .game-field tr:nth-of-type(1) th:nth-of-type(5n + 1) {
-  border-right: 3.9px solid #a3a3a3;
+  border-right: 3.9px ridge rgb(159, 134, 121);
 }
 .game-field tr:not(:has(td)):nth-of-type(1n + 2) th:nth-of-type(5n) {
-  border-right: 3.9px solid #a3a3a3;
+  border-right: 3.9px ridge rgb(159, 134, 121);
 }
 
 .main__menu {
