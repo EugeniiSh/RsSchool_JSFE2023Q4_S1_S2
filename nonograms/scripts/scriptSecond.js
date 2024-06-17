@@ -42,8 +42,31 @@ export function setBackGroundPosition(currentSizeBgImg, elemWidthBackground)
   elemWidthBackground.style.setProperty('--backGroundPositionLeft', -newMarginLeftBgImg + 'px');
 }
 
+//Адаптирует background-image под размеры игрового поля (game-field)
 export function adaptationBgImg(gameFieldWidth, elemWidthBackground)
 {
   const currentSizeBgImg = setBackGroundSize(gameFieldWidth, elemWidthBackground);
   setBackGroundPosition(currentSizeBgImg, elemWidthBackground);
 }
+
+//Возвращает имя класса shaded-Cell, с рандомным числом в конце, от 1 до 4
+export function getRandomShadedCell(string)
+{
+  const randomNum = Math.floor(Math.random() * 4 + 1); //4 - количество вариантов закрашеных клеток
+  return `${string}-${randomNum}`;
+}
+
+//Возвращает имя класса shaded-Cell в элементе, с текущим числом в конце. 
+//Если такого класса нет, возвращает  shaded-Cell с рандомным числом.
+export function getCurrentShadedCell(elem)
+{
+  for(let className of elem.classList)
+  {
+    if(className.includes('shaded-cell'))
+    {
+      return className;
+    }
+  }
+
+  return getRandomShadedCell('shaded-cell');
+} 

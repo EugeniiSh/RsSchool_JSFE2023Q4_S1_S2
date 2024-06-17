@@ -23,6 +23,11 @@ body
   background-size: var(--backGroundSize);
   // background-position: 55% -750px;
   background-position: var(--backGroundPositionLeft) var(--backGroundPositionTop);
+
+  font-family: "Caveat", cursive;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
 }
 
 .header__head

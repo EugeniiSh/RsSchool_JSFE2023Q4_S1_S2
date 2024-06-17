@@ -16,6 +16,10 @@ body {
   background-repeat: no-repeat;
   background-size: var(--backGroundSize);
   background-position: var(--backGroundPositionLeft) var(--backGroundPositionTop);
+  font-family: "Caveat", cursive;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
 }
 
 .header__head {
@@ -191,8 +195,32 @@ button {
 
 /* --- === _styleDark.scss === --- */
 /* +++ === _activators.scss === +++ */
-.shaded-cell {
-  background-color: #000000;
+.shaded-cell-1 {
+  background-image: url(../assets/images/tornPaperV1.svg);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.shaded-cell-2 {
+  background-image: url(../assets/images/tornPaperV2.svg);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.shaded-cell-3 {
+  background-image: url(../assets/images/tornPaperV3.svg);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.shaded-cell-4 {
+  background-image: url(../assets/images/tornPaperV4.svg);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 .crossed-cell {

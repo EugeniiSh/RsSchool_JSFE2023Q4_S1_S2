@@ -1,9 +1,24 @@
 /* +++ === _activators.scss === +++ */
 
-.shaded-cell
+// .shaded-cell
+// {
+//   // background-color: #000000;
+//   background-image: url(../assets/images/tornPaperV3.svg);
+//   background-size: 100%;
+//   background-repeat: no-repeat;
+//   background-position: center center;
+// }
+
+@each $num in (1, 2, 3, 4)
 {
-  background-color: #000000;
-}
+  .shaded-cell-#{$num}
+  {
+    background-image: url(../assets/images/tornPaperV#{$num}.svg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+} 
 
 .crossed-cell
 {
