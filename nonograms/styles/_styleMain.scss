@@ -24,22 +24,30 @@ body
   // background-position: 55% -750px;
   background-position: var(--backGroundPositionLeft) var(--backGroundPositionTop);
 
-  font-family: "Caveat", cursive;
-  font-optical-sizing: auto;
-  font-weight: 600;
+  font-family: "Kalam", cursive;
+  font-weight: 400;
   font-style: normal;
 }
 
 .header__head
 {
-  padding-bottom: 20px;
+  // padding-bottom: 20px;
+  padding: 10px 0; 
 
   text-align: center;
   text-transform: capitalize;
 
+  // border-top: 10px solid transparent;
+
+  background-image: url(../assets/images/derevyannaya-doska25.png);
+  background-repeat: no-repeat;
+  background-size: 26% 100%;
+  background-position: center center;
+
   @media (max-width: 780px)
   {
-    padding-bottom: 10px;
+    // padding-bottom: 10px;
+    padding: 5px 0;
 
     font-size: 24px;
   }
@@ -47,15 +55,22 @@ body
 
 .header__timer
 {
-  padding-bottom: 20px;
+  // padding-bottom: 20px;
+  padding: 10px 0;
 
   text-align: center;
   font-size: 24px;
   font-weight: 600;
 
+  background-image: url(../assets/images/derevyannaya-doska25.png);
+  background-repeat: no-repeat;
+  background-size: 26% 100%;
+  background-position: center center;
+
   @media (max-width: 780px)
   {
-    padding-bottom: 10px;
+    // padding-bottom: 10px;
+    padding: 5px 0;
 
     font-size: 16px;
   }
@@ -89,6 +104,8 @@ button
 
   margin: 0 auto;
   max-width: 100%;
+
+  font-size: 14px;
 
   // border: 6px solid #dd8383;
   border: 6px solid transparent;
@@ -220,10 +237,16 @@ button
   text-align: center;
   text-transform: capitalize;
 
+  font-family: "Teko", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  // font-stretch: ultra-expanded;
+
   p
   {
     padding-bottom: 10px;
-    font-size: 24px;
+    font-size: 32px;
   }
 
   select

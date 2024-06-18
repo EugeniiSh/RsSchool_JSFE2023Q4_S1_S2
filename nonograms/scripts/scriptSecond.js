@@ -47,6 +47,9 @@ export function adaptationBgImg(gameFieldWidth, elemWidthBackground)
 {
   const currentSizeBgImg = setBackGroundSize(gameFieldWidth, elemWidthBackground);
   setBackGroundPosition(currentSizeBgImg, elemWidthBackground);
+
+  document.querySelector('.header__head').style.setProperty('background-size', `${gameFieldWidth}px 100%`);
+  document.querySelector('.header__timer').style.setProperty('background-size', `${gameFieldWidth}px 100%`);
 }
 
 //Возвращает имя класса shaded-Cell, с рандомным числом в конце, от 1 до 4
@@ -58,15 +61,15 @@ export function getRandomShadedCell(string)
 
 //Возвращает имя класса shaded-Cell в элементе, с текущим числом в конце. 
 //Если такого класса нет, возвращает  shaded-Cell с рандомным числом.
-export function getCurrentShadedCell(elem)
+export function getCurrentShadedCell(elem, string)
 {
   for(let className of elem.classList)
   {
-    if(className.includes('shaded-cell'))
+    if(className.includes(string))
     {
       return className;
     }
   }
 
-  return getRandomShadedCell('shaded-cell');
+  return getRandomShadedCell(string);
 } 

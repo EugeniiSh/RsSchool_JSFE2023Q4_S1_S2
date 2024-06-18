@@ -260,10 +260,11 @@ function setCurrentGameValue(element, row, column)
   switch(true)
   {
     // case(element.classList.contains('shaded-cell')):
-    case(element.classList.contains(secondJs.getCurrentShadedCell(element))):
+    case(element.classList.contains(secondJs.getCurrentShadedCell(element, 'shaded-cell'))):
       mainVar.currentGame[row][column] = 1;
       break;
-    case(element.classList.contains('crossed-cell')):
+    // case(element.classList.contains('crossed-cell')):
+    case(element.classList.contains(secondJs.getCurrentShadedCell(element, 'crossed-cell'))):
       mainVar.currentGame[row][column] = 2;
       break;
     default: mainVar.currentGame[row][column] = 0;
@@ -353,10 +354,11 @@ function playSound(element)
   switch(true)
   {
     // case(element.classList.contains('shaded-cell')):
-    case(element.classList.contains(secondJs.getCurrentShadedCell(element))):
+    case(element.classList.contains(secondJs.getCurrentShadedCell(element, 'shaded-cell'))):
       audio.src = `assets/sound/fit.mp3`;
       break;
-    case(element.classList.contains('crossed-cell')):
+    // case(element.classList.contains('crossed-cell')):
+    case(element.classList.contains(secondJs.getCurrentShadedCell(element, 'crossed-cell'))):
       audio.src = `assets/sound/puh.mp3`;
       break;
     case(element.classList.contains('active__end-game')):
@@ -403,7 +405,8 @@ function fillGameField(filledArr)
       // case(1): item.className = 'shaded-cell';
       case(1): item.className = secondJs.getRandomShadedCell('shaded-cell');
         break;
-      case(2): item.className = 'crossed-cell';
+      // case(2): item.className = 'crossed-cell';
+      case(2): item.className = secondJs.getRandomShadedCell('crossed-cell');
         break;
       default: item.className = '';
     }
@@ -431,9 +434,10 @@ function initGame()
   {
     item.addEventListener('click', (event) =>
     {
-      item.classList.remove('crossed-cell');
+      // item.classList.remove('crossed-cell');
+      item.classList.remove(secondJs.getCurrentShadedCell(item, 'crossed-cell'));
       // item.classList.toggle('shaded-cell');
-      item.classList.toggle(secondJs.getCurrentShadedCell(item));
+      item.classList.toggle(secondJs.getCurrentShadedCell(item, 'shaded-cell'));
       playSound(item);
 
       if(!mainVar.isGameStart)
@@ -468,8 +472,9 @@ function initGame()
     {
       event.preventDefault();
       // item.classList.remove('shaded-cell');
-      item.classList.remove(secondJs.getCurrentShadedCell(item));
-      item.classList.toggle('crossed-cell');
+      item.classList.remove(secondJs.getCurrentShadedCell(item, 'shaded-cell'));
+      // item.classList.toggle('crossed-cell');
+      item.classList.toggle(secondJs.getCurrentShadedCell(item, 'crossed-cell'));
       playSound(item);
 
       if(!mainVar.isGameStart)
@@ -774,6 +779,10 @@ window.addEventListener('resize', () =>
   secondJs.adaptationBgImg(currentTable.offsetWidth, bodyTag);
   // const currentSizeBgImg = secondJs.setBackGroundSize(currentTable.offsetWidth, bodyTag);
   // secondJs.setBackGroundPosition(currentSizeBgImg, bodyTag);
+  // document.querySelector('.header__head').style.setProperty('background-size', `${currentTable.offsetWidth}px 100%`);
+  // document.querySelector('.header__timer').style.setProperty('background-size', `${currentTable.offsetWidth}px 100%`);
+  // console.log(document.querySelector('.header__head').style)
+  // console.log(getComputedStyle(document.querySelector('.header__head')).backgroundSize)
 });
 
 window.addEventListener('load', () =>
@@ -783,6 +792,8 @@ window.addEventListener('load', () =>
   secondJs.adaptationBgImg(currentTable.offsetWidth, bodyTag);
   // const currentSizeBgImg = secondJs.setBackGroundSize(currentTable.offsetWidth, bodyTag);
   // secondJs.setBackGroundPosition(currentSizeBgImg, bodyTag);
+  // document.querySelector('.header__head').style.setProperty('background-size', `${currentTable.offsetWidth}px 100%`);
+  // document.querySelector('.header__timer').style.setProperty('background-size', `${currentTable.offsetWidth}px 100%`);
 });
 
 console.log(secondJs.getRandomShadedCell('shaded-cell'));
