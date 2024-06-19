@@ -228,15 +228,16 @@ function getKeySelect(obj, label)
 function getButton(label)
 {
   const div = document.createElement('div');
-  const p = document.createElement('p');
+  // const p = document.createElement('p');
   const button = document.createElement('button');
   
   div.classList.add('menu-item');
   button.classList.add(label);
-  button.textContent = 'click!'
-  p.textContent = label;
+  // button.textContent = 'click!';
+  button.textContent = label;
+  // p.textContent = label;
 
-  div.append(p);
+  // div.append(p);
   div.append(button);
   return div;
 }
