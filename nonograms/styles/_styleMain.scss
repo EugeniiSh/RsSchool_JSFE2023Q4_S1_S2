@@ -17,13 +17,10 @@ body
   --backGroundSize: 2048px;
   --backGroundPositionTop: -750px;
   --backGroundPositionLeft: 55%;
-  // background-image: url(../assets/images/dojo.png);
+  
   background-image: url(../assets/images/dojo2.png);
   background-repeat: no-repeat;
-  // background-origin: content-box;
-  // background-clip: content-box;
   background-size: var(--backGroundSize);
-  // background-position: 55% -750px;
   background-position: var(--backGroundPositionLeft) var(--backGroundPositionTop);
 
   font-family: "Kalam", cursive;
@@ -47,13 +44,10 @@ body
 
 .header__head
 {
-  // padding-bottom: 20px;
   padding: 10px 0; 
 
   text-align: center;
   text-transform: capitalize;
-
-  // border-top: 10px solid transparent;
 
   background-image: url(../assets/images/derevyannaya-doska25.png);
   background-repeat: no-repeat;
@@ -62,28 +56,14 @@ body
 
   @media (max-width: 780px)
   {
-    // padding-bottom: 10px;
     padding: 5px 0;
 
     font-size: 24px;
   }
-
-  // &::before
-  // {
-  //   position: absolute;
-  //   content: '';
-  //   // width: 100%;
-  //   // height: 100%;
-  //   right: 0;
-    
-  //   bottom: 0;
-  //   filter: brightness(.5);
-  // }
 }
 
 .header__timer
 {
-  // padding-bottom: 20px;
   padding: 10px 0;
 
   text-align: center;
@@ -97,35 +77,15 @@ body
 
   @media (max-width: 780px)
   {
-    // padding-bottom: 10px;
     padding: 5px 0;
 
     font-size: 16px;
   }
 }
 
-// main
-// {
-//   &::after
-//   {
-//     position: absolute;
-//     width: 100%;
-//     height: 100%;
-
-//     background-color: #000000;
-//     z-index: 100;
-//   }
-// }
-
 .table-wrapper
 {
   margin: 0 auto;
-  // max-width: 60%;
-
-  // background-image: url(../assets/images/dojo.png);
-  // background-repeat: no-repeat;
-  // background-clip: content-box;
-  // background-size: 100%;
 
   @media (max-width: 780px)
   {
@@ -148,11 +108,7 @@ button
 
   font-size: 14px;
 
-  // border: 6px solid #dd8383;
   border: 6px solid transparent;
-  // border-style: solid;
-  // border-width: 6px;
-  // border-color: #000000;
   border-collapse: collapse;
 
   border-image-source: url(../assets/images/border.png);
@@ -201,8 +157,6 @@ button
     width: var(--cell-size);
     height: var(--cell-size);
 
-    // border: 1px solid #a3a3a3;
-    // border: 1px ridge rgb(159, 134, 121);
     border: 1px solid rgb(95, 85, 79);
 
     @media (max-width: 780px)
@@ -228,13 +182,11 @@ button
 
   td:nth-of-type(5n)
   {
-    // border-right: 3.9px solid #a3a3a3;
     border-right: 3.9px ridge rgb(159, 134, 121);
   }
 
   td:nth-of-type(1)
   {
-    // border-left: 4px solid #000000;
     border-left: 4px ridge rgb(162, 112, 92);
   }
 
@@ -242,26 +194,22 @@ button
   /* Выбрать все tr, которые не содержат td, и после которых идёт tr, который содержит td. */
   tr:not(:has(td)) + tr:has(td) td
   {
-    // border-top: 4px solid #000000;
     border-top: 4px ridge rgb(162, 112, 92);
   }
 
   /* Выбрать дочерние tr, каждый пятый в котором есть td, начиная с первого */
   tr:nth-child(5n + 1 of :has(td))
   {
-    // border-top: 3.9px solid #a3a3a3;
     border-top: 3.9px ridge rgb(159, 134, 121);
   }
 
   tr:nth-of-type(1) th:nth-of-type(5n + 1)
   {
-    // border-right: 3.9px solid #a3a3a3;
     border-right: 3.9px ridge rgb(159, 134, 121);
   }
 
   tr:not(:has(td)):nth-of-type(1n + 2) th:nth-of-type(5n)
   {
-    // border-right: 3.9px solid #a3a3a3;
     border-right: 3.9px ridge rgb(159, 134, 121);
   }
 }
@@ -282,28 +230,65 @@ button
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
-  // font-stretch: ultra-expanded;
 
+  @media (max-width: 500px)
+  {
+    gap: 5px;
+  }
   
 
   div
   {
-    // transform-style: preserve-3d;
     perspective: 300px;
   }
 
   p
   {
-    padding-bottom: 10px;
+    margin-bottom: 10px;
     font-size: 32px;
+
+    border: 5px solid transparent;
+    border-image-source: url(../assets/images/bambuk2.png);
+    border-image-slice: 10;
+
+    background-image: url(..//assets/images/pattern6.svg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-clip: content-box;
+
+    @media (max-width: 500px)
+    {
+      font-size: 18px;;
+    }
   }
 
   select
   {
     width: 100px;
+    max-height: 30px;
 
+    font-family: "Kalam", cursive;
+    font-weight: 400;
+    font-style: normal;
     font-size: 18px;
+    
+    text-align: center;
+
     border: 2px solid #000000;
+
+    background-image: url(..//assets/images/vasiPartG-1.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    option
+    {
+      background-color: rgb(114, 169, 134);
+
+      &:nth-of-type(2n)
+      {
+        background-color: rgb(128, 191, 151);
+      }
+    }
   }
 
   button
@@ -318,10 +303,10 @@ button
     font-style: normal;
     font-size: 28px;
 
+    color: rgb(62, 62, 62);
     line-height: 0.9;
     text-transform: capitalize;
-
-    // outline: pink solid 2px;
+    text-shadow: 1px 1px #dbdbdb, -1px -1px #000000;
 
     border: 1px solid rgb(0, 18, 76);
     border-radius: 30% 70% 50% 30%/70% 50% 30% 25%;
@@ -329,10 +314,24 @@ button
     background-image: url(../assets/images/stone.jpg);
     background-size: cover;
 
-    box-shadow: 0px 5px 5px 1px black;
+    box-shadow: 0px 5px 5px -1px rgb(0, 0, 0);
 
     transform: rotateX(35deg);
-    // perspective: 800px;
+    transition: 0.3s;
+
+    @media (max-width: 500px)
+    {
+      font-size: 22px;;
+    }
+
+    @media (hover: hover)
+    {
+      &:hover
+      {
+        color: rgb(5, 0, 46);
+        box-shadow: 0px 5px 5px -1px rgb(5, 0, 46);
+      }
+    }
   }
 }
 
