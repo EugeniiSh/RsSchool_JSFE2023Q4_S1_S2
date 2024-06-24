@@ -2,32 +2,31 @@
 
 .dark-theme
 {
-  color: #ffffff;
-  background-color: #000000;
+  &::before
+  {
+    background-color: #0001306c;
+  }
+
+  .header__head
+  {
+    background-image: url(../assets/images/derevyannaya-doska-light3.png), url(../assets/images/derevyannaya-doska25.png);
+  }
+
+  .header__timer
+  {
+    background-image: url(../assets/images/derevyannaya-doska-light3.png), url(../assets/images/derevyannaya-doska25.png);
+  }
+  
 
   .game-field
   {
-    border-color: #ffffff;
+    border-image-source: url(../assets/images/border2.png);
 
-    td 
+    background-image: url(../assets/images/backGroundPaperNight.png);
+
+    &::before
     {
-      &:nth-of-type(1)
-      {
-        border-left: 4px solid #ffffff;
-      }
-
-      @media (hover: hover)
-      {
-        &:hover
-        {
-          box-shadow: 0 0 4px #ffffff;
-        }
-      }
-    }
-
-    tr:not(:has(td)) + tr:has(td) td
-    {
-      border-top: 4px solid #ffffff;
+      border-image-source: url(../assets/images/border2.png);
     }
   }
 
@@ -35,7 +34,37 @@
   {
     select
     {
-      border: 2px solid #ffffff;
+      border-top-color: #e0d697;
+      border-right-color: #e0d697;
+      text-shadow: 1px -1px #F3E8A5
+    }
+
+    button
+    {
+      color: rgb(0, 255, 255);
+      text-shadow: 2px 2px 10px aqua, -2px -2px 10px aqua;
+
+      box-shadow: 0px 5px 5px -1px rgb(0, 204, 204), inset 0px 5px 5px -1px #F3E8A5;
+
+      @media (hover: hover)
+      {
+        &:hover
+        {
+          text-shadow: none;
+          box-shadow: 0px 5px 5px -1px rgb(162, 255, 255), inset 0px 5px 5px -1px #F3E8A5;
+        }
+      }
+    }
+  }
+
+  @each $num in (1, 2, 3, 4)
+  {
+    .shaded-cell-#{$num}
+    {
+      background-image: url(../assets/images/tornPaperVN#{$num}.svg);
+      background-size: 100%;
+      background-repeat: no-repeat;
+      background-position: center center;
     }
   }
 }

@@ -27,19 +27,20 @@ body
   font-weight: 400;
   font-style: normal;
 
-  // filter: brightness(.5);
+  &::before
+  {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: calc(100% + 20px);
+    top: -20px;
 
-  // &::before
-  // {
-  //   position: absolute;
-  //   content: '';
-  //   width: 100%;
-  //   height: 100%;
+    background-color: transparent;
 
-  //   background-color: #0001306c;
-  //   z-index: 100;
-  //   pointer-events: none;
-  // }
+    pointer-events: none;
+    z-index: 100;
+    transition: 0.6s;
+  }
 }
 
 .header__head
@@ -53,6 +54,9 @@ body
   background-repeat: no-repeat;
   background-size: 26% 100%;
   background-position: center center;
+
+  transition-property: background-image;
+  transition-duration: 0.9s;
 
   @media (max-width: 780px)
   {
@@ -74,6 +78,9 @@ body
   background-repeat: no-repeat;
   background-size: 26% 100%;
   background-position: center center;
+
+  transition-property: background-image;
+  transition-duration: 0.9s;
 
   @media (max-width: 780px)
   {
@@ -119,6 +126,9 @@ button
   background-repeat: no-repeat;
   background-size: 100% 100%;
 
+  z-index: 101;
+  transition: 0.6s;
+
   &::before
   {
     position: absolute;
@@ -137,6 +147,7 @@ button
 
     overflow: hidden;
     pointer-events: none;
+    transition: 0.6s;
   }
 
 
@@ -279,6 +290,9 @@ button
     background-image: url(..//assets/images/vasiPartG-1.png);
     background-size: cover;
     background-repeat: no-repeat;
+
+    transition-property: text-shadow, border-color;
+    transition-duration: 0.6s;
 
     option
     {

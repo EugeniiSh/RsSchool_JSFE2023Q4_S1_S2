@@ -21,6 +21,17 @@ body {
   font-weight: 400;
   font-style: normal;
 }
+body::before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: calc(100% + 20px);
+  top: -20px;
+  background-color: transparent;
+  pointer-events: none;
+  z-index: 100;
+  transition: 0.6s;
+}
 
 .header__head {
   padding: 10px 0;
@@ -30,6 +41,8 @@ body {
   background-repeat: no-repeat;
   background-size: 26% 100%;
   background-position: center center;
+  transition-property: background-image;
+  transition-duration: 0.9s;
 }
 @media (max-width: 780px) {
   .header__head {
@@ -47,6 +60,8 @@ body {
   background-repeat: no-repeat;
   background-size: 26% 100%;
   background-position: center center;
+  transition-property: background-image;
+  transition-duration: 0.9s;
 }
 @media (max-width: 780px) {
   .header__timer {
@@ -82,6 +97,8 @@ button {
   background-image: url(../assets/images/backGroundPaper.png);
   background-repeat: no-repeat;
   background-size: 100% 100%;
+  z-index: 101;
+  transition: 0.6s;
   /* Select all tr that do not contain td and are followed by a tr that contains td. */
   /* Выбрать все tr, которые не содержат td, и после которых идёт tr, который содержит td. */
   /* Выбрать дочерние tr, каждый пятый в котором есть td, начиная с первого */
@@ -100,6 +117,7 @@ button {
   border-image-repeat: stretch;
   overflow: hidden;
   pointer-events: none;
+  transition: 0.6s;
 }
 @media (max-width: 780px) {
   .game-field {
@@ -202,6 +220,8 @@ button {
   background-image: url(..//assets/images/vasiPartG-1.png);
   background-size: cover;
   background-repeat: no-repeat;
+  transition-property: text-shadow, border-color;
+  transition-duration: 0.6s;
 }
 .main__menu select option {
   background-color: rgb(114, 169, 134);
@@ -244,26 +264,61 @@ button {
 
 /*! --- === _styleMain.scss === ---*/
 /* +++ === _styleDark.scss === +++ */
-.dark-theme {
-  color: #ffffff;
-  background-color: #000000;
+.dark-theme::before {
+  background-color: rgba(0, 1, 48, 0.4235294118);
+}
+.dark-theme .header__head {
+  background-image: url(../assets/images/derevyannaya-doska-light3.png), url(../assets/images/derevyannaya-doska25.png);
+}
+.dark-theme .header__timer {
+  background-image: url(../assets/images/derevyannaya-doska-light3.png), url(../assets/images/derevyannaya-doska25.png);
 }
 .dark-theme .game-field {
-  border-color: #ffffff;
+  border-image-source: url(../assets/images/border2.png);
+  background-image: url(../assets/images/backGroundPaperNight.png);
 }
-.dark-theme .game-field td:nth-of-type(1) {
-  border-left: 4px solid #ffffff;
-}
-@media (hover: hover) {
-  .dark-theme .game-field td:hover {
-    box-shadow: 0 0 4px #ffffff;
-  }
-}
-.dark-theme .game-field tr:not(:has(td)) + tr:has(td) td {
-  border-top: 4px solid #ffffff;
+.dark-theme .game-field::before {
+  border-image-source: url(../assets/images/border2.png);
 }
 .dark-theme .main__menu select {
-  border: 2px solid #ffffff;
+  border-top-color: #e0d697;
+  border-right-color: #e0d697;
+  text-shadow: 1px -1px #F3E8A5;
+}
+.dark-theme .main__menu button {
+  color: rgb(0, 255, 255);
+  text-shadow: 2px 2px 10px aqua, -2px -2px 10px aqua;
+  box-shadow: 0px 5px 5px -1px rgb(0, 204, 204), inset 0px 5px 5px -1px #F3E8A5;
+}
+@media (hover: hover) {
+  .dark-theme .main__menu button:hover {
+    text-shadow: none;
+    box-shadow: 0px 5px 5px -1px rgb(162, 255, 255), inset 0px 5px 5px -1px #F3E8A5;
+  }
+}
+.dark-theme .shaded-cell-1 {
+  background-image: url(../assets/images/tornPaperVN1.svg);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.dark-theme .shaded-cell-2 {
+  background-image: url(../assets/images/tornPaperVN2.svg);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.dark-theme .shaded-cell-3 {
+  background-image: url(../assets/images/tornPaperVN3.svg);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.dark-theme .shaded-cell-4 {
+  background-image: url(../assets/images/tornPaperVN4.svg);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 /* --- === _styleDark.scss === --- */
@@ -273,6 +328,8 @@ button {
   background-size: 100%;
   background-repeat: no-repeat;
   background-position: center center;
+  transition-property: background-image;
+  transition-duration: 0.9s;
 }
 
 .shaded-cell-2 {
@@ -280,6 +337,8 @@ button {
   background-size: 100%;
   background-repeat: no-repeat;
   background-position: center center;
+  transition-property: background-image;
+  transition-duration: 0.9s;
 }
 
 .shaded-cell-3 {
@@ -287,6 +346,8 @@ button {
   background-size: 100%;
   background-repeat: no-repeat;
   background-position: center center;
+  transition-property: background-image;
+  transition-duration: 0.9s;
 }
 
 .shaded-cell-4 {
@@ -294,6 +355,8 @@ button {
   background-size: 100%;
   background-repeat: no-repeat;
   background-position: center center;
+  transition-property: background-image;
+  transition-duration: 0.9s;
 }
 
 .crossed-cell-1 {
