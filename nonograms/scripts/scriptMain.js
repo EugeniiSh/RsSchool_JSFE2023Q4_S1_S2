@@ -199,7 +199,11 @@ function getEndGame()
     localStorage.setItem('achievements-table', JSON.stringify(newAchievementsTable));
   }
 
-  setTimeout(alert, 10, `Great! You have solved the nonogram in ${Math.floor(mainVar.elapsedTime / 1000)} seconds!`);
+  const p = document.createElement('p');
+  p.textContent = `Great! You have solved the nonogram in ${Math.floor(mainVar.elapsedTime / 1000)} seconds!`;
+
+  setTimeout(secondJs.showModalWindow, 10, 'You WIN!!!', p);
+  // setTimeout(alert, 10, `Great! You have solved the nonogram in ${Math.floor(mainVar.elapsedTime / 1000)} seconds!`);
 }
 
 function getKeySelect(obj, label)
@@ -485,6 +489,9 @@ function loadPage(curentNono)
   getRowKeys(curentNono);
   getColumnKeys(curentNono);
 
+  const modalWindow = document.createElement('div');
+  modalWindow.classList.add('modal-window');
+
   const header = document.createElement('header');
   const main = document.createElement('main');
   const audio = document.createElement('audio');
@@ -514,6 +521,7 @@ function loadPage(curentNono)
   main.append(getGameField(curentNono));
   main.append(menu);
 
+  bodyTag.append(modalWindow);
   bodyTag.append(header);
   bodyTag.append(main);
 
@@ -596,7 +604,10 @@ saveGame.addEventListener('click', (event) =>
 
   if(gameField.classList.contains('active__end-game'))
   {
-    alert("You have already won and your result is in the hall of fame! =)");
+    const p = document.createElement('p');
+    p.textContent = "You have already won and your result is in the hall of fame! =)";
+    secondJs.showModalWindow('Oops!', p);
+    // alert("You have already won and your result is in the hall of fame! =)");
   }
   else
   {
@@ -612,7 +623,11 @@ saveGame.addEventListener('click', (event) =>
     }
 
     localStorage.setItem('last-game', JSON.stringify(currentGameInfo));
-    alert('Game saved!');
+
+    const p = document.createElement('p');
+    p.textContent = 'Game saved!';
+    secondJs.showModalWindow('something happened...', p);
+    // alert('Game saved!');
   }
   
 });
@@ -662,7 +677,11 @@ loadGame.addEventListener('click', (event) =>
   }
   else
   {
-    alert('No saved games!')
+    const p = document.createElement('p');
+    p.textContent = 'No saved games!';
+    secondJs.showModalWindow("I'm sorry, but...", p);
+
+    // alert('No saved games!')
   }
 });
 
@@ -672,10 +691,11 @@ const achievements = document.querySelector('.achievements');
 achievements.addEventListener('click', (event) =>
 {
   const achievementsTable = JSON.parse(localStorage.getItem('achievements-table'));
-
+  
   if(achievementsTable)
   {
-    let showTable = '';
+    const achievList = document.createElement('ol');
+    // let showTable = '';
     achievementsTable.sort((a, b) => a.time - b.time);
 
     for(let i = 0; i < achievementsTable.length; i++)
@@ -684,14 +704,22 @@ achievements.addEventListener('click', (event) =>
       const second = Math.floor(achiv.time / 1000);
       const minuts = Math.floor(second / 60);
 
-      showTable += `${achiv.nono} - ${achiv.diff} - ${minuts.toString().padStart(2, '0')}:${(second % 60).toString().padStart(2, '0')}\n`;
+      const listItem = document.createElement('li');
+      listItem.textContent = `${achiv.nono} - ${achiv.diff} - ${minuts.toString().padStart(2, '0')}:${(second % 60).toString().padStart(2, '0')}`;
+      achievList.append(listItem);
+
+      // showTable += `${achiv.nono} - ${achiv.diff} - ${minuts.toString().padStart(2, '0')}:${(second % 60).toString().padStart(2, '0')}\n`;
     }
 
-    alert(showTable);
+    secondJs.showModalWindow('Achievements', achievList);
+    // alert(showTable);
   }
   else
   {
-    alert('You have no completed games.');
+    const p = document.createElement('p');
+    p.textContent = 'You have no completed games.';
+    secondJs.showModalWindow('Achievements', p);
+    // alert('You have no completed games.');
   }
 });
 
@@ -773,5 +801,16 @@ window.addEventListener('load', () =>
   secondJs.adaptationBgImg(currentTable.offsetWidth, bodyTag);
 });
 
+// Closing modal window when clicking outside '.content-block'
+const modalWindow = document.querySelector('.modal-window');
+modalWindow.addEventListener('click', (event) => 
+{  
+  const contentBlock = event.target.closest('.content-block');
+
+  if(!contentBlock)
+  {
+    modalWindow.classList.remove('active__modal-window');
+  }
+});
 
 

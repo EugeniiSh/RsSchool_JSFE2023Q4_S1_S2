@@ -73,3 +73,41 @@ export function getCurrentShadedCell(elem, string)
 
   return getRandomShadedCell(string);
 } 
+
+// Создаёт, вставляет и показывает модальное окно.
+export function showModalWindow(header, content)
+{
+  const modalWindow = document.querySelector('.modal-window');
+  const currentWraper = modalWindow.querySelector('.wrapper');
+
+  const div = document.createElement('div');
+
+  const wrapper = div.cloneNode();
+  wrapper.classList.add('wrapper');
+
+  const contentBlock = div.cloneNode();
+  contentBlock.classList.add('content-block');
+
+  const modalHeader = document.createElement('h3');
+  modalHeader.classList.add('modal-header');
+  modalHeader.textContent = header;
+
+  const textContent = div.cloneNode();
+  textContent.classList.add('text-content');
+  textContent.append(content);
+
+  const closeCross = div.cloneNode();
+  closeCross.classList.add('close-cross');
+  closeCross.addEventListener('click', () => { modalWindow.classList.remove('active__modal-window'); });
+
+  const closeBtn = div.cloneNode();
+  closeBtn.classList.add('close-btn');
+  closeBtn.textContent = 'Close';
+  closeBtn.addEventListener('click', () => { modalWindow.classList.remove('active__modal-window'); });
+
+  contentBlock.append(modalHeader, textContent, closeCross, closeBtn);
+  wrapper.append(contentBlock);
+  currentWraper ? currentWraper.replaceWith(wrapper) : modalWindow.append(wrapper);
+
+  modalWindow.classList.add('active__modal-window');
+}

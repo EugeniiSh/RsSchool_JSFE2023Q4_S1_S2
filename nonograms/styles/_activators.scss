@@ -35,17 +35,33 @@
   pointer-events: none;
 }
 
+.active__modal-window
+{
+  visibility: visible;
+  opacity: 1;
+}
+
 .dark-theme 
 {
-  .shaded-cell
-  {
-    background-color: #ffffff;
-  }
+  // .shaded-cell
+  // {
+  //   background-color: #ffffff;
+  // }
 
-  .crossed-cell::after,
-  .crossed-cell::before
+  // .crossed-cell::after,
+  // .crossed-cell::before
+  // {
+  //   background-color: #ffffff;
+  // }
+  @each $num in (1, 2, 3, 4)
   {
-    background-color: #ffffff;
+    .shaded-cell-#{$num}
+    {
+      background-image: url(../assets/images/tornPaperVN#{$num}.svg);
+      background-size: 100%;
+      background-repeat: no-repeat;
+      background-position: center center;
+    }
   }
 }
 
