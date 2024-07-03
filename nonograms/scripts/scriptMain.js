@@ -1,5 +1,6 @@
-import {nono} from './nonograms.js';
+import { nono } from './nonograms.js';
 import * as secondJs from './scriptSecond.js';
+import { AudioPlayer } from './audioPlayer.js';
 
 const bodyTag = document.querySelector('body');
 let curentNono = nono.easy.candle;
@@ -15,6 +16,9 @@ const mainVar =
   elapsedTime: 0,
   copyCurrentNono: [],
   currentGame: [],
+  soundEffect: null,
+  soundBack: null,
+  audioContainer: null,
 }
 
 // ============================ + Get & Set + ============================
@@ -348,23 +352,52 @@ function changeCurentNono()
 
 function playSound(element)
 {
-  const audio = document.querySelector('.audio-sounds');
+  // const audio = document.querySelector('.audio-sounds');
 
   switch(true)
   {
     case(element.classList.contains(secondJs.getCurrentShadedCell(element, 'shaded-cell'))):
-      audio.src = `assets/sound/fit.mp3`;
+      // audio.src = `assets/sound/fit.mp3`;
+      // audio.src = `assets/sound/tearingPaper.mp3`;
+      // mainVar.soundEffect.loadSong(`assets/sound/tearingPaper.mp3`);
+      mainVar.soundEffect.loadSong(mainVar.soundEffect.songs[0]);
       break;
     case(element.classList.contains(secondJs.getCurrentShadedCell(element, 'crossed-cell'))):
-      audio.src = `assets/sound/puh.mp3`;
+      // audio.src = `assets/sound/puh.mp3`;
+      // audio.src = `assets/sound/paintSplash.mp3`;
+      // mainVar.soundEffect.loadSong(`assets/sound/paintSplash.mp3`);
+      mainVar.soundEffect.loadSong(mainVar.soundEffect.songs[1]);
       break;
     case(element.classList.contains('active__end-game')):
-      audio.src = `assets/sound/trrr.mp3`;
+      // audio.src = `assets/sound/trrr.mp3`;
+      // audio.src = `assets/sound/winVoice.mp3`;
+      // mainVar.soundEffect.loadSong(`assets/sound/winVoice.mp3`);
+      mainVar.soundEffect.loadSong(mainVar.soundEffect.songs[3]);
       break;
-    default: audio.src = `assets/sound/fjuh.mp3`;
+    // default: audio.src = `assets/sound/fjuh.mp3`;
+    // default: audio.src = `assets/sound/rustlePaper.mp3`;
+    // default: mainVar.soundEffect.loadSong(`assets/sound/rustlePaper.mp3`);
+    default: mainVar.soundEffect.loadSong(mainVar.soundEffect.songs[2]);
   }
 
-  audio.play();
+  // audio.play();
+  mainVar.soundEffect.playSong();
+}
+
+function playSoundBack()
+{
+  const body = document.querySelector('body');
+
+  if(body.classList.contains('dark-theme'))
+  {
+    mainVar.soundBack.loadSong(mainVar.soundBack.songs[1]); //`assets/sound/cicadesNight.mp3`
+    mainVar.soundBack.playSong();
+  }
+  else
+  {
+    mainVar.soundBack.loadSong(mainVar.soundBack.songs[0]); //`assets/sound/cicadesDayL.mp3`
+    mainVar.soundBack.playSong();
+  }
 }
 
 function addEventToNonoSelect(element)
@@ -492,10 +525,48 @@ function loadPage(curentNono)
   const modalWindow = document.createElement('div');
   modalWindow.classList.add('modal-window');
 
+  const settings = document.createElement('div');
+  settings.classList.add('settings-button');
+
   const header = document.createElement('header');
   const main = document.createElement('main');
-  const audio = document.createElement('audio');
-  audio.classList.add('audio-sounds');
+  // const audio = document.createElement('audio');
+  // audio.classList.add('audio-sounds');
+
+  const audioContainer = document.createElement('div');
+  audioContainer.classList.add('audio-container');
+  mainVar.audioContainer = audioContainer;
+
+  const audioBoxEffects = 
+  {
+    audioContainer: audioContainer,
+    // progress: false,
+    // buttons: false,
+    autoPlay: false,
+    songs: 
+    [
+      'assets/sound/tearingPaper.mp3', 
+      'assets/sound/paintSplash.mp3',
+      'assets/sound/rustlePaper.mp3',
+      'assets/sound/winVoice.mp3',
+    ],
+  };
+
+  const audioBoxBack = 
+  {
+    audioContainer: audioContainer,
+    autoPlay: false,
+    loop: true,
+    songs: 
+    [
+      'assets/sound/cicadesDayL.mp3', 
+      'assets/sound/cicadesNight.mp3',
+    ],
+  };
+
+  mainVar.soundEffect = new AudioPlayer(audioBoxEffects);
+  mainVar.soundBack = new AudioPlayer(audioBoxBack);
+  console.log(mainVar.soundEffect)
 
   const head = document.createElement('h1');
   const timer = document.createElement('p');
@@ -517,16 +588,19 @@ function loadPage(curentNono)
 
   header.append(head);
   header.append(timer);
-  main.append(audio);
+  // main.append(audio);
+  main.append(audioContainer);
   main.append(getGameField(curentNono));
   main.append(menu);
 
   bodyTag.append(modalWindow);
+  bodyTag.append(settings);
   bodyTag.append(header);
   bodyTag.append(main);
 
   setNonoHead();
   displayTimer();
+  // playSoundBack();
 }
 
 loadPage(curentNono);
@@ -784,6 +858,7 @@ theme.addEventListener('click', (event) =>
 {
   const body = document.querySelector('body');
   body.classList.toggle('dark-theme');
+  playSoundBack();
 });
 
 // Change cell size when changing screen width/height
@@ -794,6 +869,7 @@ window.addEventListener('resize', () =>
   secondJs.adaptationBgImg(currentTable.offsetWidth, bodyTag);
 });
 
+// Change cell size after the page loads
 window.addEventListener('load', () =>
 {
   const currentTable = document.querySelector('.game-field');
@@ -809,8 +885,18 @@ modalWindow.addEventListener('click', (event) =>
 
   if(!contentBlock)
   {
+    const audioContainer = modalWindow.querySelector('.audio-container');
     modalWindow.classList.remove('active__modal-window');
+    setTimeout(() => { audioContainer.classList.remove('active__audio-container') }, 600);
   }
 });
+
+// Open modal window width audio settings
+const settingsBtn = document.querySelector('.settings-button');
+settingsBtn.addEventListener('click', () =>
+{
+  secondJs.showModalWindow('Settings', mainVar.audioContainer);
+});
+
 
 

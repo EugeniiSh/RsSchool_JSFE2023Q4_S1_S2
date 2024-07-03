@@ -1,0 +1,104 @@
+/* +++ === _audioPlayer.scss === +++ */
+
+.audio-container
+{
+  position: absolute;
+
+  width: 250px;
+  height: 400px;
+
+  padding: 5px;
+
+  background-color: aliceblue;
+  border: 2px solid black;
+
+  visibility: hidden;
+  opacity: 0;
+  z-index: 110;
+
+  .volume-container
+  {
+    padding: 5px;
+
+    .volume-button
+    {
+      width: 30px;
+      height: 30px;
+
+      background-color: rgb(123, 175, 220);
+    }
+
+    .volume-line
+    {
+      width: 200px;
+      height: 30px;
+
+      background-color: rgb(175, 201, 223);
+      border: 2px solid black;
+
+      .volume-line__persent
+      {
+        width: 0;
+        height: 30px;
+
+        background-color: rgb(53, 144, 224);
+      }
+    }
+  }
+  
+  .progress-container
+  {
+    padding: 5px;
+
+    .progress-line
+    {
+      width: 200px;
+      height: 20px;
+
+      background-color: rgb(175, 223, 198);
+      border: 2px solid black;
+
+      .progress-persent
+      {
+        width: 0;
+        height: 20px;
+
+        background-color: rgb(53, 224, 76);
+      }
+    }
+  }
+
+  .buttons-container
+  {
+    display: flex;
+    gap: 10px;
+
+    padding: 5px;
+
+    .btn
+    {
+      width: 20px;
+      height: 20px;
+
+      border: 2px solid black;
+    }
+
+    .prev
+    {
+      background-color: red;
+    }
+
+    .play
+    {
+      background-color: green;
+    }
+
+    .next
+    {
+      background-color: blue;
+    }
+  }
+  
+}
+
+/* --- === _audioPlayer.scss === --- */

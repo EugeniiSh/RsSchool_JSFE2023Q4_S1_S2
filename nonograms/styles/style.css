@@ -32,6 +32,28 @@ body::before {
   z-index: 100;
   transition: 0.6s;
 }
+body .settings-button {
+  position: absolute;
+  top: 20px;
+  right: 60px;
+  width: 40px;
+  height: 40px;
+  background-image: url(../assets/images/cogwheel.svg), radial-gradient(circle, white 10%, transparent 75%);
+  background-size: contain;
+  cursor: pointer;
+  transition-property: transform;
+  transition-duration: 2s;
+}
+@media (hover: hover) {
+  body .settings-button:hover {
+    transform: rotate(180deg);
+  }
+}
+@media (max-width: 500px) {
+  body .settings-button {
+    right: 30px;
+  }
+}
 
 .header__head {
   padding: 10px 0;
@@ -298,6 +320,7 @@ button {
 }
 
 /* --- === _styleDark.scss === --- */
+/* +++ === _modalWindows.scss === +++ */
 .modal-window {
   position: fixed;
   width: 100%;
@@ -378,6 +401,73 @@ button {
   text-align: center;
 }
 
+/* --- === _modalWindows.scss === --- */
+/* +++ === _audioPlayer.scss === +++ */
+.audio-container {
+  position: absolute;
+  width: 250px;
+  height: 400px;
+  padding: 5px;
+  background-color: aliceblue;
+  border: 2px solid black;
+  visibility: hidden;
+  opacity: 0;
+  z-index: 110;
+}
+.audio-container .volume-container {
+  padding: 5px;
+}
+.audio-container .volume-container .volume-button {
+  width: 30px;
+  height: 30px;
+  background-color: rgb(123, 175, 220);
+}
+.audio-container .volume-container .volume-line {
+  width: 200px;
+  height: 30px;
+  background-color: rgb(175, 201, 223);
+  border: 2px solid black;
+}
+.audio-container .volume-container .volume-line .volume-line__persent {
+  width: 0;
+  height: 30px;
+  background-color: rgb(53, 144, 224);
+}
+.audio-container .progress-container {
+  padding: 5px;
+}
+.audio-container .progress-container .progress-line {
+  width: 200px;
+  height: 20px;
+  background-color: rgb(175, 223, 198);
+  border: 2px solid black;
+}
+.audio-container .progress-container .progress-line .progress-persent {
+  width: 0;
+  height: 20px;
+  background-color: rgb(53, 224, 76);
+}
+.audio-container .buttons-container {
+  display: flex;
+  gap: 10px;
+  padding: 5px;
+}
+.audio-container .buttons-container .btn {
+  width: 20px;
+  height: 20px;
+  border: 2px solid black;
+}
+.audio-container .buttons-container .prev {
+  background-color: red;
+}
+.audio-container .buttons-container .play {
+  background-color: green;
+}
+.audio-container .buttons-container .next {
+  background-color: blue;
+}
+
+/* --- === _audioPlayer.scss === --- */
 /* +++ === _activators.scss === +++ */
 .shaded-cell-1 {
   background-image: url(../assets/images/tornPaperV1.svg);
@@ -452,6 +542,12 @@ button {
 }
 
 .active__modal-window {
+  visibility: visible;
+  opacity: 1;
+}
+
+.active__audio-container {
+  position: static;
   visibility: visible;
   opacity: 1;
 }

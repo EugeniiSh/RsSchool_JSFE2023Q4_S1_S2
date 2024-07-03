@@ -78,7 +78,15 @@ export function getCurrentShadedCell(elem, string)
 export function showModalWindow(header, content)
 {
   const modalWindow = document.querySelector('.modal-window');
-  const currentWraper = modalWindow.querySelector('.wrapper');
+  const currentWrapper = modalWindow.querySelector('.wrapper');
+  const audioContainer = modalWindow.querySelector('.audio-container');
+
+  if(!content.classList.contains('audio-container') && audioContainer)
+  {
+    const main = document.querySelector('main');
+    main.prepend(audioContainer);
+    audioContainer.classList.remove('active__audio-container');
+  }
 
   const div = document.createElement('div');
 
@@ -98,16 +106,29 @@ export function showModalWindow(header, content)
 
   const closeCross = div.cloneNode();
   closeCross.classList.add('close-cross');
-  closeCross.addEventListener('click', () => { modalWindow.classList.remove('active__modal-window'); });
+  closeCross.addEventListener('click', () => 
+  { 
+    modalWindow.classList.remove('active__modal-window'); 
+    setTimeout(() => { content.classList.remove('active__audio-container') }, 600);
+  });
 
   const closeBtn = div.cloneNode();
   closeBtn.classList.add('close-btn');
   closeBtn.textContent = 'Close';
-  closeBtn.addEventListener('click', () => { modalWindow.classList.remove('active__modal-window'); });
+  closeBtn.addEventListener('click', () => 
+  { 
+    modalWindow.classList.remove('active__modal-window');
+    setTimeout(() => { content.classList.remove('active__audio-container') } , 600);
+  });
 
   contentBlock.append(modalHeader, textContent, closeCross, closeBtn);
   wrapper.append(contentBlock);
-  currentWraper ? currentWraper.replaceWith(wrapper) : modalWindow.append(wrapper);
+  currentWrapper ? currentWrapper.replaceWith(wrapper) : modalWindow.append(wrapper);
 
   modalWindow.classList.add('active__modal-window');
+
+  if(content.classList.contains('audio-container'))
+  {
+    content.classList.add('active__audio-container');
+  }
 }
