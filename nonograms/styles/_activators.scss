@@ -48,6 +48,11 @@
   opacity: 1;
 }
 
+.active__mute-volume
+{
+  background-image: url(../assets/images/volOff.svg)!important;
+}
+
 .dark-theme 
 {
   @each $num in (1, 2, 3, 4)

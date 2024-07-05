@@ -207,7 +207,6 @@ function getEndGame()
   p.textContent = `Great! You have solved the nonogram in ${Math.floor(mainVar.elapsedTime / 1000)} seconds!`;
 
   setTimeout(secondJs.showModalWindow, 10, 'You WIN!!!', p);
-  // setTimeout(alert, 10, `Great! You have solved the nonogram in ${Math.floor(mainVar.elapsedTime / 1000)} seconds!`);
 }
 
 function getKeySelect(obj, label)
@@ -352,35 +351,20 @@ function changeCurentNono()
 
 function playSound(element)
 {
-  // const audio = document.querySelector('.audio-sounds');
-
   switch(true)
   {
     case(element.classList.contains(secondJs.getCurrentShadedCell(element, 'shaded-cell'))):
-      // audio.src = `assets/sound/fit.mp3`;
-      // audio.src = `assets/sound/tearingPaper.mp3`;
-      // mainVar.soundEffect.loadSong(`assets/sound/tearingPaper.mp3`);
-      mainVar.soundEffect.loadSong(mainVar.soundEffect.songs[0]);
+      mainVar.soundEffect.loadSong(mainVar.soundEffect.songs[0]); // `assets/sound/tearingPaper.mp3`
       break;
     case(element.classList.contains(secondJs.getCurrentShadedCell(element, 'crossed-cell'))):
-      // audio.src = `assets/sound/puh.mp3`;
-      // audio.src = `assets/sound/paintSplash.mp3`;
-      // mainVar.soundEffect.loadSong(`assets/sound/paintSplash.mp3`);
-      mainVar.soundEffect.loadSong(mainVar.soundEffect.songs[1]);
+      mainVar.soundEffect.loadSong(mainVar.soundEffect.songs[1]); // `assets/sound/paintSplash.mp3`
       break;
     case(element.classList.contains('active__end-game')):
-      // audio.src = `assets/sound/trrr.mp3`;
-      // audio.src = `assets/sound/winVoice.mp3`;
-      // mainVar.soundEffect.loadSong(`assets/sound/winVoice.mp3`);
-      mainVar.soundEffect.loadSong(mainVar.soundEffect.songs[3]);
+      mainVar.soundEffect.loadSong(mainVar.soundEffect.songs[3]); // `assets/sound/winVoice.mp3`
       break;
-    // default: audio.src = `assets/sound/fjuh.mp3`;
-    // default: audio.src = `assets/sound/rustlePaper.mp3`;
-    // default: mainVar.soundEffect.loadSong(`assets/sound/rustlePaper.mp3`);
-    default: mainVar.soundEffect.loadSong(mainVar.soundEffect.songs[2]);
+    default: mainVar.soundEffect.loadSong(mainVar.soundEffect.songs[2]); // `assets/sound/rustlePaper.mp3`
   }
 
-  // audio.play();
   mainVar.soundEffect.playSong();
 }
 
@@ -522,26 +506,26 @@ function loadPage(curentNono)
   getRowKeys(curentNono);
   getColumnKeys(curentNono);
 
-  const modalWindow = document.createElement('div');
+  const div = document.createElement('div');
+
+  const modalWindow = div.cloneNode();
   modalWindow.classList.add('modal-window');
 
-  const settings = document.createElement('div');
+  const settings = div.cloneNode();
   settings.classList.add('settings-button');
 
   const header = document.createElement('header');
   const main = document.createElement('main');
-  // const audio = document.createElement('audio');
-  // audio.classList.add('audio-sounds');
 
-  const audioContainer = document.createElement('div');
+  const audioContainer = div.cloneNode();
   audioContainer.classList.add('audio-container');
   mainVar.audioContainer = audioContainer;
 
   const audioBoxEffects = 
   {
     audioContainer: audioContainer,
-    // progress: false,
-    // buttons: false,
+    progress: false,
+    buttons: false,
     autoPlay: false,
     songs: 
     [
@@ -555,6 +539,8 @@ function loadPage(curentNono)
   const audioBoxBack = 
   {
     audioContainer: audioContainer,
+    progress: false,
+    buttons: false,
     autoPlay: false,
     loop: true,
     songs: 
@@ -573,7 +559,7 @@ function loadPage(curentNono)
   head.classList.add('header__head');
   timer.classList.add('header__timer');
 
-  const menu = document.createElement('div');
+  const menu = div.cloneNode();
   menu.classList.add('main__menu');
   menu.append(getKeySelect(nono, 'difficulty'));
   menu.append(getKeySelect(nono.easy, 'nonograms'));
@@ -588,7 +574,7 @@ function loadPage(curentNono)
 
   header.append(head);
   header.append(timer);
-  // main.append(audio);
+
   main.append(audioContainer);
   main.append(getGameField(curentNono));
   main.append(menu);
@@ -600,7 +586,7 @@ function loadPage(curentNono)
 
   setNonoHead();
   displayTimer();
-  // playSoundBack();
+  secondJs.showModalWindow('Hellow!', secondJs.getStartMessage(div.cloneNode(), mainVar.audioContainer));
 }
 
 loadPage(curentNono);
@@ -681,7 +667,6 @@ saveGame.addEventListener('click', (event) =>
     const p = document.createElement('p');
     p.textContent = "You have already won and your result is in the hall of fame! =)";
     secondJs.showModalWindow('Oops!', p);
-    // alert("You have already won and your result is in the hall of fame! =)");
   }
   else
   {
@@ -701,7 +686,6 @@ saveGame.addEventListener('click', (event) =>
     const p = document.createElement('p');
     p.textContent = 'Game saved!';
     secondJs.showModalWindow('something happened...', p);
-    // alert('Game saved!');
   }
   
 });
@@ -754,8 +738,6 @@ loadGame.addEventListener('click', (event) =>
     const p = document.createElement('p');
     p.textContent = 'No saved games!';
     secondJs.showModalWindow("I'm sorry, but...", p);
-
-    // alert('No saved games!')
   }
 });
 
@@ -769,7 +751,7 @@ achievements.addEventListener('click', (event) =>
   if(achievementsTable)
   {
     const achievList = document.createElement('ol');
-    // let showTable = '';
+
     achievementsTable.sort((a, b) => a.time - b.time);
 
     for(let i = 0; i < achievementsTable.length; i++)
@@ -781,19 +763,15 @@ achievements.addEventListener('click', (event) =>
       const listItem = document.createElement('li');
       listItem.textContent = `${achiv.nono} - ${achiv.diff} - ${minuts.toString().padStart(2, '0')}:${(second % 60).toString().padStart(2, '0')}`;
       achievList.append(listItem);
-
-      // showTable += `${achiv.nono} - ${achiv.diff} - ${minuts.toString().padStart(2, '0')}:${(second % 60).toString().padStart(2, '0')}\n`;
     }
 
     secondJs.showModalWindow('Achievements', achievList);
-    // alert(showTable);
   }
   else
   {
     const p = document.createElement('p');
     p.textContent = 'You have no completed games.';
     secondJs.showModalWindow('Achievements', p);
-    // alert('You have no completed games.');
   }
 });
 
@@ -877,26 +855,20 @@ window.addEventListener('load', () =>
   secondJs.adaptationBgImg(currentTable.offsetWidth, bodyTag);
 });
 
-// Closing modal window when clicking outside '.content-block'
-const modalWindow = document.querySelector('.modal-window');
-modalWindow.addEventListener('click', (event) => 
-{  
-  const contentBlock = event.target.closest('.content-block');
-
-  if(!contentBlock)
-  {
-    const audioContainer = modalWindow.querySelector('.audio-container');
-    modalWindow.classList.remove('active__modal-window');
-    setTimeout(() => { audioContainer.classList.remove('active__audio-container') }, 600);
-  }
-});
-
 // Open modal window width audio settings
 const settingsBtn = document.querySelector('.settings-button');
 settingsBtn.addEventListener('click', () =>
 {
   secondJs.showModalWindow('Settings', mainVar.audioContainer);
 });
+
+// Starting background music after closing the presentation window
+window.addEventListener('close-modal-window', function startPlaySoundBack()
+{
+  playSoundBack();
+  window.removeEventListener('close-modal-window', startPlaySoundBack);
+});
+
 
 
 

@@ -213,16 +213,19 @@ export class AudioPlayer
   muteVolume()
   {
     const audio = this.dom.querySelector('audio');
+    const volumeBtn = this.dom.querySelector('.volume-button');
     audio.muted = !audio.muted;
 
-    // if (audio.muted)
-    // {
-    //   volumeImg.src = 'assets/img/volOff.svg';
-    // }
-    // else
-    // {
-    //   volumeImg.src = 'assets/img/volOn.svg';
-    // }
+    if (audio.muted)
+    {
+      // volumeImg.src = 'assets/img/volOff.svg';
+      volumeBtn.classList.add('active__mute-volume');
+    }
+    else
+    {
+      // volumeImg.src = 'assets/img/volOn.svg';
+      volumeBtn.classList.remove('active__mute-volume');
+    }
   }
 
   // changeBgImage (songIndex)
@@ -249,10 +252,6 @@ export class AudioPlayer
       {
         this.dom.querySelector('.total-time').textContent = this.getTimeCodeFromNum(audio.duration);
         this.dom.querySelector('.current-time').textContent = this.getTimeCodeFromNum(audio.currentTime);
-
-        const newVolume = audio.volume;
-
-        this.dom.querySelector('.volume-line__persent').style[this.volumeVector] = newVolume * 100 + '%';
       });
 
       // Обновление полоски прогресса и времени при проигрывании
@@ -265,6 +264,13 @@ export class AudioPlayer
     
     if(this.volume)
     {
+      // Показывает уровень звука, после загрузки
+      audio.addEventListener('loadeddata', () =>
+      {
+        const newVolume = audio.volume;
+        this.dom.querySelector('.volume-line__persent').style[this.volumeVector] = newVolume * 100 + '%';
+      });
+
       //Изменеие полоски громкости звука при нажатии
       const volumeLine = this.dom.querySelector('.volume-line'); 
       volumeLine.addEventListener('click', (event) => this.changeVolume.call(this, event));

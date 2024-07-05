@@ -106,20 +106,27 @@ export function showModalWindow(header, content)
 
   const closeCross = div.cloneNode();
   closeCross.classList.add('close-cross');
-  closeCross.addEventListener('click', () => 
-  { 
-    modalWindow.classList.remove('active__modal-window'); 
-    setTimeout(() => { content.classList.remove('active__audio-container') }, 600);
-  });
 
   const closeBtn = div.cloneNode();
   closeBtn.classList.add('close-btn');
   closeBtn.textContent = 'Close';
-  closeBtn.addEventListener('click', () => 
-  { 
-    modalWindow.classList.remove('active__modal-window');
-    setTimeout(() => { content.classList.remove('active__audio-container') } , 600);
-  });
+  
+  const closeWM = new CustomEvent('close-modal-window', { bubbles: true, });
+
+  modalWindow.addEventListener('click', (event) =>
+  {
+    if(event.target.classList.contains('close-cross')
+    || event.target.classList.contains('close-btn')
+    || !event.target.closest('.content-block'))
+    {
+      modalWindow.classList.remove('active__modal-window'); 
+      modalWindow.dispatchEvent(closeWM);
+      setTimeout(() => { content.classList.remove('active__audio-container') }, 600);
+
+      const audioContainer = modalWindow.querySelector('.audio-container');
+      if(audioContainer) setTimeout(() => { audioContainer.classList.remove('active__audio-container') }, 600)
+    }
+  })
 
   contentBlock.append(modalHeader, textContent, closeCross, closeBtn);
   wrapper.append(contentBlock);
@@ -131,4 +138,29 @@ export function showModalWindow(header, content)
   {
     content.classList.add('active__audio-container');
   }
+
+  if(content.querySelector('.audio-container'))
+  {
+    content.querySelector('.audio-container').classList.add('active__audio-container');
+  }
+}
+
+export function getStartMessage(parentElement, ...content)
+{
+  parentElement.classList.add('start-message-container');
+  const textBlock = document.createElement('div');
+  textBlock.classList.add('start-message__text-block');
+
+  const textContent1 = document.createElement('p');
+  textContent1.classList.add('start-message__text-1');
+  textContent1.innerHTML = 'We present to your attention a puzzle game - nonograms, in which, unlike ordinary crosswords, not words, but images are encoded. More details can be found, for example, on Wikipedia, in <a target="_blank" href="https://ru.wikipedia.org/wiki/%D0%AF%D0%BF%D0%BE%D0%BD%D1%81%D0%BA%D0%B8%D0%B9_%D0%BA%D1%80%D0%BE%D1%81%D1%81%D0%B2%D0%BE%D1%80%D0%B4">Russian</a> and <a target="_blank" href="https://en.wikipedia.org/wiki/Nonogram">English</a>.';
+
+  const textContent2 = document.createElement('p');
+  textContent2.classList.add('start-message__text-2');
+  textContent2.innerHTML = 'The game has sound. You can adjust the volume using the sliders below. Or in the settings by clicking on the icon <span><img src="assets/images/cogwheel.svg" alt="cogwheel"></span> in the upper right corner during the game.';
+
+  textBlock.append(textContent1, textContent2);
+  parentElement.append(textBlock, ...content);
+
+  return parentElement;
 }
