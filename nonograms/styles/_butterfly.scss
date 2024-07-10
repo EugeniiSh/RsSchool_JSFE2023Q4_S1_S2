@@ -5,17 +5,11 @@
   top: 0;
   left: 0;
 
-  // padding-top: 50px;
   width: 100%;
   height: 100%;
 
   perspective: 2600px;
   perspective-origin: 50% 50%;
-
-  // border: 1px solid red;
-
-  // background-color: aliceblue;
-  // background-clip: content-box;
 
   z-index: 104;
   overflow: hidden;
@@ -32,25 +26,12 @@
     top: 0;
     left: -40px;
 
-    // width: 350px;
-    // height: 312px;
-
     width: 40px;
     height: 31.2px;
 
-    // border: 1px solid blue;
-
-    // background-color: bisque;
-
-    // z-index: 106;
-
-    transform: rotate3d(0, 1, 0, -90deg) /*scale3d(0.1, 0.1, 0.1)*/;
+    transform: rotate3d(0, 1, 0, -90deg);
     transform-origin: 100% 0%;
     transform-style: preserve-3d;
-
-    // animation: butterfly-to-right 5s linear infinite, flyPath-1 20s linear infinite;
-    // animation: butterfly-to-left 5s linear infinite, flyPath-3 20s linear 1;
-    // flyPath 50s linear infinite
 
     @media (max-width: 780px)
     {
@@ -63,13 +44,8 @@
       left: 0px;
       top: 0px;
 
-      // width: 200px;
-      // height: 312px;
-
       width: 20px;
       height: 31.2px;
-
-      // border: 1px solid green;
 
       background-image: url(../assets/images/butterfly.png);
       background-repeat: no-repeat;
@@ -90,13 +66,8 @@
       left: 175px;
       top: 0px;
 
-      // width: 200px;
-      // height: 312px;
-
       width: 20px;
       height: 31.2px;
-
-      // border: 1px solid rgb(0, 198, 0);
 
       background-image: url(../assets/images/butterfly.png);
       background-repeat: no-repeat;
@@ -112,23 +83,6 @@
     }
   }
 
-  // @keyframes butterfly {
-  //   from {
-  //     transform: rotate3d(0, 1, 0, 0deg) scale3d(0.5, 0.5, 0.5) translate3d(-250px, -300px, 0);
-  //   }
-  //   25% {
-  //     transform: rotate3d(0, 1, 0, -90deg) scale3d(0.5, 0.5, 0.5) translate3d(-150px, 100px, 0);
-  //   }
-  //   50% {
-  //     transform: rotate3d(0, 1, 0, -180deg) scale3d(0.5, 0.5, 0.5) translate3d(-50px, 300px, 0);
-  //   }
-  //   75% {
-  //     transform: rotate3d(0, 1, 0, -270deg) scale3d(0.5, 0.5, 0.5) translate3d(-150px, 100px, 0);
-  //   }
-  //   to {
-  //     transform: rotate3d(0, 1, 0, -360deg) scale3d(0.5, 0.5, 0.5) translate3d(-250px, -300px, 0);
-  //   }
-  // }
   @keyframes flyPath-1
   {
     from { top: 80%; left: -40px; }
@@ -204,40 +158,6 @@
     75% { transform: rotate3d(0, 1, 0, 130deg); }
     to { transform: rotate3d(0, 1, 0, 90deg); }
   }
-
-  // @keyframes butterfly {
-  //   from {
-  //     transform: rotate3d(0, 1, 0, -90deg) /*scale3d(0.1, 0.1, 0.1)*/ translate3d(0, 200px, -40px);
-  //   }
-  //   25% {
-  //     transform: rotate3d(0, 1, 0, -50deg) /*scale3d(0.1, 0.1, 0.1)*/ translate3d(0, 300px, -375px);
-  //   }
-  //   50% {
-  //     transform: rotate3d(0, 1, 0, -90deg) /*scale3d(0.1, 0.1, 0.1)*/ translate3d(0, 400px, -750px);
-  //   }
-  //   75% {
-  //     transform: rotate3d(0, 1, 0, -130deg) /*scale3d(0.1, 0.1, 0.1)*/ translate3d(0, 200px, -1125px);
-  //   }
-  //   to {
-  //     transform: rotate3d(0, 1, 0, -90deg) /*scale3d(0.1, 0.1, 0.1)*/ translate3d(0, 100px, -1600px);
-  //   }
-  // }
-
-  // @keyframes butterfly {
-  //   from { transform: rotate3d(0, 1, 0, -90deg); top: 50%; left: -40px; }
-  //   10% { top: 50%; left: 10%; }
-  //   20% { top: 40%; left: 20%; }
-  //   25% { transform: rotate3d(0, 1, 0, -50deg); }
-  //   30% { top: 30%; left: 30%; }
-  //   40% { top: 40%; left: 40%; }
-  //   50% { transform: rotate3d(0, 1, 0, -90deg); top: 50%; left: 50%; }
-  //   60% { top: 60%; left: 60%; }
-  //   70% { top: 70%; left: 70%; }
-  //   75% { transform: rotate3d(0, 1, 0, -130deg); }
-  //   80% { top: 60%; left: 80%; }
-  //   90% { top: 50%; left: 90%; }
-  //   to { transform: rotate3d(0, 1, 0, -90deg); top: 40%; left: 101%; }
-  // }
 
   @keyframes rightwing {
     from { transform: rotateX(90deg) translate3d(-178px, 0, 0) rotate3d(0, 1, 0, 180deg); }
