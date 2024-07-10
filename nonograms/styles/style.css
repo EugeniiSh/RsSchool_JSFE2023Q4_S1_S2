@@ -318,6 +318,28 @@ button {
     box-shadow: 0px 5px 5px -1px rgb(162, 255, 255), inset 0px 5px 5px -1px #F3E8A5;
   }
 }
+.dark-theme .butterfly::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "";
+  box-shadow: 0 0 10px 10px white;
+  transition-property: opacity;
+  transition-duration: 0.3s;
+  transform: rotateY(90deg);
+  animation: puls 1s linear infinite;
+}
+.dark-theme .butterfly .leftwing {
+  opacity: 0;
+}
+.dark-theme .butterfly .rightwing {
+  opacity: 0;
+}
+@keyframes puls {
+  50% {
+    box-shadow: 0 0 10px 12px white;
+  }
+}
 
 /* --- === _styleDark.scss === --- */
 /* +++ === _modalWindows.scss === +++ */
@@ -523,6 +545,309 @@ button {
 }
 
 /* --- === _startMessage.scss === --- */
+/* +++ === _butterfly.scss === +++ */
+.butterfly-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  perspective: 2600px;
+  perspective-origin: 50% 50%;
+  z-index: 104;
+  overflow: hidden;
+  pointer-events: none;
+}
+.butterfly-container .butterfly-box {
+  position: relative;
+}
+.butterfly-container .butterfly {
+  position: relative;
+  top: 0;
+  left: -40px;
+  width: 40px;
+  height: 31.2px;
+  transform: rotate3d(0, 1, 0, -90deg);
+  transform-origin: 100% 0%;
+  transform-style: preserve-3d;
+}
+@media (max-width: 780px) {
+  .butterfly-container .butterfly {
+    animation-duration: 5s, 10s;
+  }
+}
+.butterfly-container .butterfly .leftwing {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 20px;
+  height: 31.2px;
+  background-image: url(../assets/images/butterfly.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  transform: rotateX(90deg) rotate3d(0, 1, 0, 0deg);
+  transform-origin: inherit;
+  transition-property: opacity;
+  transition-duration: 0.3s;
+  animation: leftwing 0.2s linear infinite;
+}
+.butterfly-container .butterfly .rightwing {
+  position: absolute;
+  left: 175px;
+  top: 0px;
+  width: 20px;
+  height: 31.2px;
+  background-image: url(../assets/images/butterfly.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  transform: rotateX(90deg) translate3d(-178px, 0, 0) rotate3d(0, 1, 0, 180deg);
+  transform-origin: inherit;
+  transition-property: opacity;
+  transition-duration: 0.3s;
+  animation: rightwing 0.2s linear infinite;
+}
+@keyframes flyPath-1 {
+  from {
+    top: 80%;
+    left: -40px;
+  }
+  10% {
+    top: 85%;
+    left: 10%;
+  }
+  20% {
+    top: 90%;
+    left: 20%;
+  }
+  30% {
+    top: 85%;
+    left: 30%;
+  }
+  40% {
+    top: 80%;
+    left: 40%;
+  }
+  50% {
+    top: 75%;
+    left: 50%;
+  }
+  60% {
+    top: 70%;
+    left: 60%;
+  }
+  70% {
+    top: 65%;
+    left: 70%;
+  }
+  80% {
+    top: 60%;
+    left: 80%;
+  }
+  90% {
+    top: 55%;
+    left: 90%;
+  }
+  to {
+    top: 40%;
+    left: 101%;
+  }
+}
+@keyframes flyPath-2 {
+  from {
+    top: 50%;
+    left: -40px;
+  }
+  10% {
+    top: 53%;
+    left: 10%;
+  }
+  20% {
+    top: 56%;
+    left: 20%;
+  }
+  30% {
+    top: 53%;
+    left: 30%;
+  }
+  40% {
+    top: 50%;
+    left: 40%;
+  }
+  50% {
+    top: 47%;
+    left: 50%;
+  }
+  60% {
+    top: 44%;
+    left: 60%;
+  }
+  70% {
+    top: 47%;
+    left: 70%;
+  }
+  80% {
+    top: 44%;
+    left: 80%;
+  }
+  90% {
+    top: 41%;
+    left: 90%;
+  }
+  to {
+    top: 44%;
+    left: 101%;
+  }
+}
+@keyframes flyPath-3 {
+  from {
+    top: 20%;
+    left: 101%;
+  }
+  10% {
+    top: 23%;
+    left: 90%;
+  }
+  20% {
+    top: 27%;
+    left: 80%;
+  }
+  30% {
+    top: 30%;
+    left: 70%;
+  }
+  40% {
+    top: 27%;
+    left: 60%;
+  }
+  50% {
+    top: 30%;
+    left: 50%;
+  }
+  60% {
+    top: 35%;
+    left: 40%;
+  }
+  70% {
+    top: 38%;
+    left: 30%;
+  }
+  80% {
+    top: 35%;
+    left: 20%;
+  }
+  90% {
+    top: 30%;
+    left: 10%;
+  }
+  to {
+    top: 33%;
+    left: -40px;
+  }
+}
+@keyframes flyPath-4 {
+  from {
+    top: 70%;
+    left: 101%;
+  }
+  10% {
+    top: 67%;
+    left: 90%;
+  }
+  20% {
+    top: 62%;
+    left: 80%;
+  }
+  30% {
+    top: 65%;
+    left: 70%;
+  }
+  40% {
+    top: 61%;
+    left: 60%;
+  }
+  50% {
+    top: 55%;
+    left: 50%;
+  }
+  60% {
+    top: 58%;
+    left: 40%;
+  }
+  70% {
+    top: 56%;
+    left: 30%;
+  }
+  80% {
+    top: 51%;
+    left: 20%;
+  }
+  90% {
+    top: 47%;
+    left: 10%;
+  }
+  to {
+    top: 44%;
+    left: -40px;
+  }
+}
+@keyframes butterfly-to-right {
+  from {
+    transform: rotate3d(0, 1, 0, -90deg);
+  }
+  25% {
+    transform: rotate3d(0, 1, 0, -50deg);
+  }
+  50% {
+    transform: rotate3d(0, 1, 0, -90deg);
+  }
+  75% {
+    transform: rotate3d(0, 1, 0, -130deg);
+  }
+  to {
+    transform: rotate3d(0, 1, 0, -90deg);
+  }
+}
+@keyframes butterfly-to-left {
+  from {
+    transform: rotate3d(0, 1, 0, 90deg);
+  }
+  25% {
+    transform: rotate3d(0, 1, 0, 50deg);
+  }
+  50% {
+    transform: rotate3d(0, 1, 0, 90deg);
+  }
+  75% {
+    transform: rotate3d(0, 1, 0, 130deg);
+  }
+  to {
+    transform: rotate3d(0, 1, 0, 90deg);
+  }
+}
+@keyframes rightwing {
+  from {
+    transform: rotateX(90deg) translate3d(-178px, 0, 0) rotate3d(0, 1, 0, 180deg);
+  }
+  50% {
+    transform: rotateX(90deg) translate3d(-178px, 0, 0) rotate3d(0, 1, 0, 100deg);
+  }
+  to {
+    transform: rotateX(90deg) translate3d(-178px, 0, 0) rotate3d(0, 1, 0, 180deg);
+  }
+}
+@keyframes leftwing {
+  from {
+    transform: rotateX(90deg) rotate3d(0, 1, 0, 0deg);
+  }
+  50% {
+    transform: rotateX(90deg) rotate3d(0, 1, 0, 80deg);
+  }
+  to {
+    transform: rotateX(90deg) rotate3d(0, 1, 0, 0deg);
+  }
+}
+
+/* --- === _butterfly.scss === --- */
 /* +++ === _activators.scss === +++ */
 .shaded-cell-1 {
   background-image: url(../assets/images/tornPaperV1.svg);
@@ -586,6 +911,22 @@ button {
   background-size: 90%;
   background-repeat: no-repeat;
   background-position: center center;
+}
+
+.active-batterfly-1 {
+  animation: butterfly-to-right 5s linear infinite, flyPath-1 20s linear 1;
+}
+
+.active-batterfly-2 {
+  animation: butterfly-to-right 5s linear infinite, flyPath-2 20s linear 1;
+}
+
+.active-batterfly-3 {
+  animation: butterfly-to-left 5s linear infinite, flyPath-3 20s linear 1;
+}
+
+.active-batterfly-4 {
+  animation: butterfly-to-left 5s linear infinite, flyPath-4 20s linear 1;
 }
 
 .active__end-game {

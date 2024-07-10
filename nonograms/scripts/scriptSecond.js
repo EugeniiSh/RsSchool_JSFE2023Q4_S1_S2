@@ -164,3 +164,41 @@ export function getStartMessage(parentElement, ...content)
 
   return parentElement;
 }
+
+export function getButterflyContainer()
+{
+  const div = document.createElement('div');
+
+  const butterflyContainer = div.cloneNode();
+  butterflyContainer.classList.add('butterfly-container');
+
+  const butterfly = div.cloneNode();
+  butterfly.classList.add('butterfly');
+
+  const leftwing = div.cloneNode();
+  leftwing.classList.add('leftwing');
+
+  const rightwing = div.cloneNode();
+  rightwing.classList.add('rightwing');
+
+  butterfly.append(leftwing, rightwing);
+  butterflyContainer.append(butterfly);
+
+  return butterflyContainer;
+}
+
+export function startButterflyAnimation(delayRange = [30, 60])
+{
+  const animationClass = getRandomShadedCell('active-batterfly');
+  const butterfly = document.querySelector('.butterfly');
+  butterfly.classList.add(animationClass);
+
+  const delay = Math.floor((Math.random() * (delayRange[1] - delayRange[0])) + delayRange[0]) * 1000;
+
+  butterfly.addEventListener('animationend', function endAnimation()
+  {
+    butterfly.classList.remove(animationClass);
+    setTimeout(startButterflyAnimation, delay);
+    butterfly.removeEventListener('animationend', endAnimation);
+  })
+}

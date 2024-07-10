@@ -25,6 +25,22 @@
   }
 }
 
+@each $num in (1, 2)
+{
+  .active-batterfly-#{$num}
+  {
+    animation: butterfly-to-right 5s linear infinite, flyPath-#{$num} 20s linear 1;
+  }
+}
+
+@each $num in (3, 4)
+{
+  .active-batterfly-#{$num}
+  {
+    animation: butterfly-to-left 5s linear infinite, flyPath-#{$num} 20s linear 1;
+  }
+}
+
 .active__end-game
 {
   pointer-events: none;

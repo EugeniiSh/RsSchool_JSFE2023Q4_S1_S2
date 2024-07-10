@@ -552,7 +552,6 @@ function loadPage(curentNono)
 
   mainVar.soundEffect = new AudioPlayer(audioBoxEffects);
   mainVar.soundBack = new AudioPlayer(audioBoxBack);
-  console.log(mainVar.soundEffect)
 
   const head = document.createElement('h1');
   const timer = document.createElement('p');
@@ -581,6 +580,7 @@ function loadPage(curentNono)
 
   bodyTag.append(modalWindow);
   bodyTag.append(settings);
+  bodyTag.append(secondJs.getButterflyContainer());
   bodyTag.append(header);
   bodyTag.append(main);
 
@@ -862,12 +862,16 @@ settingsBtn.addEventListener('click', () =>
   secondJs.showModalWindow('Settings', mainVar.audioContainer);
 });
 
-// Starting background music after closing the presentation window
+// Starting background music and daelay animation after closing the presentation window
 window.addEventListener('close-modal-window', function startPlaySoundBack()
 {
   playSoundBack();
+  setTimeout(secondJs.startButterflyAnimation, 45000);
   window.removeEventListener('close-modal-window', startPlaySoundBack);
 });
+
+
+
 
 
 
