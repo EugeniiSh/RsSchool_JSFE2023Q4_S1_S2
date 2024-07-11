@@ -1,4 +1,6 @@
-import {nono} from './nonograms.js';
+import { nono } from './nonograms.js';
+import * as secondJs from './scriptSecond.js';
+import { AudioPlayer } from './audioPlayer.js';
 
 const bodyTag = document.querySelector('body');
 let curentNono = nono.easy.candle;
@@ -14,6 +16,9 @@ const mainVar =
   elapsedTime: 0,
   copyCurrentNono: [],
   currentGame: [],
+  soundEffect: null,
+  soundBack: null,
+  audioContainer: null,
 }
 
 // ============================ + Get & Set + ============================
@@ -198,7 +203,10 @@ function getEndGame()
     localStorage.setItem('achievements-table', JSON.stringify(newAchievementsTable));
   }
 
-  setTimeout(alert, 10, `Great! You have solved the nonogram in ${Math.floor(mainVar.elapsedTime / 1000)} seconds!`);
+  const p = document.createElement('p');
+  p.textContent = `Great! You have solved the nonogram in ${Math.floor(mainVar.elapsedTime / 1000)} seconds!`;
+
+  setTimeout(secondJs.showModalWindow, 10, 'You WIN!!!', p);
 }
 
 function getKeySelect(obj, label)
@@ -227,15 +235,12 @@ function getKeySelect(obj, label)
 function getButton(label)
 {
   const div = document.createElement('div');
-  const p = document.createElement('p');
   const button = document.createElement('button');
   
   div.classList.add('menu-item');
   button.classList.add(label);
-  button.textContent = 'click!'
-  p.textContent = label;
+  button.textContent = label;
 
-  div.append(p);
   div.append(button);
   return div;
 }
@@ -258,10 +263,10 @@ function setCurrentGameValue(element, row, column)
 {
   switch(true)
   {
-    case(element.classList.contains('shaded-cell')):
+    case(element.classList.contains(secondJs.getCurrentShadedCell(element, 'shaded-cell'))):
       mainVar.currentGame[row][column] = 1;
       break;
-    case(element.classList.contains('crossed-cell')):
+    case(element.classList.contains(secondJs.getCurrentShadedCell(element, 'crossed-cell'))):
       mainVar.currentGame[row][column] = 2;
       break;
     default: mainVar.currentGame[row][column] = 0;
@@ -346,23 +351,37 @@ function changeCurentNono()
 
 function playSound(element)
 {
-  const audio = document.querySelector('.audio-sounds');
-
   switch(true)
   {
-    case(element.classList.contains('shaded-cell')):
-      audio.src = `assets/sound/fit.mp3`;
+    case(element.classList.contains(secondJs.getCurrentShadedCell(element, 'shaded-cell'))):
+      mainVar.soundEffect.loadSong(mainVar.soundEffect.songs[0]); // `assets/sound/tearingPaper.mp3`
       break;
-    case(element.classList.contains('crossed-cell')):
-      audio.src = `assets/sound/puh.mp3`;
+    case(element.classList.contains(secondJs.getCurrentShadedCell(element, 'crossed-cell'))):
+      mainVar.soundEffect.loadSong(mainVar.soundEffect.songs[1]); // `assets/sound/paintSplash.mp3`
       break;
     case(element.classList.contains('active__end-game')):
-      audio.src = `assets/sound/trrr.mp3`;
+      mainVar.soundEffect.loadSong(mainVar.soundEffect.songs[3]); // `assets/sound/winVoice.mp3`
       break;
-    default: audio.src = `assets/sound/fjuh.mp3`;
+    default: mainVar.soundEffect.loadSong(mainVar.soundEffect.songs[2]); // `assets/sound/rustlePaper.mp3`
   }
 
-  audio.play();
+  mainVar.soundEffect.playSong();
+}
+
+function playSoundBack()
+{
+  const body = document.querySelector('body');
+
+  if(body.classList.contains('dark-theme'))
+  {
+    mainVar.soundBack.loadSong(mainVar.soundBack.songs[1]); //`assets/sound/cicadesNight.mp3`
+    mainVar.soundBack.playSong();
+  }
+  else
+  {
+    mainVar.soundBack.loadSong(mainVar.soundBack.songs[0]); //`assets/sound/cicadesDayL.mp3`
+    mainVar.soundBack.playSong();
+  }
 }
 
 function addEventToNonoSelect(element)
@@ -376,6 +395,9 @@ function addEventToNonoSelect(element)
     getRowKeys(curentNono);
     getColumnKeys(curentNono);
     tableWrapper.replaceWith(getGameField(curentNono));
+
+    const currentTable = document.querySelector('.game-field');
+    secondJs.adaptationBgImg(currentTable.offsetWidth, bodyTag);
 
     setNonoHead();
     resetTimer();
@@ -394,9 +416,9 @@ function fillGameField(filledArr)
 
     switch(filledArr[rowField][columField])
     {
-      case(1): item.className = 'shaded-cell';
+      case(1): item.className = secondJs.getRandomShadedCell('shaded-cell');
         break;
-      case(2): item.className = 'crossed-cell';
+      case(2): item.className = secondJs.getRandomShadedCell('crossed-cell');
         break;
       default: item.className = '';
     }
@@ -424,8 +446,8 @@ function initGame()
   {
     item.addEventListener('click', (event) =>
     {
-      item.classList.remove('crossed-cell');
-      item.classList.toggle('shaded-cell');
+      item.classList.remove(secondJs.getCurrentShadedCell(item, 'crossed-cell'));
+      item.classList.toggle(secondJs.getCurrentShadedCell(item, 'shaded-cell'));
       playSound(item);
 
       if(!mainVar.isGameStart)
@@ -459,8 +481,8 @@ function initGame()
     item.addEventListener('contextmenu', (event) =>
     {
       event.preventDefault();
-      item.classList.remove('shaded-cell');
-      item.classList.toggle('crossed-cell');
+      item.classList.remove(secondJs.getCurrentShadedCell(item, 'shaded-cell'));
+      item.classList.toggle(secondJs.getCurrentShadedCell(item, 'crossed-cell'));
       playSound(item);
 
       if(!mainVar.isGameStart)
@@ -484,17 +506,59 @@ function loadPage(curentNono)
   getRowKeys(curentNono);
   getColumnKeys(curentNono);
 
+  const div = document.createElement('div');
+
+  const modalWindow = div.cloneNode();
+  modalWindow.classList.add('modal-window');
+
+  const settings = div.cloneNode();
+  settings.classList.add('settings-button');
+
   const header = document.createElement('header');
   const main = document.createElement('main');
-  const audio = document.createElement('audio');
-  audio.classList.add('audio-sounds');
+
+  const audioContainer = div.cloneNode();
+  audioContainer.classList.add('audio-container');
+  mainVar.audioContainer = audioContainer;
+
+  const audioBoxEffects = 
+  {
+    audioContainer: audioContainer,
+    progress: false,
+    buttons: false,
+    autoPlay: false,
+    songs: 
+    [
+      'assets/sound/tearingPaper.mp3', 
+      'assets/sound/paintSplash.mp3',
+      'assets/sound/rustlePaper.mp3',
+      'assets/sound/winVoice.mp3',
+    ],
+  };
+
+  const audioBoxBack = 
+  {
+    audioContainer: audioContainer,
+    progress: false,
+    buttons: false,
+    autoPlay: false,
+    loop: true,
+    songs: 
+    [
+      'assets/sound/cicadesDayL.mp3', 
+      'assets/sound/cicadesNight.mp3',
+    ],
+  };
+
+  mainVar.soundEffect = new AudioPlayer(audioBoxEffects);
+  mainVar.soundBack = new AudioPlayer(audioBoxBack);
 
   const head = document.createElement('h1');
   const timer = document.createElement('p');
   head.classList.add('header__head');
   timer.classList.add('header__timer');
 
-  const menu = document.createElement('div');
+  const menu = div.cloneNode();
   menu.classList.add('main__menu');
   menu.append(getKeySelect(nono, 'difficulty'));
   menu.append(getKeySelect(nono.easy, 'nonograms'));
@@ -509,15 +573,20 @@ function loadPage(curentNono)
 
   header.append(head);
   header.append(timer);
-  main.append(audio);
+
+  main.append(audioContainer);
   main.append(getGameField(curentNono));
   main.append(menu);
 
+  bodyTag.append(modalWindow);
+  bodyTag.append(settings);
+  bodyTag.append(secondJs.getButterflyContainer());
   bodyTag.append(header);
   bodyTag.append(main);
 
   setNonoHead();
   displayTimer();
+  secondJs.showModalWindow('Hellow!', secondJs.getStartMessage(div.cloneNode(), mainVar.audioContainer));
 }
 
 loadPage(curentNono);
@@ -550,6 +619,9 @@ difficulty.addEventListener('change', (event) =>
   getRowKeys(curentNono);
   getColumnKeys(curentNono);
   tableWrapper.replaceWith(getGameField(curentNono));
+
+  const currentTable = document.querySelector('.game-field');
+  secondJs.adaptationBgImg(currentTable.offsetWidth, bodyTag);
 
   setNonoHead();
   resetTimer();
@@ -592,7 +664,9 @@ saveGame.addEventListener('click', (event) =>
 
   if(gameField.classList.contains('active__end-game'))
   {
-    alert("You have already won and your result is in the hall of fame! =)");
+    const p = document.createElement('p');
+    p.textContent = "You have already won and your result is in the hall of fame! =)";
+    secondJs.showModalWindow('Oops!', p);
   }
   else
   {
@@ -608,7 +682,10 @@ saveGame.addEventListener('click', (event) =>
     }
 
     localStorage.setItem('last-game', JSON.stringify(currentGameInfo));
-    alert('Game saved!');
+
+    const p = document.createElement('p');
+    p.textContent = 'Game saved!';
+    secondJs.showModalWindow('something happened...', p);
   }
   
 });
@@ -642,6 +719,9 @@ loadGame.addEventListener('click', (event) =>
     getColumnKeys(curentNono);
     tableWrapper.replaceWith(getGameField(curentNono));
 
+    const currentTable = document.querySelector('.game-field');
+    secondJs.adaptationBgImg(currentTable.offsetWidth, bodyTag);
+
     setNonoHead();
     initGame();
 
@@ -655,7 +735,9 @@ loadGame.addEventListener('click', (event) =>
   }
   else
   {
-    alert('No saved games!')
+    const p = document.createElement('p');
+    p.textContent = 'No saved games!';
+    secondJs.showModalWindow("I'm sorry, but...", p);
   }
 });
 
@@ -665,10 +747,11 @@ const achievements = document.querySelector('.achievements');
 achievements.addEventListener('click', (event) =>
 {
   const achievementsTable = JSON.parse(localStorage.getItem('achievements-table'));
-
+  
   if(achievementsTable)
   {
-    let showTable = '';
+    const achievList = document.createElement('ol');
+
     achievementsTable.sort((a, b) => a.time - b.time);
 
     for(let i = 0; i < achievementsTable.length; i++)
@@ -677,14 +760,18 @@ achievements.addEventListener('click', (event) =>
       const second = Math.floor(achiv.time / 1000);
       const minuts = Math.floor(second / 60);
 
-      showTable += `${achiv.nono} - ${achiv.diff} - ${minuts.toString().padStart(2, '0')}:${(second % 60).toString().padStart(2, '0')}\n`;
+      const listItem = document.createElement('li');
+      listItem.textContent = `${achiv.nono} - ${achiv.diff} - ${minuts.toString().padStart(2, '0')}:${(second % 60).toString().padStart(2, '0')}`;
+      achievList.append(listItem);
     }
 
-    alert(showTable);
+    secondJs.showModalWindow('Achievements', achievList);
   }
   else
   {
-    alert('You have no completed games.');
+    const p = document.createElement('p');
+    p.textContent = 'You have no completed games.';
+    secondJs.showModalWindow('Achievements', p);
   }
 });
 
@@ -735,6 +822,9 @@ randomGame.addEventListener('click', (event) =>
   getColumnKeys(curentNono);
   tableWrapper.replaceWith(getGameField(curentNono));
 
+  const currentTable = document.querySelector('.game-field');
+  secondJs.adaptationBgImg(currentTable.offsetWidth, bodyTag);
+
   setNonoHead();
   resetTimer();
   initGame();
@@ -746,6 +836,7 @@ theme.addEventListener('click', (event) =>
 {
   const body = document.querySelector('body');
   body.classList.toggle('dark-theme');
+  playSoundBack();
 });
 
 // Change cell size when changing screen width/height
@@ -753,4 +844,35 @@ window.addEventListener('resize', () =>
 {
   const currentTable = document.querySelector('.game-field');
   setCellSize(currentTable);
+  secondJs.adaptationBgImg(currentTable.offsetWidth, bodyTag);
 });
+
+// Change cell size after the page loads
+window.addEventListener('load', () =>
+{
+  const currentTable = document.querySelector('.game-field');
+  setCellSize(currentTable);
+  secondJs.adaptationBgImg(currentTable.offsetWidth, bodyTag);
+});
+
+// Open modal window width audio settings
+const settingsBtn = document.querySelector('.settings-button');
+settingsBtn.addEventListener('click', () =>
+{
+  secondJs.showModalWindow('Settings', mainVar.audioContainer);
+});
+
+// Starting background music and daelay animation after closing the presentation window
+window.addEventListener('close-modal-window', function startPlaySoundBack()
+{
+  playSoundBack();
+  setTimeout(secondJs.startButterflyAnimation, 45000);
+  window.removeEventListener('close-modal-window', startPlaySoundBack);
+});
+
+
+
+
+
+
+
